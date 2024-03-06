@@ -3,7 +3,7 @@ extends Sprite2D
 @onready var animation = $Animation
 @onready var timer = $Timer
 @onready var light = $Light/Texture
-@export_range(0.5,2.5) var timer_duration: float = 1.0
+@export_range(0.5,4.5) var timer_duration: float = 1.0
 
 var orange_slot = Color8(166, 52, 22, 255)
 var blue_slot = Color8(0, 95, 182, 255)
@@ -26,13 +26,11 @@ func _process(delta):
 		update_slot_animations()
 
 func _on_timer_timeout():
+	timer.stop()
 	slot_finished = !slot_finished
 	update_slot_visibility()
 	randomize_slot_frames()
-	if (!slot_finished):
-		light.color = white
-	else:
-		update_light_colors()
+	update_light_colors()
 
 func reset_slots():
 	self.frame = 0
@@ -61,3 +59,9 @@ func get_color_for_frame(frame):
 		return red
 	else:
 		return white
+
+func _on_slot_finished_timeout():
+	slot_finished = false
+	update_slot_visibility()
+	light.color = white
+	timer.start()

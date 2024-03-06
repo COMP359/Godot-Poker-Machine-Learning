@@ -11,7 +11,6 @@ texture = ExtResource("1_k8qab")
 hframes = 5
 frame = 4
 script = ExtResource("2_pkkin")
-timer_duration = 6
 
 [node name="Animation" type="Sprite2D" parent="."]
 texture = ExtResource("3_n6qbj")
