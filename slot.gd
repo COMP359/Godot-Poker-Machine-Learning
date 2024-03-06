@@ -1,10 +1,9 @@
 extends Sprite2D
 
-@onready var slot_1 = $Slot_1
-@onready var slot_1_animation = $Slot_1/Slot_1_Animation
-@onready var Slot_Timer = $Slot_Timer
-@onready var handle = $Handle
-@onready var slot_1_light = $Slot_1_Light/Texture
+@onready var animation = $Animation
+@onready var timer = $Timer
+@onready var light = $Light/Texture
+@export_range(0.5,2.5) var timer_duration: float = 1.0
 
 var orange_slot = Color8(166, 52, 22, 255)
 var blue_slot = Color8(0, 95, 182, 255)
@@ -17,38 +16,39 @@ var slot_finished = false
 
 func _ready():
 	reset_slots()
-	slot_1_light.color = white
+	light.color = white
+	timer.wait_time = timer_duration
+	timer.start()
 
 func _process(delta):
 	if (!slot_finished):
 		frame_counter = (frame_counter + 1) % 31
 		update_slot_animations()
 
-func _on_slot_timer_timeout():
+func _on_timer_timeout():
 	slot_finished = !slot_finished
 	update_slot_visibility()
 	randomize_slot_frames()
 	if (!slot_finished):
-		handle.get_node("AnimationPlayer").play("handle_swung")
-		slot_1_light.color = white
+		light.color = white
 	else:
 		update_light_colors()
 
 func reset_slots():
-	slot_1.frame = 0
+	self.frame = 0
 
 func update_slot_animations():
-	slot_1_animation.frame = frame_counter
+	animation.frame = frame_counter
 
 func update_slot_visibility():
-	slot_1_animation.visible = !slot_finished
+	animation.visible = !slot_finished
 
 func randomize_slot_frames():
 	if (slot_finished):
-		slot_1.frame = randi() % 6
+		self.frame = randi() % 6
 
 func update_light_colors():
-	slot_1_light.color = get_color_for_frame(slot_1.frame)
+	light.color = get_color_for_frame(self.frame)
 
 func get_color_for_frame(frame):
 	if frame == 0 or frame == 1:
