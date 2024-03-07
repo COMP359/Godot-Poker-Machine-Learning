@@ -119,7 +119,9 @@ occluder = SubResource("OccluderPolygon2D_x5n3l")
 
 [node name="SlotMachine" parent="." instance=ExtResource("6_b3ihe")]
 position = Vector2(294.365, 72.6401)
+scale = Vector2(1.25, 1.25)
 SlotFinishedTimeout = 8.0
+soundEffectOn = false
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="SlotMachine"]
 material = SubResource("CanvasItemMaterial_7e1rm")
@@ -147,8 +149,8 @@ texture_scale = 0.5
 
 [node name="SlotMachine2" parent="." instance=ExtResource("6_b3ihe")]
 position = Vector2(294.365, 130.64)
+scale = Vector2(1.25, 1.25)
 SlotFinishedTimeout = 10.0
-soundEffectOn = false
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="SlotMachine2"]
 material = SubResource("CanvasItemMaterial_7e1rm")
