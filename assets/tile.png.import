@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du5wqa8xhirwm"
-path="res://.godot/imported/slot_hand_animation.png-22b5b04d364b113856ecc4cfdbf8d3fc.ctex"
+uid="uid://dvcepw5auby7t"
+path="res://.godot/imported/tile.png-455dd1073ac41712b0ee435e5393be66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://slot_hand_animation.png"
-dest_files=["res://.godot/imported/slot_hand_animation.png-22b5b04d364b113856ecc4cfdbf8d3fc.ctex"]
+source_file="res://assets/tile.png"
+dest_files=["res://.godot/imported/tile.png-455dd1073ac41712b0ee435e5393be66.ctex"]
 
 [params]
 

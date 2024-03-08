@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cpj4j6valjmfd"
-path="res://.godot/imported/slot_finished.wav-1722562df41ca508421f82cf7491e5b4.sample"
+path="res://.godot/imported/slot_finished.wav-a048a54b8eecbc473fc6695458ea3808.sample"
 
 [deps]
 
-source_file="res://slot_finished.wav"
-dest_files=["res://.godot/imported/slot_finished.wav-1722562df41ca508421f82cf7491e5b4.sample"]
+source_file="res://assets/slot_finished.wav"
+dest_files=["res://.godot/imported/slot_finished.wav-a048a54b8eecbc473fc6695458ea3808.sample"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddeu1ykeyeyw8"
-path="res://.godot/imported/slot-machine-animation-jumble.png-32413b61df6292813dbb989b96105eaf.ctex"
+uid="uid://d1m70j7r2la72"
+path="res://.godot/imported/2d_lights_and_shadows_neutral_point_light.webp-e7ff95629e050edcc761aaf5d8570e25.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://slot-machine-animation-jumble.png"
-dest_files=["res://.godot/imported/slot-machine-animation-jumble.png-32413b61df6292813dbb989b96105eaf.ctex"]
+source_file="res://assets/2d_lights_and_shadows_neutral_point_light.webp"
+dest_files=["res://.godot/imported/2d_lights_and_shadows_neutral_point_light.webp-e7ff95629e050edcc761aaf5d8570e25.ctex"]
 
 [params]
 

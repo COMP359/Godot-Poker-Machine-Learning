@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq8nx1jdnxbu3"
-path="res://.godot/imported/slot-machine-animation-blur.png-7cf494c07e555b5046100a6743adf066.ctex"
+uid="uid://cao8tkabtwtvx"
+path="res://.godot/imported/slot-machine-animation.png-66930be7ade597538e5961964919f8bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://slot-machine-animation-blur.png"
-dest_files=["res://.godot/imported/slot-machine-animation-blur.png-7cf494c07e555b5046100a6743adf066.ctex"]
+source_file="res://assets/slot-machine-animation.png"
+dest_files=["res://.godot/imported/slot-machine-animation.png-66930be7ade597538e5961964919f8bd.ctex"]
 
 [params]
 

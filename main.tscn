@@ -1,11 +1,11 @@
 [gd_scene load_steps=14 format=3 uid="uid://cxm2wy616ba6o"]
 
-[ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://tile.png" id="1_biwwp"]
-[ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://table-2.png" id="2_mi3hp"]
-[ext_resource type="Texture2D" uid="uid://cpir4cuqpn6oc" path="res://casino-robots.png" id="3_3h1r3"]
-[ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
-[ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://dealer.png" id="5_c4uga"]
-[ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://slot_machine.tscn" id="6_b3ihe"]
+[ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://assets/tile.png" id="1_biwwp"]
+[ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://assets/table-2.png" id="2_mi3hp"]
+[ext_resource type="Texture2D" uid="uid://cpir4cuqpn6oc" path="res://assets/casino-robots.png" id="3_3h1r3"]
+[ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
+[ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://assets/dealer.png" id="5_c4uga"]
+[ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://scenes/slot_machine.tscn" id="6_b3ihe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_440jg"]
 texture = ExtResource("1_biwwp")

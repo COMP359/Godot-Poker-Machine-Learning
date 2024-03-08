@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ijhk5qic0nm4"
-path="res://.godot/imported/dealer.png-56d0185a7e4da9ab6483739574740252.ctex"
+uid="uid://du5wqa8xhirwm"
+path="res://.godot/imported/slot_hand_animation.png-021891d25d38f10547823c1a4b56fc18.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dealer.png"
-dest_files=["res://.godot/imported/dealer.png-56d0185a7e4da9ab6483739574740252.ctex"]
+source_file="res://assets/slot_hand_animation.png"
+dest_files=["res://.godot/imported/slot_hand_animation.png-021891d25d38f10547823c1a4b56fc18.ctex"]
 
 [params]
 

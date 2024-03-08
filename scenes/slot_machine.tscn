@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://8noh0ok2j3p6"]
 
-[ext_resource type="Texture2D" uid="uid://dnyo7iuwmln8j" path="res://slot-machine.png" id="1_pol4i"]
-[ext_resource type="Script" path="res://slot_machine.gd" id="2_x0khb"]
-[ext_resource type="PackedScene" uid="uid://cmbac1x0lwcm1" path="res://slot.tscn" id="3_32gnm"]
-[ext_resource type="AudioStream" uid="uid://dn0rrdemspg62" path="res://slot_moving(2).mp3" id="5_dyqi1"]
-[ext_resource type="Texture2D" uid="uid://du5wqa8xhirwm" path="res://slot_hand_animation.png" id="5_ibond"]
+[ext_resource type="Texture2D" uid="uid://dnyo7iuwmln8j" path="res://assets/slot-machine.png" id="1_pol4i"]
+[ext_resource type="Script" path="res://scenes/slot_machine.gd" id="2_x0khb"]
+[ext_resource type="PackedScene" uid="uid://cmbac1x0lwcm1" path="res://scenes/slot.tscn" id="3_32gnm"]
+[ext_resource type="AudioStream" uid="uid://dn0rrdemspg62" path="res://assets/slot_moving(2).mp3" id="5_dyqi1"]
+[ext_resource type="Texture2D" uid="uid://du5wqa8xhirwm" path="res://assets/slot_hand_animation.png" id="5_ibond"]
 
 [sub_resource type="Animation" id="Animation_pxxr4"]
 length = 0.001
