@@ -7,10 +7,10 @@ class TestHand:
 	var hand = null
 
 	func before_all():
-		hand = card_logic_script.Hand.new(CardLogic.Player.PLAYER_1)
+		hand = card_logic_script.Hand.new()
 
 	func test_hand_evaluation():
-		var cards = [CardLogic.Card.S1, CardLogic.Card.S2, CardLogic.Card.S3, CardLogic.Card.S4, CardLogic.Card.S5]
-		gut.p(cards)
-		hand.add_cards(cards)
-		assert_eq(hand.evaluate(hand.cards), card_logic_script.Rank.ONE_PAIR)
+		var cards = [Card.new("S", "1"), Card.new("S", "2"), Card.new("S", "3"), Card.new("S", "4"), Card.new("S", "5")]
+		for card in cards:
+			hand.add(card)
+		assert_eq(hand.evaluate(hand.cards), "TWO_PAIR")
