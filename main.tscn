@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://cxm2wy616ba6o"]
 
-[ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://assets/tile.png" id="1_biwwp"]
-[ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://assets/table-2.png" id="2_mi3hp"]
-[ext_resource type="Texture2D" uid="uid://cpir4cuqpn6oc" path="res://assets/casino-robots.png" id="3_3h1r3"]
-[ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
-[ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://assets/dealer.png" id="5_c4uga"]
+[ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://assets/tiles/tile.png" id="1_biwwp"]
+[ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://assets/sprites/table-2.png" id="2_mi3hp"]
+[ext_resource type="Texture2D" uid="uid://cpir4cuqpn6oc" path="res://assets/sprites/casino-robots.png" id="3_3h1r3"]
+[ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
+[ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://assets/sprites/dealer.png" id="5_c4uga"]
 [ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://scenes/slot_machine.tscn" id="6_b3ihe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_440jg"]
@@ -35,6 +35,10 @@ polygon = PackedVector2Array(-12.493, 14.5047, 12.5038, 14.5047, 12.5038, 15.503
 
 [node name="Game" type="Node2D"]
 
+[node name="Shader" type="CanvasModulate" parent="."]
+color = Color(0.145098, 0.145098, 0.145098, 1)
+metadata/_edit_lock_ = true
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_uwxr6")
 format = 2
@@ -52,56 +56,17 @@ texture = ExtResource("3_3h1r3")
 material = SubResource("CanvasItemMaterial_un68a")
 occluder = SubResource("OccluderPolygon2D_5775n")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.145098, 0.145098, 0.145098, 1)
-
-[node name="Light6" type="Node2D" parent="."]
-position = Vector2(155, 78)
+[node name="Light" type="Node2D" parent="Casino Board"]
+position = Vector2(0, -3)
 scale = Vector2(0.681526, -0.572889)
 
-[node name="Texture" type="PointLight2D" parent="Light6"]
+[node name="Texture" type="PointLight2D" parent="Casino Board/Light"]
 position = Vector2(2, -1)
 color = Color(1, 0.670588, 0.619608, 1)
 energy = 1.23
 texture = ExtResource("3_jq61r")
 
-[node name="Shadow" type="PointLight2D" parent="Light6"]
-position = Vector2(0, -1)
-energy = 0.32
-shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.0470588)
-shadow_filter_smooth = 3.6
-texture = ExtResource("3_jq61r")
-texture_scale = 0.5
-
-[node name="Light8" type="Node2D" parent="."]
-position = Vector2(174, 60)
-scale = Vector2(0.05, 0.00999023)
-
-[node name="Texture" type="PointLight2D" parent="Light8"]
-position = Vector2(2, -1)
-scale = Vector2(-0.601762, -1.6773)
-texture = ExtResource("3_jq61r")
-
-[node name="Shadow" type="PointLight2D" parent="Light8"]
-position = Vector2(0, -1)
-energy = 0.32
-shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.0470588)
-shadow_filter_smooth = 3.6
-texture = ExtResource("3_jq61r")
-texture_scale = 0.5
-
-[node name="Light9" type="Node2D" parent="."]
-position = Vector2(133, 60)
-scale = Vector2(0.05, 0.00999023)
-
-[node name="Texture" type="PointLight2D" parent="Light9"]
-position = Vector2(2, -1)
-scale = Vector2(-0.601762, -1.6773)
-texture = ExtResource("3_jq61r")
-
-[node name="Shadow" type="PointLight2D" parent="Light9"]
+[node name="Shadow" type="PointLight2D" parent="Casino Board/Light"]
 position = Vector2(0, -1)
 energy = 0.32
 shadow_enabled = true
@@ -151,6 +116,7 @@ texture_scale = 0.5
 position = Vector2(294.365, 130.64)
 scale = Vector2(1.25, 1.25)
 SlotFinishedTimeout = 10.0
+soundEffectOn = false
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="SlotMachine2"]
 material = SubResource("CanvasItemMaterial_7e1rm")

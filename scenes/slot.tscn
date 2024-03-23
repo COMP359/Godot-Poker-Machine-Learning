@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://cmbac1x0lwcm1"]
 
-[ext_resource type="Texture2D" uid="uid://deee3huhhkg04" path="res://assets/slot-icons.png" id="1_k8qab"]
+[ext_resource type="Texture2D" uid="uid://deee3huhhkg04" path="res://assets/sprites/slot-icons.png" id="1_k8qab"]
 [ext_resource type="Script" path="res://scenes/slot.gd" id="2_pkkin"]
-[ext_resource type="Texture2D" uid="uid://cq8nx1jdnxbu3" path="res://assets/slot-machine-animation-blur.png" id="3_n6qbj"]
-[ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="4_uy2k7"]
-[ext_resource type="AudioStream" uid="uid://cpj4j6valjmfd" path="res://assets/slot_finished.wav" id="5_swqip"]
+[ext_resource type="Texture2D" uid="uid://cq8nx1jdnxbu3" path="res://assets/sprites/slot-machine-animation-blur.png" id="3_n6qbj"]
+[ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="4_uy2k7"]
+[ext_resource type="AudioStream" uid="uid://cpj4j6valjmfd" path="res://assets/sound_effects/slot_finished.wav" id="5_swqip"]
 
 [node name="Slot" type="Sprite2D"]
 position = Vector2(-6.96831, -3.46973)
