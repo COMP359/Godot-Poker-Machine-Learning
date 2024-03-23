@@ -1,11 +1,11 @@
 [gd_scene load_steps=14 format=3 uid="uid://cxm2wy616ba6o"]
 
-[ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://tile.png" id="1_biwwp"]
-[ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://table-2.png" id="2_mi3hp"]
-[ext_resource type="Texture2D" uid="uid://cpir4cuqpn6oc" path="res://casino-robots.png" id="3_3h1r3"]
-[ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
-[ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://dealer.png" id="5_c4uga"]
-[ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://slot_machine.tscn" id="6_b3ihe"]
+[ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://assets/tile.png" id="1_biwwp"]
+[ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://assets/table-2.png" id="2_mi3hp"]
+[ext_resource type="Texture2D" uid="uid://cpir4cuqpn6oc" path="res://assets/casino-robots.png" id="3_3h1r3"]
+[ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
+[ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://assets/dealer.png" id="5_c4uga"]
+[ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://scenes/slot_machine.tscn" id="6_b3ihe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_440jg"]
 texture = ExtResource("1_biwwp")
@@ -74,6 +74,42 @@ shadow_filter_smooth = 3.6
 texture = ExtResource("3_jq61r")
 texture_scale = 0.5
 
+[node name="Light8" type="Node2D" parent="."]
+position = Vector2(174, 60)
+scale = Vector2(0.05, 0.00999023)
+
+[node name="Texture" type="PointLight2D" parent="Light8"]
+position = Vector2(2, -1)
+scale = Vector2(-0.601762, -1.6773)
+texture = ExtResource("3_jq61r")
+
+[node name="Shadow" type="PointLight2D" parent="Light8"]
+position = Vector2(0, -1)
+energy = 0.32
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.0470588)
+shadow_filter_smooth = 3.6
+texture = ExtResource("3_jq61r")
+texture_scale = 0.5
+
+[node name="Light9" type="Node2D" parent="."]
+position = Vector2(133, 60)
+scale = Vector2(0.05, 0.00999023)
+
+[node name="Texture" type="PointLight2D" parent="Light9"]
+position = Vector2(2, -1)
+scale = Vector2(-0.601762, -1.6773)
+texture = ExtResource("3_jq61r")
+
+[node name="Shadow" type="PointLight2D" parent="Light9"]
+position = Vector2(0, -1)
+energy = 0.32
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.0470588)
+shadow_filter_smooth = 3.6
+texture = ExtResource("3_jq61r")
+texture_scale = 0.5
+
 [node name="Dealer" type="Sprite2D" parent="."]
 position = Vector2(155, 101)
 texture = ExtResource("5_c4uga")
@@ -83,6 +119,9 @@ occluder = SubResource("OccluderPolygon2D_x5n3l")
 
 [node name="SlotMachine" parent="." instance=ExtResource("6_b3ihe")]
 position = Vector2(294.365, 72.6401)
+scale = Vector2(1.25, 1.25)
+SlotFinishedTimeout = 8.0
+soundEffectOn = false
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="SlotMachine"]
 material = SubResource("CanvasItemMaterial_7e1rm")
@@ -109,7 +148,9 @@ texture = ExtResource("3_jq61r")
 texture_scale = 0.5
 
 [node name="SlotMachine2" parent="." instance=ExtResource("6_b3ihe")]
-position = Vector2(294.365, 138.64)
+position = Vector2(294.365, 130.64)
+scale = Vector2(1.25, 1.25)
+SlotFinishedTimeout = 10.0
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="SlotMachine2"]
 material = SubResource("CanvasItemMaterial_7e1rm")

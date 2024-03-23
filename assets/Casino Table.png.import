@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cd4awlldom6d7"
-path="res://.godot/imported/Casino Table.png-4371b39798ceeb08a9a648d61a84f349.ctex"
+path="res://.godot/imported/Casino Table.png-0e58772b1c09dd8f332e6a1f4992858c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Casino Table.png"
-dest_files=["res://.godot/imported/Casino Table.png-4371b39798ceeb08a9a648d61a84f349.ctex"]
+source_file="res://assets/Casino Table.png"
+dest_files=["res://.godot/imported/Casino Table.png-0e58772b1c09dd8f332e6a1f4992858c.ctex"]
 
 [params]
 

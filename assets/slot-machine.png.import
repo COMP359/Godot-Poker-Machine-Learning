@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw3rh27muo5ot"
-path="res://.godot/imported/carpet_map.png-04b3b930378d490df0f6a546330c911d.ctex"
+uid="uid://dnyo7iuwmln8j"
+path="res://.godot/imported/slot-machine.png-b289b73368a162f0707e3b29606bf4aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://carpet_map.png"
-dest_files=["res://.godot/imported/carpet_map.png-04b3b930378d490df0f6a546330c911d.ctex"]
+source_file="res://assets/slot-machine.png"
+dest_files=["res://.godot/imported/slot-machine.png-b289b73368a162f0707e3b29606bf4aa.ctex"]
 
 [params]
 

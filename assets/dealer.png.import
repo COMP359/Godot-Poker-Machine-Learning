@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://deee3huhhkg04"
-path="res://.godot/imported/slot-icons.png-39d092ea4892e25e703df3a2e5bd4fe8.ctex"
+uid="uid://ijhk5qic0nm4"
+path="res://.godot/imported/dealer.png-78178ec2489b18e93335e20299a90ea4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://slot-icons.png"
-dest_files=["res://.godot/imported/slot-icons.png-39d092ea4892e25e703df3a2e5bd4fe8.ctex"]
+source_file="res://assets/dealer.png"
+dest_files=["res://.godot/imported/dealer.png-78178ec2489b18e93335e20299a90ea4.ctex"]
 
 [params]
 

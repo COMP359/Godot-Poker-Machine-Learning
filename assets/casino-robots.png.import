@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cao8tkabtwtvx"
-path="res://.godot/imported/slot-machine-animation.png-0ef7f23763b625df4c48a526bc5c6669.ctex"
+uid="uid://cpir4cuqpn6oc"
+path="res://.godot/imported/casino-robots.png-44bb14fc8d7ba00a502778b30222648e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://slot-machine-animation.png"
-dest_files=["res://.godot/imported/slot-machine-animation.png-0ef7f23763b625df4c48a526bc5c6669.ctex"]
+source_file="res://assets/casino-robots.png"
+dest_files=["res://.godot/imported/casino-robots.png-44bb14fc8d7ba00a502778b30222648e.ctex"]
 
 [params]
 

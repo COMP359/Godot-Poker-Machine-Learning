@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmbac1x0lwcm1"]
+
+[ext_resource type="Texture2D" uid="uid://deee3huhhkg04" path="res://assets/slot-icons.png" id="1_k8qab"]
+[ext_resource type="Script" path="res://scenes/slot.gd" id="2_pkkin"]
+[ext_resource type="Texture2D" uid="uid://cq8nx1jdnxbu3" path="res://assets/slot-machine-animation-blur.png" id="3_n6qbj"]
+[ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="4_uy2k7"]
+[ext_resource type="AudioStream" uid="uid://cpj4j6valjmfd" path="res://assets/slot_finished.wav" id="5_swqip"]
+
+[node name="Slot" type="Sprite2D"]
+position = Vector2(-6.96831, -3.46973)
+texture = ExtResource("1_k8qab")
+hframes = 5
+frame = 4
+script = ExtResource("2_pkkin")
+
+[node name="Animation" type="Sprite2D" parent="."]
+texture = ExtResource("3_n6qbj")
+hframes = 31
+frame = 9
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Light" type="Node2D" parent="."]
+position = Vector2(-0.0228729, 0.180893)
+scale = Vector2(0.0593321, 0.0312272)
+
+[node name="Texture" type="PointLight2D" parent="Light"]
+position = Vector2(2, -1)
+color = Color(1, 0.996078, 0.996078, 0.12549)
+energy = 1.15
+texture = ExtResource("4_uy2k7")
+
+[node name="Shadow" type="PointLight2D" parent="Light"]
+position = Vector2(0, -1)
+energy = 0.32
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.0470588)
+shadow_filter_smooth = 3.6
+texture = ExtResource("4_uy2k7")
+texture_scale = 0.5
+
+[node name="SoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_swqip")
+volume_db = -4.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

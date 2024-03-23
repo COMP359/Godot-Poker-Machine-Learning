@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvcepw5auby7t"
-path="res://.godot/imported/tile.png-b6edd167b3cc7ec58612b18f9a6dce92.ctex"
+uid="uid://ddeu1ykeyeyw8"
+path="res://.godot/imported/slot-machine-animation-jumble.png-c4997ac65ca97367f63e9613b9881182.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tile.png"
-dest_files=["res://.godot/imported/tile.png-b6edd167b3cc7ec58612b18f9a6dce92.ctex"]
+source_file="res://assets/slot-machine-animation-jumble.png"
+dest_files=["res://.godot/imported/slot-machine-animation-jumble.png-c4997ac65ca97367f63e9613b9881182.ctex"]
 
 [params]
 
