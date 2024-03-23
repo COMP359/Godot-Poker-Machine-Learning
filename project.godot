@@ -15,6 +15,10 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.png"
 
+[autoload]
+
+CardLogic="*res://scripts/card_logic.gd"
+
 [display]
 
 window/size/viewport_width=320
@@ -26,6 +30,10 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="Poker Machine Learning"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [rendering]
 
