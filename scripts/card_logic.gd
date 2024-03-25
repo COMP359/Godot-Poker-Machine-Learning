@@ -1,16 +1,8 @@
 extends Node
 
-class Deck:
-	var cards: Array[Card] = []
+func _ready():
+	var deck = Deck.new()
 
-	func _init():
-		for suit in ["S", "H", "D", "C"]:
-			for value in range(1, 14):
-				cards.append(Card.new(suit, str(value)))
-		cards.shuffle()
-
-	func draw() -> Card:
-		return cards.pop_front()
 class Hand:
 	var hand_ranks = ["ONE_PAIR", "TWO_PAIR", "THREE_OF_A_KIND", "STRAIGHT", "FLUSH", "FULL_HOUSE", "FOUR_OF_A_KIND", "STRAIGHT_FLUSH", "ROYAL_FLUSH"]
 	var cards: Array[Card] = []
