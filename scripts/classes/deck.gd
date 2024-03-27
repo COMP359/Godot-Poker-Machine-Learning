@@ -10,7 +10,7 @@ func reset_deck():
 	"""Create a new deck of cards and shuffle it."""
 	deck_of_cards.clear()
 	for suit in ["S", "H", "D", "C"]:
-		for value in range(1, 14):
+		for value in range(2, 15):
 			deck_of_cards.append(Card.new(suit, value))
 	shuffle_deck()
 
