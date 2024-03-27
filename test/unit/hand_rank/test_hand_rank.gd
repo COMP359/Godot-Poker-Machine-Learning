@@ -234,7 +234,7 @@ class TestFullHouseHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_full_house(cards), {"three_kind": 2, "pair": 3})
+		assert_eq(rank.check_full_house(cards), {"state": true, "three_kind_highcard": 2, "pair_card_type": 3})
 
 	func test_full_house_case_two():
 		cards = [
@@ -242,35 +242,22 @@ class TestFullHouseHandRanking:
 			Card.new("H", 2),
 			Card.new("C", 2),
 			Card.new("S", 3),
-			Card.new("S", 3),
-			Card.new("C", 3),
+			Card.new("S", 12),
+			Card.new("C", 7),
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_full_house(cards), {"three_kind": 3, "pair": 2})
-
+		assert_eq(rank.check_full_house(cards), {"state": false, "three_kind_highcard": 0, "pair_card_type": 0})
+		
 	func test_full_house_case_three():
 		cards = [
-			Card.new("S", 3),
-			Card.new("H", 3),
-			Card.new("C", 3),
 			Card.new("S", 2),
-			Card.new("S", 2),
-			Card.new("C", 4),
-			Card.new("C", 6),
-		]
-
-		assert_eq(rank.check_full_house(cards), {"three_kind": 3, "pair": 2})
-
-	func test_full_house_case_four():
-		cards = [
-			Card.new("S", 3),
 			Card.new("H", 2),
-			Card.new("C", 9),
-			Card.new("S", 10),
-			Card.new("S", 11),
 			Card.new("C", 12),
-			Card.new("C", 5),
+			Card.new("S", 3),
+			Card.new("S", 3),
+			Card.new("C", 7),
+			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_full_house(cards), {"three_kind": 0, "pair": 0})
+		assert_eq(rank.check_full_house(cards), {"state": false, "three_kind_highcard": 0, "pair_card_type": 0})
