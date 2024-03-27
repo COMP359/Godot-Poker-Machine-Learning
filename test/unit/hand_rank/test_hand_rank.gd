@@ -19,7 +19,7 @@ class TestStraightFlushHandRanking:
 			Card.new("C", 7),
 			Card.new("C", 8),
 		]
-		assert_eq(rank.check_straight_flush(cards), true)
+		assert_eq(rank.check_straight_flush(cards), {"state": true, "highcard":6})
 
 	func test_straight_flush_case_two():
 		cards = [
@@ -31,7 +31,7 @@ class TestStraightFlushHandRanking:
 			Card.new("S", 7),
 			Card.new("C", 8),
 		]
-		assert_eq(rank.check_straight_flush(cards), true)
+		assert_eq(rank.check_straight_flush(cards), {"state": true, "highcard":7})
 
 	func test_straight_flush_case_three():
 		cards = [
@@ -43,7 +43,7 @@ class TestStraightFlushHandRanking:
 			Card.new("S", 7),
 			Card.new("S", 8),
 		]
-		assert_eq(rank.check_straight_flush(cards), true)
+		assert_eq(rank.check_straight_flush(cards), {"state": true, "highcard":8})
 
 	func test_straight_flush_case_four():
 		cards = [
@@ -56,7 +56,7 @@ class TestStraightFlushHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_straight_flush(cards), true)
+		assert_eq(rank.check_straight_flush(cards), {"state": true, "highcard":5})
 
 	func test_straight_flush_case_five():
 		cards = [
@@ -69,7 +69,7 @@ class TestStraightFlushHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_straight_flush(cards), false)
+		assert_eq(rank.check_straight_flush(cards), {"state": false, "highcard":0})
 
 	func test_straight_flush_case_six():
 		cards = [
@@ -79,7 +79,7 @@ class TestStraightFlushHandRanking:
 			Card.new("H", 5),
 			Card.new("S", 6)
 		]
-		assert_eq(rank.check_straight_flush(cards), false)
+		assert_eq(rank.check_straight_flush(cards), {"state": false, "highcard":0})
 
 class TestRoyalFlushHandRanking:
 	extends GutTest
