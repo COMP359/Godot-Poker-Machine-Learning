@@ -5,13 +5,13 @@ enum RankEnum {
   HIGH_CARD,
   PAIR,
   TWO_PAIR,
-  THREE_OF_A_KIND,
+  THREE_OF_A_KIND, # Finished
   STRAIGHT,
   FLUSH,
-  FULL_HOUSE,
-  FOUR_OF_A_KIND,
-  STRAIGHT_FLUSH,
-  ROYAL_FLUSH
+  FULL_HOUSE, # Finished
+  FOUR_OF_A_KIND, # Finished
+  STRAIGHT_FLUSH, # Finished
+  ROYAL_FLUSH # Finished
 }
 
 var rank: RankEnum
@@ -46,13 +46,12 @@ func _init() -> void:
 func check_royal_flush(cards: Array[Card]) -> bool:
     var suits = []
     var values = []
-    
-    # Extract suits and values from the cards
+    var unique_values = {}
+    var highcard = 0
+    var kind = 0
+
     for card in cards:
-        var suit = card.suit
         var value = card.value
-        
-        suits.append(suit)
         values.append(value)
     
     # Check if all required cards are present in the hand
