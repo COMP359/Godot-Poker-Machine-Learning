@@ -146,7 +146,6 @@ func check_four_kind(cards: Array[Card]) -> Dictionary:
         return {"state": true, "highcard": highcard}
     return {"state": false, "highcard": 0}
 
-
 func check_full_house(cards: Array[Card]) -> Dictionary:
     var card_counts = {}
     for card in cards:
@@ -156,22 +155,20 @@ func check_full_house(cards: Array[Card]) -> Dictionary:
             card_counts[card.value] = 1
 
     var three_kind = 0
-    var second_three_kind = 0
     var pair = 0
     for value in card_counts.keys():
         var count = card_counts[value]
         if count == 3:
-            if value > three_kind:
-                second_three_kind = three_kind
-                three_kind = value
-            elif value > second_three_kind:
-                second_three_kind = value
-        elif count == 2 and value > pair:
+            three_kind = value
+        elif count == 2:
             pair = value
 
-    if three_kind > 0 and (pair > 0 or second_three_kind > 0):
-        if pair == 0:
-            pair = second_three_kind
-        return {"three_kind": three_kind, "pair": pair}
-    else:
-        return {"three_kind": 0, "pair": 0}
+    var is_full_house = three_kind > 0 and pair > 0
+    
+    #set to 0 for convention on unit tests of highcard being 0 when false
+    if not is_full_house:
+        three_kind = 0
+        pair = 0
+        
+    return {"state": is_full_house, "three_kind_highcard": three_kind, "pair_card_type": pair}
+
