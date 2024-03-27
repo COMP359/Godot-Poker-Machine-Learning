@@ -1,0 +1,120 @@
+[gd_scene load_steps=5 format=3 uid="uid://cht2u0r6p8u5x"]
+
+[ext_resource type="Texture2D" uid="uid://b6xrhk5bc33lv" path="res://assets/ui/blue_headshot.png" id="1_t8h5y"]
+[ext_resource type="FontFile" uid="uid://bqta5uwrwlihr" path="res://assets/fonts/PixelifySans-Regular.ttf" id="2_2i2wn"]
+[ext_resource type="Texture2D" uid="uid://bqtl44a8lnebk" path="res://assets/ui/progbar_under.png" id="3_cyg1k"]
+[ext_resource type="Texture2D" uid="uid://2tr6fsyd3x55" path="res://assets/ui/progbar_over.png" id="4_88mys"]
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="BlueRect" type="ColorRect" parent="."]
+offset_top = 27.0
+offset_right = 84.0
+offset_bottom = 48.0
+color = Color(0.207843, 0.541176, 0.831373, 0.396078)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="BlueRect"]
+layout_mode = 0
+offset_right = 84.0
+offset_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="BlueRect"]
+offset_left = 83.0
+offset_top = 1.0
+offset_right = 84.0
+offset_bottom = 21.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect3" type="ColorRect" parent="BlueRect"]
+offset_top = 21.0
+offset_right = 84.0
+offset_bottom = 22.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect4" type="ColorRect" parent="BlueRect"]
+offset_left = 20.0
+offset_top = 1.0
+offset_right = 21.0
+offset_bottom = 21.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect5" type="ColorRect" parent="BlueRect"]
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 21.0
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="BlueRect"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 20.0
+offset_bottom = 21.0
+texture = ExtResource("1_t8h5y")
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BlueRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.274
+anchor_top = 0.238
+anchor_right = 0.464
+anchor_bottom = 0.905
+offset_left = -0.0160007
+offset_top = 0.00199986
+offset_right = 0.0239983
+offset_bottom = -0.00500107
+theme_override_fonts/normal_font = ExtResource("2_2i2wn")
+theme_override_font_sizes/normal_font_size = 12
+text = "AI"
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="BlueRect"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 5.0
+offset_right = 79.0
+offset_bottom = 17.0
+value = 40.0
+texture_under = ExtResource("3_cyg1k")
+texture_progress = ExtResource("4_88mys")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="BlueRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.488
+anchor_top = 0.380619
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.00799561
+offset_top = 0.00699997
+theme_override_fonts/normal_font = ExtResource("2_2i2wn")
+theme_override_font_sizes/normal_font_size = 7
+text = "$43,240"
+metadata/_edit_use_anchors_ = true
+
+[node name="RedRect" type="ColorRect" parent="."]
+offset_left = -18.0
+offset_top = 61.0
+offset_right = 84.0
+offset_bottom = 89.0
+color = Color(0.831373, 0.207843, 0.207843, 0.396078)
+metadata/_edit_use_anchors_ = true
+
+[node name="YellowRect" type="ColorRect" parent="."]
+offset_left = -18.0
+offset_top = 95.0
+offset_right = 84.0
+offset_bottom = 123.0
+color = Color(0.831373, 0.67451, 0.207843, 0.396078)
+metadata/_edit_use_anchors_ = true
+
+[node name="GreenRect" type="ColorRect" parent="."]
+offset_left = -18.0
+offset_top = 129.0
+offset_right = 84.0
+offset_bottom = 157.0
+color = Color(0.415686, 0.831373, 0.207843, 0.396078)
+metadata/_edit_use_anchors_ = true
