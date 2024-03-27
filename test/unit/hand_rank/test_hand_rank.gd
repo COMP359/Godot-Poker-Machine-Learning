@@ -234,7 +234,7 @@ class TestFullHouseHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_full_house(cards), {"state": true, "three_kind_highcard": 2, "pair_card_type": 3})
+		assert_eq(rank.check_full_house(cards), {"state": true, "three_kind_highcard": 2, "pair_highcard": 3})
 
 	func test_full_house_case_two():
 		cards = [
@@ -247,7 +247,7 @@ class TestFullHouseHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_full_house(cards), {"state": false, "three_kind_highcard": 0, "pair_card_type": 0})
+		assert_eq(rank.check_full_house(cards), {"state": false, "three_kind_highcard": 0, "pair_highcard": 0})
 		
 	func test_full_house_case_three():
 		cards = [
@@ -260,4 +260,113 @@ class TestFullHouseHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_full_house(cards), {"state": false, "three_kind_highcard": 0, "pair_card_type": 0})
+		assert_eq(rank.check_full_house(cards), {"state": false, "three_kind_highcard": 0, "pair_highcard": 0})
+
+class TestFlushHandRanking:
+	extends GutTest
+
+	var rank = null
+	var cards: Array[Card] = []
+
+	func before_all():
+		rank = Rank.new()
+
+	func test_flush_case_one():
+		cards = [
+			Card.new("S", 3),
+			Card.new("S", 4),
+			Card.new("S", 10),
+			Card.new("S", 12),
+			Card.new("H", 3),
+			Card.new("S", 7),
+			Card.new("C", 8),
+		]
+
+		assert_eq(rank.check_flush(cards), {"state": true, "flush_cards": [3, 4, 7, 10, 12]})
+		
+	func test_flush_case_two():
+		cards = [
+			Card.new("C", 3),
+			Card.new("S", 4),
+			Card.new("S", 10),
+			Card.new("S", 12),
+			Card.new("H", 3),
+			Card.new("S", 7),
+			Card.new("C", 8),
+		]
+
+		assert_eq(rank.check_flush(cards), {"state": false})
+		
+	func test_flush_case_three():
+		cards = [
+			Card.new("S", 3),
+			Card.new("S", 4),
+			Card.new("S", 10),
+			Card.new("S", 12),
+			Card.new("H", 3),
+			Card.new("S", 7),
+			Card.new("S", 14),
+		]
+
+		assert_eq(rank.check_flush(cards), {"state": true, "flush_cards": [4, 7, 10, 12, 14]})
+		
+	func test_flush_case_four():
+		cards = [
+			Card.new("S", 3),
+			Card.new("S", 4),
+			Card.new("S", 10),
+			Card.new("S", 12),
+			Card.new("S", 11),
+			Card.new("S", 7),
+			Card.new("S", 14),
+		]
+
+		assert_eq(rank.check_flush(cards), {"state": true, "flush_cards": [7, 10, 11, 12, 14]})
+
+class TestStraightHandRanking:
+	extends GutTest
+
+	var rank = null
+	var cards: Array[Card] = []
+
+	func before_all():
+		rank = Rank.new()
+
+	func test_straight_case_one():
+		cards = [
+			Card.new("C", 2),
+			Card.new("H", 3),
+			Card.new("C", 14),
+			Card.new("S", 4),
+			Card.new("H", 5),
+			Card.new("S", 6),
+			Card.new("C", 14),
+		]
+
+		assert_eq(rank.check_straight(cards), {"state": true,"straight_cards": [6, 5, 4, 3, 2]})
+		
+	func test_straight_case_two():
+		cards = [
+			Card.new("C", 2),
+			Card.new("H", 3),
+			Card.new("C", 14),
+			Card.new("S", 14),
+			Card.new("H", 5),
+			Card.new("S", 6),
+			Card.new("C", 14),
+		]
+
+		assert_eq(rank.check_straight(cards), {"state": false})
+		
+	func test_straight_case_three():
+		cards = [
+			Card.new("C", 8),
+			Card.new("H", 13),
+			Card.new("C", 14),
+			Card.new("S", 9),
+			Card.new("H", 12),
+			Card.new("S", 11),
+			Card.new("C", 10),
+		]
+
+		assert_eq(rank.check_straight(cards), {"state": true,"straight_cards": [14, 13, 12, 11, 10]})
