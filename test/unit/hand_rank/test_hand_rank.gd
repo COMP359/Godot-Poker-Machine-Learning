@@ -124,7 +124,7 @@ class TestRoyalFlushHandRanking:
 		]
 		assert_eq(rank.check_royal_flush(cards), false)
 
-class TestMultipleKindHandRanking:
+class TestThreeKindHandRanking:
 	extends GutTest
 
 	var rank = null
@@ -133,7 +133,7 @@ class TestMultipleKindHandRanking:
 	func before_all():
 		rank = Rank.new()
 
-	func test_multiple_kind_case_one():
+	func test_three_kind_case_one():
 		cards = [
 			Card.new("S", 2),
 			Card.new("S", 2),
@@ -143,34 +143,77 @@ class TestMultipleKindHandRanking:
 			Card.new("C", 7),
 			Card.new("C", 8),
 		]
-		assert_eq(rank.check_multiple_kind(cards), {"kind": 3, "highcard":2})
-
-	func test_multiple_kind_case_two():
+		assert_eq(rank.check_three_kind(cards), {"state": true, "highcard":2})
+		
+	func test_three_kind_case_two():
 		cards = [
 			Card.new("S", 2),
-			Card.new("H", 2),
+			Card.new("S", 2),
+			Card.new("D", 7),
+			Card.new("S", 3),
+			Card.new("S", 4),
+			Card.new("C", 7),
+			Card.new("C", 8),
+		]
+		assert_eq(rank.check_three_kind(cards), {"state": false, "highcard":0})
+		
+	func test_three_kind_case_three():
+		cards = [
+			Card.new("S", 14),
+			Card.new("C", 14),
+			Card.new("S", 3),
+			Card.new("S", 4),
+			Card.new("D", 14),
+			Card.new("C", 7),
+		]
+		assert_eq(rank.check_three_kind(cards), {"state": true, "highcard":14})
+		
+class TestFourKindHandRanking:
+	extends GutTest
+
+	var rank = null
+	var cards: Array[Card] = []
+
+	func before_all():
+		rank = Rank.new()
+
+	func test_four_kind_case_one():
+		cards = [
+			Card.new("S", 2),
+			Card.new("S", 2),
 			Card.new("C", 2),
 			Card.new("S", 2),
 			Card.new("S", 4),
 			Card.new("C", 7),
 			Card.new("C", 8),
 		]
-
-		assert_eq(rank.check_multiple_kind(cards), {"kind": 4, "highcard":2})
-
-	func test_multiple_kind_case_three():
+		assert_eq(rank.check_four_kind(cards), {"state": true, "highcard":2})
+		
+	func test_four_kind_case_two():
 		cards = [
+			Card.new("S", 12),
 			Card.new("S", 2),
-			Card.new("H", 2),
-			Card.new("C", 11),
-			Card.new("S", 8),
+			Card.new("C", 2),
+			Card.new("S", 2),
 			Card.new("S", 4),
 			Card.new("C", 7),
 			Card.new("C", 8),
 		]
-
-		assert_eq(rank.check_multiple_kind(cards), {"kind": 0, "highcard":0})
-
+		assert_eq(rank.check_four_kind(cards), {"state": false, "highcard":0})
+		
+	func test_four_kind_case_three():
+		cards = [
+			Card.new("S", 14),
+			Card.new("C", 14),
+			Card.new("S", 4),
+			Card.new("S", 14),
+			Card.new("C", 7),
+			Card.new("C", 8),
+			Card.new("H", 14),
+		]
+		assert_eq(rank.check_four_kind(cards), {"state": true, "highcard":14})
+		
+		
 class TestFullHouseHandRanking:
 	extends GutTest
 
