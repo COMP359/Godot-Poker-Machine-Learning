@@ -102,29 +102,50 @@ func check_straight_flush(cards: Array[Card]) -> Dictionary:
 
     return {"state": false, "highcard": highcard}  # No straight flush found
 
-func check_multiple_kind(cards: Array[Card]) -> Dictionary:
-    var values = []
+func check_three_kind(cards: Array[Card]) -> Dictionary:
     var unique_values = {}
     var highcard = 0
     var kind = 0
 
     for card in cards:
         var value = card.value
-        values.append(value)
         if unique_values.has(value):
             unique_values[value] += 1
         else:
             unique_values[value] = 1
 
     for value in unique_values.keys():
-        if unique_values[value] > kind:
-            kind = unique_values[value]
+        if unique_values[value] == 3:
+            kind = 3
             highcard = value
+            break
 
-    if (kind > 2):
-        return {"kind": kind, "highcard": highcard}
+    if kind == 3:
+        return {"state": true, "highcard": highcard}
+    return {"state": false, "highcard": 0}
 
-    return {"kind": 0, "highcard": 0}
+func check_four_kind(cards: Array[Card]) -> Dictionary:
+    var unique_values = {}
+    var highcard = 0
+    var kind = 0
+
+    for card in cards:
+        var value = card.value
+        if unique_values.has(value):
+            unique_values[value] += 1
+        else:
+            unique_values[value] = 1
+
+    for value in unique_values.keys():
+        if unique_values[value] == 4:
+            kind = 4
+            highcard = value
+            break
+
+    if kind == 4:
+        return {"state": true, "highcard": highcard}
+    return {"state": false, "highcard": 0}
+
 
 func check_full_house(cards: Array[Card]) -> Dictionary:
     var card_counts = {}
