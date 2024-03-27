@@ -33,9 +33,9 @@ func determine_rank(cards: Array[Card]) -> void:
     Card.new("S", 3),  
     Card.new("S", 4),  
     Card.new("S", 5), 
-    Card.new("S", 13),  
-    Card.new("C", 13),  
-    Card.new("C", 12)  
+    Card.new("S", 6),  
+    Card.new("S", 7),  
+    Card.new("C", 8)  
   ]
 
  #check for royal flush
@@ -47,50 +47,57 @@ func determine_rank(cards: Array[Card]) -> void:
   self.rank = RankEnum.PAIR
   #print(str(rank))
 
-func check_straight_flush(cards: Array[Card]) -> bool:
+func check_straight_flush(cards: Array[Card]) -> Dictionary:
     var suits = []
     var values = []
     var unique_suits = {}
-    
+    var highcard = 0
+    var flush_suit = null  # Variable to store the suit of the flush
+
     # Extract suits and values from the cards
     for card in cards:
         var suit = card.suit
         var value = card.value
-        #if an ace (14) exists add a 1 to look for low straights as well
-        if(value == 14):
+        # If an ace (14) exists, add a 1 to look for low straights as well
+        if value == 14:
             values.append(1)
+        else:
+            values.append(value)
         suits.append(suit)
-        values.append(value)
         if unique_suits.has(suit):
             unique_suits[suit] += 1
+            if unique_suits[suit] >= 5:
+                flush_suit = suit  # Update the flush suit if it has at least 5 cards
         else:
             unique_suits[suit] = 1
-    print(unique_suits)
     
-    # Check if all cards are of the same suit
-    var is_flush = false
-    for count in unique_suits.values():
-        if(count >= 5):
-            is_flush = true
-            print("is flush: ",is_flush)
+    if not flush_suit:
+        return {"state": false, "highcard": highcard}
+
+    # Filter values to include only cards of the flush suit
+    var filtered_values = []
+    for i in range(values.size()):
+        if suits[i] == flush_suit:
+            filtered_values.append(values[i])
+    filtered_values.sort()
+    filtered_values.reverse()
     
-    if not is_flush:
-        return false  # Not a flush
-
-    # Sort the values in ascending order
-    values.sort()
-
+    var is_straight_flush = false
     # Check for a straight flush using a sliding window of 5 cards
-    for i in range(values.size() - 4):
-        var is_straight_flush = true
+    for i in range(len(filtered_values) - 4):
+        is_straight_flush = true
         for j in range(i + 1, i + 5):
-            if values[j] != values[j - 1] + 1:
+            if filtered_values[j] != filtered_values[j - 1] - 1:
                 is_straight_flush = false
                 break
         if is_straight_flush:
-            return true  # Found a straight flush
+            highcard = filtered_values[i]  # Assign highcard to the highest card in the straight flush
+            return {"state": true, "highcard": highcard}  # Found a straight flush
 
-    return false  # No straight flush found 
+    return {"state": false, "highcard": highcard}  # No straight flush found
+
+
+
    
 func check_royal_flush(cards: Array[Card]) -> bool:
     var suits = []
