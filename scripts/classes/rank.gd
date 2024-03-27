@@ -5,13 +5,13 @@ enum RankEnum {
   HIGH_CARD,
   PAIR,
   TWO_PAIR,
-  THREE_OF_A_KIND,
+  THREE_OF_A_KIND, # Finished
   STRAIGHT,
   FLUSH,
-  FULL_HOUSE,
-  FOUR_OF_A_KIND,
-  STRAIGHT_FLUSH,
-  ROYAL_FLUSH
+  FULL_HOUSE, # Finished
+  FOUR_OF_A_KIND, # Finished
+  STRAIGHT_FLUSH, # Finished
+  ROYAL_FLUSH # Finished
 }
 
 var rank: RankEnum
@@ -21,31 +21,37 @@ func _init() -> void:
   self.rank = RankEnum.HIGH_CARD
   self.value = 0
 
-func determine_rank(cards: Array[Card]) -> void:
-  """Determines the rank of the hand based on the cards provided. Can be 5-7 cards."""
-  
-  #print cards passed from card_logic.gd out this is a randomly generated deck for testing 
-  #for i in range(len(cards)):
-        #print(cards[i].suit, cards[i].value)
+func check_royal_flush(cards: Array[Card]) -> bool:
+    var suits = []
+    var values = []
+    
+    # Extract suits and values from the cards
+    for card in cards:
+        var suit = card.suit
+        var value = card.value
         
-  var test_cards: Array[Card] = [
-    Card.new("S", 2),  
-    Card.new("S", 3),  
-    Card.new("S", 4),  
-    Card.new("S", 5), 
-    Card.new("S", 6),  
-    Card.new("S", 7),  
-    Card.new("C", 8)  
-  ]
+        suits.append(suit)
+        values.append(value)
+    
+    # Check if all required cards are present in the hand
+    var required_values = [10, 11, 12, 13, 14] # Values for 10, J, Q, K, A
+    var royal_flush_suit = ""
+    var found_cards = 0
+    
+    for required_value in required_values:
+        var found = false
+        for i in range(cards.size()):
+            if values[i] == required_value and (royal_flush_suit == "" or suits[i] == royal_flush_suit):
+                royal_flush_suit = suits[i]
+                found = true
+                found_cards += 1
+                break
+        
+        if not found:
+            return false
 
- #check for royal flush
-  #print(check_royal_flush(test_cards))
-
-#check for straight flush
-  print(check_straight_flush(test_cards))
-  # Andrews Logic Here
-  self.rank = RankEnum.PAIR
-  #print(str(rank))
+    # Check if all required cards are of the same suit
+    return found_cards == required_values.size() and royal_flush_suit != ""
 
 func check_straight_flush(cards: Array[Card]) -> Dictionary:
     var suits = []
@@ -96,37 +102,55 @@ func check_straight_flush(cards: Array[Card]) -> Dictionary:
 
     return {"state": false, "highcard": highcard}  # No straight flush found
 
-
-
-   
-func check_royal_flush(cards: Array[Card]) -> bool:
-    var suits = []
+func check_multiple_kind(cards: Array[Card]) -> Dictionary:
     var values = []
-    
-    # Extract suits and values from the cards
-    for card in cards:
-        var suit = card.suit
-        var value = card.value
-        
-        suits.append(suit)
-        values.append(value)
-    
-    # Check if all required cards are present in the hand
-    var required_values = [10, 11, 12, 13, 14] # Values for 10, J, Q, K, A
-    var royal_flush_suit = ""
-    var found_cards = 0
-    
-    for required_value in required_values:
-        var found = false
-        for i in range(cards.size()):
-            if values[i] == required_value and (royal_flush_suit == "" or suits[i] == royal_flush_suit):
-                royal_flush_suit = suits[i]
-                found = true
-                found_cards += 1
-                break
-        
-        if not found:
-            return false
+    var unique_values = {}
+    var highcard = 0
+    var kind = 0
 
-    # Check if all required cards are of the same suit
-    return found_cards == required_values.size() and royal_flush_suit != ""
+    for card in cards:
+        var value = card.value
+        values.append(value)
+        if unique_values.has(value):
+            unique_values[value] += 1
+        else:
+            unique_values[value] = 1
+
+    for value in unique_values.keys():
+        if unique_values[value] > kind:
+            kind = unique_values[value]
+            highcard = value
+
+    if (kind > 2):
+        return {"kind": kind, "highcard": highcard}
+
+    return {"kind": 0, "highcard": 0}
+
+func check_full_house(cards: Array[Card]) -> Dictionary:
+    var card_counts = {}
+    for card in cards:
+        if card.value in card_counts:
+            card_counts[card.value] += 1
+        else:
+            card_counts[card.value] = 1
+
+    var three_kind = 0
+    var second_three_kind = 0
+    var pair = 0
+    for value in card_counts.keys():
+        var count = card_counts[value]
+        if count == 3:
+            if value > three_kind:
+                second_three_kind = three_kind
+                three_kind = value
+            elif value > second_three_kind:
+                second_three_kind = value
+        elif count == 2 and value > pair:
+            pair = value
+
+    if three_kind > 0 and (pair > 0 or second_three_kind > 0):
+        if pair == 0:
+            pair = second_three_kind
+        return {"three_kind": three_kind, "pair": pair}
+    else:
+        return {"three_kind": 0, "pair": 0}
