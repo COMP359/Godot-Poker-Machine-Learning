@@ -7,7 +7,7 @@ enum RankEnum {
   TWO_PAIR,
   THREE_OF_A_KIND, # Finished
   STRAIGHT,
-  FLUSH,
+  FLUSH, # Finished
   FULL_HOUSE, # Finished
   FOUR_OF_A_KIND, # Finished
   STRAIGHT_FLUSH, # Finished
@@ -170,5 +170,82 @@ func check_full_house(cards: Array[Card]) -> Dictionary:
         three_kind = 0
         pair = 0
         
-    return {"state": is_full_house, "three_kind_highcard": three_kind, "pair_card_type": pair}
+    return {"state": is_full_house, "three_kind_highcard": three_kind, "pair_highcard": pair}
 
+func check_flush(cards: Array[Card]) -> Dictionary:
+    var suit_counts = {}
+    var flush_cards = []
+
+    # Count the number of cards for each suit
+    for card in cards:
+        var suit = card.suit
+        var value = card.value
+        if suit in suit_counts:
+            suit_counts[suit] += 1
+        else:
+            suit_counts[suit] = 1
+
+    # Check if any suit has five or more cards
+    for suit in suit_counts.keys():
+        if suit_counts[suit] >= 5:
+            for card in cards:
+                if card.suit == suit:
+                    flush_cards.append(card.value)
+            flush_cards.sort()  # Sort cards 
+            
+            #flush cards needed for possible tie, cut to highest 5 to make the "best" flush
+            while flush_cards.size() > 5:
+                flush_cards.pop_front()
+
+            return {"state": true, "flush_cards": flush_cards}
+
+    return {"state": false}  # No flush found
+
+func check_straight(cards: Array[Card]) -> Dictionary:
+    # Make array of values
+    var values = []
+    for card in cards:
+        values.append(card.value)
+    
+    #ordered reverse to get the highest number straight
+    values.sort()
+    values.reverse()
+
+    # Check for a straight by iterating through sorted values
+    var is_straight = false
+    var straight_cards = []  # Initialize array to store cards in the straight
+    for i in range(len(values) - 4):  # Use len(values) - 4 to ensure enough cards for a straight
+        is_straight = true
+        for j in range(i + 1, i + 5):  # Check consecutive values in the descending straight
+            if values[j] != values[j - 1] - 1:
+                is_straight = false
+                break
+            else:
+                #store the highest straight
+                straight_cards.append(values[j-1])
+                straight_cards.append(values[j])
+                #remove duplicates
+                straight_cards = array_unique(straight_cards)
+                   
+        if is_straight:
+            print(straight_cards)
+            return {"state": true, "straight_cards": straight_cards}
+
+    return {"state": false}  # No straight found
+
+#removes duplicates from array
+func array_unique(array: Array) -> Array:
+    var unique: Array = []
+
+    for item in array:
+        if not unique.has(item):
+            unique.append(item)
+
+    return unique
+
+
+    
+
+ 
+      
+    
