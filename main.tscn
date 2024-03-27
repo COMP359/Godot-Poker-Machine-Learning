@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cxm2wy616ba6o"]
+[gd_scene load_steps=15 format=3 uid="uid://cxm2wy616ba6o"]
 
 [ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://assets/tiles/tile.png" id="1_biwwp"]
 [ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://assets/sprites/table-2.png" id="2_mi3hp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
 [ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://assets/sprites/dealer.png" id="5_c4uga"]
 [ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://scenes/slot_machine.tscn" id="6_b3ihe"]
+[ext_resource type="PackedScene" uid="uid://cht2u0r6p8u5x" path="res://scenes/game_ui.tscn" id="7_1yhxm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_440jg"]
 texture = ExtResource("1_biwwp")
@@ -141,3 +142,5 @@ shadow_color = Color(0, 0, 0, 0.0470588)
 shadow_filter_smooth = 3.6
 texture = ExtResource("3_jq61r")
 texture_scale = 0.5
+
+[node name="UI" parent="." instance=ExtResource("7_1yhxm")]
