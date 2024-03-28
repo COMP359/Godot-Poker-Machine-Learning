@@ -6,7 +6,7 @@ enum RankEnum {
   PAIR,
   TWO_PAIR,
   THREE_OF_A_KIND, # Finished
-  STRAIGHT,
+  STRAIGHT, # Finished
   FLUSH, # Finished
   FULL_HOUSE, # Finished
   FOUR_OF_A_KIND, # Finished
@@ -76,7 +76,7 @@ func check_straight_flush(cards: Array[Card]) -> Dictionary:
                 flush_suit = suit  # Update the flush suit if it has at least 5 cards
         else:
             unique_suits[suit] = 1
-    
+
     if not flush_suit:
         return {"state": false, "highcard": highcard}
 
@@ -87,7 +87,7 @@ func check_straight_flush(cards: Array[Card]) -> Dictionary:
             filtered_values.append(values[i])
     filtered_values.sort()
     filtered_values.reverse()
-    
+
     var is_straight_flush = false
     # Check for a straight flush using a sliding window of 5 cards
     for i in range(len(filtered_values) - 4):
@@ -103,26 +103,24 @@ func check_straight_flush(cards: Array[Card]) -> Dictionary:
     return {"state": false, "highcard": highcard}  # No straight flush found
 
 func check_three_kind(cards: Array[Card]) -> Dictionary:
-    var unique_values = {}
+    var card_counts = {}
     var highcard = 0
-    var kind = 0
 
     for card in cards:
         var value = card.value
-        if unique_values.has(value):
-            unique_values[value] += 1
+        if card_counts.has(value):
+            card_counts[value] += 1
         else:
-            unique_values[value] = 1
+            card_counts[value] = 1
 
-    for value in unique_values.keys():
-        if unique_values[value] == 3:
-            kind = 3
+    for value in card_counts.keys():
+        if card_counts[value] == 3 and value > highcard:
             highcard = value
-            break
 
-    if kind == 3:
+    if highcard > 0:
         return {"state": true, "highcard": highcard}
-    return {"state": false, "highcard": 0}
+    else:
+        return {"state": false, "highcard": 0}
 
 func check_four_kind(cards: Array[Card]) -> Dictionary:
     var unique_values = {}
@@ -155,21 +153,27 @@ func check_full_house(cards: Array[Card]) -> Dictionary:
             card_counts[card.value] = 1
 
     var three_kind = 0
+    var second_three_kind = 0
     var pair = 0
     for value in card_counts.keys():
         var count = card_counts[value]
         if count == 3:
-            three_kind = value
-        elif count == 2:
+            if value > three_kind:
+                second_three_kind = three_kind
+                three_kind = value
+            elif value > second_three_kind:
+                second_three_kind = value
+        elif count == 2 and value > pair:
             pair = value
 
-    var is_full_house = three_kind > 0 and pair > 0
+    var is_full_house = three_kind > 0 and (pair > 0 or second_three_kind > 0)
     
-    #set to 0 for convention on unit tests of highcard being 0 when false
     if not is_full_house:
         three_kind = 0
         pair = 0
-        
+    elif pair == 0:
+        pair = second_three_kind
+
     return {"state": is_full_house, "three_kind_highcard": three_kind, "pair_highcard": pair}
 
 func check_flush(cards: Array[Card]) -> Dictionary:
@@ -206,10 +210,13 @@ func check_straight(cards: Array[Card]) -> Dictionary:
     var values = []
     for card in cards:
         values.append(card.value)
-    
+
     #ordered reverse to get the highest number straight
     values.sort()
     values.reverse()
+
+    if values.has(14):
+        values.append(1)  # Add a 1 to check for low straights as well
 
     # Check for a straight by iterating through sorted values
     var is_straight = false
@@ -226,7 +233,7 @@ func check_straight(cards: Array[Card]) -> Dictionary:
                 straight_cards.append(values[j])
                 #remove duplicates
                 straight_cards = array_unique(straight_cards)
-                   
+
         if is_straight:
             print(straight_cards)
             return {"state": true, "straight_cards": straight_cards}
@@ -242,10 +249,3 @@ func array_unique(array: Array) -> Array:
             unique.append(item)
 
     return unique
-
-
-    
-
- 
-      
-    
