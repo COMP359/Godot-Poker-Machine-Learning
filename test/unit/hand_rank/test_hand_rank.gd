@@ -531,6 +531,7 @@ class TestDetermineHandRanking:
 			Card.new("S", 8),
 		]
 		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.STRAIGHT_FLUSH)
+		assert_eq(rank.straight_flush_cards, [6, 5, 4, 3, 2])
 
 	func test_determine_hand_ranking_case_three():
 		cards = [
@@ -543,6 +544,7 @@ class TestDetermineHandRanking:
 			Card.new("C", 8),
 		]
 		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.FOUR_OF_A_KIND)
+		assert_eq(rank.four_of_a_kind_highcard, 2)
 
 	func test_determine_hand_ranking_case_four():
 		cards = [
@@ -555,6 +557,8 @@ class TestDetermineHandRanking:
 			Card.new("C", 8),
 		]
 		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.FULL_HOUSE)
+		assert_eq(rank.full_house_three_kind_highcard, 7)
+		assert_eq(rank.full_house_pair_highcard, 2)
 	
 	func test_determine_hand_ranking_case_five():
 		cards = [
@@ -567,6 +571,7 @@ class TestDetermineHandRanking:
 			Card.new("S", 8),
 		]
 		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.FLUSH)
+		assert_eq(rank.flush_cards, [3, 4, 5, 7, 8])
 	
 	func test_determine_hand_ranking_case_six():
 		cards = [
@@ -579,6 +584,7 @@ class TestDetermineHandRanking:
 			Card.new("S", 8),
 		]
 		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.STRAIGHT)
+		assert_eq(rank.straight_cards, [8, 7, 6, 5, 4])
 	
 	func test_determine_hand_ranking_case_seven():
 		cards = [
@@ -591,6 +597,7 @@ class TestDetermineHandRanking:
 			Card.new("C", 8),
 		]
 		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.THREE_OF_A_KIND)
+		assert_eq(rank.three_of_a_kind_highcard, 2)
 
 	func test_determine_hand_ranking_case_eight():
 		cards = [
@@ -603,6 +610,8 @@ class TestDetermineHandRanking:
 			Card.new("C", 8),
 		]
 		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.TWO_PAIR)
+		assert_eq(rank.two_pair_high_pair, 3)
+		assert_eq(rank.two_pair_low_pair, 2)
 	
 	func test_determine_hand_ranking_case_nine():
 		cards = [
@@ -615,6 +624,7 @@ class TestDetermineHandRanking:
 			Card.new("C", 8),
 		]
 		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.PAIR)
+		assert_eq(rank.pair_high_card, 2)
 
 	func test_determine_hand_ranking_case_ten():
 		cards = [
@@ -627,3 +637,4 @@ class TestDetermineHandRanking:
 			Card.new("C", 8),
 		]
 		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.HIGH_CARD)
+		assert_eq(rank.high_card_in_rank, 12)
