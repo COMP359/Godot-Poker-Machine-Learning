@@ -3,6 +3,10 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	### Ui elements ###
+	# Lighter color for play against AI button
+	$playAIbutton.modulate = Color(3, 3, 3)
+
 	# Init text for balance to $100,000
 	$BlueBar/blueBal.text = "100K"
 	$RedBar/redBal.text = "100K"

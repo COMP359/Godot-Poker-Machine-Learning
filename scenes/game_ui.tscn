@@ -716,14 +716,15 @@ theme_override_fonts/normal_font = ExtResource("7_utfff")
 theme_override_font_sizes/normal_font_size = 3
 text = "TURN"
 
-[node name="Button" type="Button" parent="."]
+[node name="playAIbutton" type="Button" parent="."]
 anchors_preset = -1
 anchor_right = 0.025
 anchor_bottom = 0.044
-offset_left = 5.0
-offset_top = 163.0
-offset_right = 80.0
-offset_bottom = 168.08
+offset_left = 3.0
+offset_top = 161.0
+offset_right = 835.0
+offset_bottom = 313.08
+scale = Vector2(0.1, 0.1)
 theme_override_fonts/font = ExtResource("7_utfff")
-theme_override_font_sizes/font_size = 5
+theme_override_font_sizes/font_size = 40
 text = "PLAY AGAINST AI"
