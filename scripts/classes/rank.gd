@@ -71,15 +71,15 @@ func check_royal_flush(cards: Array[Card]) -> bool:
         if not found:
             return false
 
-    # Check if all required cards are of the same suit
-    return found_cards == required_values.size() and royal_flush_suit != ""
+	# Check if all required cards are of the same suit
+	return found_cards == required_values.size() and royal_flush_suit != ""
 
 func check_straight_flush(cards: Array[Card]) -> Dictionary:
-    var suits = []
-    var values = []
-    var unique_suits = {}
-    var highcard = 0
-    var flush_suit = null  # Variable to store the suit of the flush
+	var suits = []
+	var values = []
+	var unique_suits = {}
+	var highcard = 0
+	var flush_suit = null  # Variable to store the suit of the flush
 
     # Extract suits and values from the cards
     for card in cards:
@@ -151,26 +151,26 @@ func check_four_kind(cards: Array[Card]) -> Dictionary:
     return {"state": false, "highcard": 0}
 
 func check_full_house(cards: Array[Card]) -> Dictionary:
-    var card_counts = {}
-    for card in cards:
-        if card.value in card_counts:
-            card_counts[card.value] += 1
-        else:
-            card_counts[card.value] = 1
+	var card_counts = {}
+	for card in cards:
+		if card.value in card_counts:
+			card_counts[card.value] += 1
+		else:
+			card_counts[card.value] = 1
 
-    var three_kind = 0
-    var second_three_kind = 0
-    var pair = 0
-    for value in card_counts.keys():
-        var count = card_counts[value]
-        if count == 3:
-            if value > three_kind:
-                second_three_kind = three_kind
-                three_kind = value
-            elif value > second_three_kind:
-                second_three_kind = value
-        elif count == 2 and value > pair:
-            pair = value
+	var three_kind = 0
+	var second_three_kind = 0
+	var pair = 0
+	for value in card_counts.keys():
+		var count = card_counts[value]
+		if count == 3:
+			if value > three_kind:
+				second_three_kind = three_kind
+				three_kind = value
+			elif value > second_three_kind:
+				second_three_kind = value
+		elif count == 2 and value > pair:
+			pair = value
 
     var is_full_house = three_kind > 0 and (pair > 0 or second_three_kind > 0)
     
