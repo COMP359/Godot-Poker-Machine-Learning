@@ -5,13 +5,13 @@ enum RankEnum {
   HIGH_CARD,
   PAIR,
   TWO_PAIR,
-  THREE_OF_A_KIND, # Finished
-  STRAIGHT, # Finished
-  FLUSH, # Finished
-  FULL_HOUSE, # Finished
-  FOUR_OF_A_KIND, # Finished
-  STRAIGHT_FLUSH, # Finished
-  ROYAL_FLUSH # Finished
+  THREE_OF_A_KIND,
+  STRAIGHT,
+  FLUSH,
+  FULL_HOUSE,
+  FOUR_OF_A_KIND,
+  STRAIGHT_FLUSH,
+  ROYAL_FLUSH
 }
 
 var rank: RankEnum
@@ -101,26 +101,6 @@ func check_straight_flush(cards: Array[Card]) -> Dictionary:
             return {"state": true, "highcard": highcard}  # Found a straight flush
 
     return {"state": false, "highcard": highcard}  # No straight flush found
-
-func check_three_kind(cards: Array[Card]) -> Dictionary:
-    var card_counts = {}
-    var highcard = 0
-
-    for card in cards:
-        var value = card.value
-        if card_counts.has(value):
-            card_counts[value] += 1
-        else:
-            card_counts[value] = 1
-
-    for value in card_counts.keys():
-        if card_counts[value] == 3 and value > highcard:
-            highcard = value
-
-    if highcard > 0:
-        return {"state": true, "highcard": highcard}
-    else:
-        return {"state": false, "highcard": 0}
 
 func check_four_kind(cards: Array[Card]) -> Dictionary:
     var unique_values = {}
@@ -239,6 +219,74 @@ func check_straight(cards: Array[Card]) -> Dictionary:
             return {"state": true, "straight_cards": straight_cards}
 
     return {"state": false}  # No straight found
+
+func check_three_kind(cards: Array[Card]) -> Dictionary:
+    var card_counts = {}
+    var highcard = 0
+
+    for card in cards:
+        var value = card.value
+        if card_counts.has(value):
+            card_counts[value] += 1
+        else:
+            card_counts[value] = 1
+
+    for value in card_counts.keys():
+        if card_counts[value] == 3 and value > highcard:
+            highcard = value
+
+    if highcard > 0:
+        return {"state": true, "highcard": highcard}
+    else:
+        return {"state": false, "highcard": 0}
+
+func check_two_pair(cards: Array[Card]) -> Dictionary:
+    var card_counts = {}
+    var high_pair = 0
+    var low_pair = 0
+
+    for card in cards:
+        var value = card.value
+        if card_counts.has(value):
+            card_counts[value] += 1
+        else:
+            card_counts[value] = 1
+
+    for value in card_counts.keys():
+        if card_counts[value] == 2:
+            if value > high_pair:
+                low_pair = high_pair
+                high_pair = value
+            elif value > low_pair:
+                low_pair = value
+
+    var is_two_pair = high_pair > 0 and low_pair > 0
+
+    if not is_two_pair:
+        high_pair = 0
+        low_pair = 0
+
+    return {"state": is_two_pair, "high_pair": high_pair, "low_pair": low_pair}
+
+func check_pair(cards: Array[Card]) -> Dictionary:
+    var card_counts = {}
+    var highcard = 0
+
+    for card in cards:
+        var value = card.value
+        if card_counts.has(value):
+            card_counts[value] += 1
+        else:
+            card_counts[value] = 1
+
+    for value in card_counts.keys():
+        if card_counts[value] == 2 and value > highcard:
+            highcard = value
+
+    if highcard > 0:
+        return {"state": true, "highcard": highcard}
+    else:
+        return {"state": false, "highcard": 0}
 
 #removes duplicates from array
 func array_unique(array: Array) -> Array:
