@@ -1,0 +1,83 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmd48dmk1iwhu"]
+
+[ext_resource type="Script" path="res://scripts/ui/ai_controls.gd" id="1_03gs4"]
+[ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="1_408v5"]
+[ext_resource type="Texture2D" uid="uid://comij4wbbhdmy" path="res://assets/ui/white_arrow.png" id="2_bo60e"]
+[ext_resource type="Texture2D" uid="uid://dt3c2x3g2vndj" path="res://assets/ui/white_arrow_down.png" id="3_kxcn1"]
+
+[node name="AI_UI" type="CanvasLayer"]
+script = ExtResource("1_03gs4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 229.0
+offset_top = 133.0
+offset_right = 320.0
+offset_bottom = 180.0
+color = Color(0, 0, 0, 0.443137)
+
+[node name="gamesText" type="TextEdit" parent="."]
+anchors_preset = -1
+anchor_right = 0.025
+anchor_bottom = 0.044
+offset_left = 233.0
+offset_top = 146.0
+offset_right = 288.0
+offset_bottom = 156.08
+theme_override_fonts/font = ExtResource("1_408v5")
+theme_override_font_sizes/font_size = 6
+placeholder_text = "# Games"
+scroll_v_scroll_speed = 1.0
+
+[node name="arrowUp" type="TextureButton" parent="."]
+offset_left = 302.0
+offset_top = 147.0
+offset_right = 399.0
+offset_bottom = 231.0
+scale = Vector2(0.08, 0.08)
+texture_normal = ExtResource("2_bo60e")
+
+[node name="arrowDown" type="TextureButton" parent="."]
+offset_left = 302.0
+offset_top = 155.0
+offset_right = 399.0
+offset_bottom = 239.0
+scale = Vector2(0.08, 0.08)
+texture_normal = ExtResource("3_kxcn1")
+
+[node name="simulateButton" type="Button" parent="."]
+anchors_preset = -1
+anchor_right = 0.025
+anchor_bottom = 0.044
+offset_left = 233.0
+offset_top = 166.0
+offset_right = 625.0
+offset_bottom = 268.08
+scale = Vector2(0.1, 0.1)
+theme_override_fonts/font = ExtResource("1_408v5")
+theme_override_font_sizes/font_size = 40
+text = "SIMULATE"
+
+[node name="stopButton" type="Button" parent="."]
+anchors_preset = -1
+anchor_right = 0.025
+anchor_bottom = 0.044
+offset_left = 276.0
+offset_top = 166.0
+offset_right = 668.0
+offset_bottom = 268.08
+scale = Vector2(0.1, 0.1)
+theme_override_fonts/font = ExtResource("1_408v5")
+theme_override_font_sizes/font_size = 40
+text = "STOP"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 233.0
+offset_top = 136.0
+offset_right = 316.0
+offset_bottom = 145.0
+theme_override_fonts/normal_font = ExtResource("1_408v5")
+theme_override_font_sizes/normal_font_size = 5
+text = "TRAIN AI"
+
+[connection signal="pressed" from="arrowUp" to="." method="_on_arrow_up_pressed"]
+[connection signal="pressed" from="arrowDown" to="." method="_on_arrow_down_pressed"]

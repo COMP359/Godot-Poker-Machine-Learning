@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://assets/sprites/dealer.png" id="5_c4uga"]
 [ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://scenes/slot_machine.tscn" id="6_b3ihe"]
 [ext_resource type="PackedScene" uid="uid://c4aek5qcrjwfq" path="res://scenes/game_ui.tscn" id="7_1yhxm"]
-[ext_resource type="Script" path="res://scripts/game_ui.gd" id="8_x6skd"]
+[ext_resource type="Script" path="res://scripts/ui/game_ui.gd" id="8_x6skd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_440jg"]
 texture = ExtResource("1_biwwp")
@@ -51,7 +51,7 @@ position = Vector2(24.2654, 91.7305)
 texture = ExtResource("2_mi3hp")
 
 [node name="Casino Board" type="Sprite2D" parent="."]
-position = Vector2(173, 81)
+position = Vector2(158, 81)
 texture = ExtResource("3_3h1r3")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Casino Board"]
@@ -78,7 +78,7 @@ texture = ExtResource("3_jq61r")
 texture_scale = 0.5
 
 [node name="Dealer" type="Sprite2D" parent="."]
-position = Vector2(172, 101)
+position = Vector2(157, 101)
 texture = ExtResource("5_c4uga")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Dealer"]
@@ -115,6 +115,7 @@ texture = ExtResource("3_jq61r")
 texture_scale = 0.5
 
 [node name="SlotMachine2" parent="." instance=ExtResource("6_b3ihe")]
+visible = false
 position = Vector2(294.365, 130.64)
 scale = Vector2(1.25, 1.25)
 SlotFinishedTimeout = 10.0

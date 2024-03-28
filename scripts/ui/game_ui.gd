@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+var potAmount = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -55,7 +56,7 @@ func _ready():
 		flipped_texture_rect.texture = flipped_card_texture
 
 		# Add to hboxcontainer (visual representation of cards)
-		$Cards/table.add_child(flipped_texture_rect)
+		$Pot/table.add_child(flipped_texture_rect)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -75,6 +76,14 @@ func _process(delta):
 	($GreenBar/greenBal.text.to_float()*10))) * 0.8
 
 	# Update pot amount by adding all bets
-	$Pot/potAmount.text = "[center]$"+str($BlueBar/blueBet.text.to_int() +
-		$RedBar/redBet.text.to_int() + $YellowBar/yellowBet.text.to_int() +
-		$GreenBar/greenBet.text.to_int())+"[/center]"
+	potAmount = ($BlueBar/blueBet.text.to_int()
+		+ $RedBar/redBet.text.to_int()
+		+ $YellowBar/yellowBet.text.to_int()
+		+ $GreenBar/greenBet.text.to_int())
+
+	# Add comma to pot amount
+	if potAmount > 999:
+		potAmount = str(potAmount)
+		potAmount = potAmount.insert(len(potAmount)-3, ",")
+
+	$Pot/potAmount.text = "[center]$"+potAmount+"[/center]"

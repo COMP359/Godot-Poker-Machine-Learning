@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4aek5qcrjwfq"]
+[gd_scene load_steps=11 format=3 uid="uid://c4aek5qcrjwfq"]
 
 [ext_resource type="Texture2D" uid="uid://b6xrhk5bc33lv" path="res://assets/ui/blue_headshot.png" id="1_t8h5y"]
 [ext_resource type="Texture2D" uid="uid://bqtl44a8lnebk" path="res://assets/ui/progbar_under.png" id="3_cyg1k"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://ct2mldcsqkfc4" path="res://assets/ui/yellow_headshot.png" id="5_iryhc"]
 [ext_resource type="Texture2D" uid="uid://deh72ic2klxhh" path="res://assets/ui/green_headshot.png" id="6_eaibn"]
 [ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="7_utfff"]
+[ext_resource type="Script" path="res://scripts/ui/ai_player_switch.gd" id="8_hxrc6"]
+[ext_resource type="PackedScene" uid="uid://dqjrh2sbt25nj" path="res://scenes/player_controls.tscn" id="9_3rj0d"]
+[ext_resource type="PackedScene" uid="uid://cmd48dmk1iwhu" path="res://scenes/ai_controls.tscn" id="10_eu5m8"]
 
 [node name="UI" type="CanvasLayer"]
 
@@ -14,16 +17,17 @@
 z_index = -5
 layout_mode = 3
 anchors_preset = 0
-offset_top = -5.0
+offset_top = -10.0
 offset_right = 87.0
-offset_bottom = 143.0
+offset_bottom = 138.0
+scale = Vector2(0.9, 0.9)
 
 [node name="blueHand" type="HBoxContainer" parent="Cards"]
 layout_mode = 0
 offset_left = 39.0
-offset_top = 12.0
+offset_top = 15.3333
 offset_right = 1082.0
-offset_bottom = 387.0
+offset_bottom = 390.333
 scale = Vector2(0.04, 0.04)
 theme_override_constants/separation = 50
 
@@ -35,36 +39,28 @@ anchor_top = 0.318
 anchor_right = 0.928
 anchor_bottom = 0.419
 offset_left = 0.0239983
-offset_top = -0.064003
+offset_top = 6.6026
 offset_right = 1001.26
-offset_bottom = 359.988
+offset_bottom = 366.655
 scale = Vector2(0.04, 0.04)
 theme_override_constants/separation = 50
 
 [node name="yellowHand" type="HBoxContainer" parent="Cards"]
 layout_mode = 0
 offset_left = 39.0
-offset_top = 82.0
+offset_top = 93.1108
 offset_right = 1082.0
-offset_bottom = 457.0
+offset_bottom = 468.111
 scale = Vector2(0.04, 0.04)
 theme_override_constants/separation = 50
 
 [node name="greenHand" type="HBoxContainer" parent="Cards"]
 layout_mode = 0
 offset_left = 39.0
-offset_top = 117.0
+offset_top = 131.444
 offset_right = 1082.0
-offset_bottom = 492.0
+offset_bottom = 506.444
 scale = Vector2(0.04, 0.04)
-theme_override_constants/separation = 50
-
-[node name="table" type="HBoxContainer" parent="Cards"]
-offset_left = 193.0
-offset_top = 10.0
-offset_right = 3018.0
-offset_bottom = 485.0
-scale = Vector2(0.045, 0.045)
 theme_override_constants/separation = 50
 
 [node name="Pot" type="Control" parent="."]
@@ -74,6 +70,15 @@ anchor_right = 1.0
 anchor_bottom = 0.344
 offset_left = -0.12001
 offset_bottom = -59.92
+
+[node name="table" type="HBoxContainer" parent="Pot"]
+layout_mode = 0
+offset_left = 35.7
+offset_top = 4.0
+offset_right = 2860.7
+offset_bottom = 479.0
+scale = Vector2(0.045, 0.045)
+theme_override_constants/separation = 50
 
 [node name="potBackground" type="ColorRect" parent="Pot"]
 layout_mode = 0
@@ -122,9 +127,10 @@ layout_mode = 3
 anchor_top = 0.15
 anchor_right = 0.272
 anchor_bottom = 0.239
-offset_top = -5.0
+offset_top = -10.0
 offset_right = -0.0400085
-offset_bottom = -5.02
+offset_bottom = -10.02
+scale = Vector2(0.9, 0.9)
 
 [node name="blueRect" type="ColorRect" parent="BlueBar"]
 layout_mode = 1
@@ -270,9 +276,10 @@ layout_mode = 3
 anchor_top = 0.351
 anchor_right = 0.268
 anchor_bottom = 0.433
-offset_top = -6.18
+offset_top = -11.18
 offset_right = 1.24
-offset_bottom = -4.94
+offset_bottom = -9.94
+scale = Vector2(0.9, 0.9)
 
 [node name="redRect" type="ColorRect" parent="RedBar"]
 layout_mode = 1
@@ -415,9 +422,10 @@ layout_mode = 3
 anchor_top = 0.539
 anchor_right = 0.272
 anchor_bottom = 0.628
-offset_top = -5.02
+offset_top = -10.02
 offset_right = -0.0400085
-offset_bottom = -5.04
+offset_bottom = -10.04
+scale = Vector2(0.9, 0.9)
 
 [node name="yellowRect" type="ColorRect" parent="YellowBar"]
 layout_mode = 1
@@ -560,9 +568,10 @@ layout_mode = 3
 anchor_top = 0.733
 anchor_right = 0.272
 anchor_bottom = 0.822
-offset_top = -4.94
+offset_top = -9.94
 offset_right = -0.0400085
-offset_bottom = -4.96001
+offset_bottom = -9.96001
+scale = Vector2(0.9, 0.9)
 
 [node name="greenRect" type="ColorRect" parent="GreenBar"]
 layout_mode = 1
@@ -701,9 +710,11 @@ theme_override_font_sizes/normal_font_size = 3
 text = "154K"
 
 [node name="TurnBox" type="ColorRect" parent="."]
-offset_top = 38.0
+z_index = -4
+offset_top = 31.0
 offset_right = 15.0
-offset_bottom = 43.0
+offset_bottom = 36.0
+scale = Vector2(0.9, 0.9)
 color = Color(0.560784, 0.819608, 0.309804, 1)
 
 [node name="TurnText" type="RichTextLabel" parent="TurnBox"]
@@ -722,9 +733,16 @@ anchor_right = 0.025
 anchor_bottom = 0.044
 offset_left = 3.0
 offset_top = 161.0
-offset_right = 835.0
+offset_right = 745.0
 offset_bottom = 313.08
 scale = Vector2(0.1, 0.1)
 theme_override_fonts/font = ExtResource("7_utfff")
 theme_override_font_sizes/font_size = 40
 text = "PLAY AGAINST AI"
+script = ExtResource("8_hxrc6")
+
+[node name="Player_UI" parent="." instance=ExtResource("9_3rj0d")]
+
+[node name="AI_UI" parent="." instance=ExtResource("10_eu5m8")]
+
+[connection signal="pressed" from="playAIbutton" to="playAIbutton" method="_on_ai_button_pressed"]
