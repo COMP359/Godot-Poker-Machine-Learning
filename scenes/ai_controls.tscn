@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/ai_controls.gd" id="1_03gs4"]
 [ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="1_408v5"]
-[ext_resource type="Texture2D" uid="uid://comij4wbbhdmy" path="res://assets/ui/white_arrow.png" id="2_bo60e"]
+[ext_resource type="Texture2D" uid="uid://comij4wbbhdmy" path="res://assets/ui/white_arrow_up.png" id="2_bo60e"]
 [ext_resource type="Texture2D" uid="uid://dt3c2x3g2vndj" path="res://assets/ui/white_arrow_down.png" id="3_kxcn1"]
 
 [node name="AI_UI" type="CanvasLayer"]
