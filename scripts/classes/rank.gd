@@ -15,24 +15,33 @@ enum RankEnum {
 }
 
 var rank: RankEnum
+
+# Variables to store additional information about the hand for tie-breaking
+# (Not all variables are used for all hand rankings)
 var high_card_in_rank: int
+var four_of_a_kind_highcard: int
 var straight_flush_cards: Array[int]
 var full_house_three_kind_highcard: int
 var full_house_pair_highcard: int
 var flush_cards: Array[int]
 var straight_cards: Array[int]
+var three_of_a_kind_highcard: int
 var two_pair_high_pair: int
 var two_pair_low_pair: int
+var pair_high_card: int
 
 func _init() -> void:
   self.rank = RankEnum.HIGH_CARD
   self.high_card_in_rank = 0
+  self.four_of_a_kind_highcard = 0
   self.full_house_three_kind_highcard = 0
   self.full_house_pair_highcard = 0
   self.flush_cards = []
   self.straight_cards = []
+  self.three_of_a_kind_highcard = 0
   self.two_pair_high_pair = 0
   self.two_pair_low_pair = 0
+  self.pair_high_card = 0
 
 func check_royal_flush(cards: Array[Card]) -> bool:
     var suits = []
@@ -322,7 +331,7 @@ func determine_hand_ranking(player_and_community_cards: Array[Card]) -> RankEnum
     var four_kind = check_four_kind(cards)
     if four_kind["state"]:
         rank = RankEnum.FOUR_OF_A_KIND
-        high_card_in_rank = four_kind["highcard"]
+        four_of_a_kind_highcard = four_kind["highcard"]
         return rank
 
     var full_house = check_full_house(cards)
@@ -347,7 +356,7 @@ func determine_hand_ranking(player_and_community_cards: Array[Card]) -> RankEnum
     var three_kind = check_three_kind(cards)
     if three_kind["state"]:
         rank = RankEnum.THREE_OF_A_KIND
-        high_card_in_rank = three_kind["highcard"]
+        three_of_a_kind_highcard = three_kind["highcard"]
         return rank
 
     var two_pair = check_two_pair(cards)
@@ -360,8 +369,13 @@ func determine_hand_ranking(player_and_community_cards: Array[Card]) -> RankEnum
     var pair = check_pair(cards)
     if pair["state"]:
         rank = RankEnum.PAIR
-        high_card_in_rank = pair["highcard"]
+        pair_high_card = pair["highcard"]
         return rank
+
+    # Find the highest card in the hand if no other hand is found
+    for card in cards:
+        if card.value > high_card_in_rank:
+            high_card_in_rank = card.value
 
     return RankEnum.HIGH_CARD
 
