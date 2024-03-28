@@ -62,7 +62,7 @@ class TestStraightFlushHandRanking:
 			Card.new("C", 7),
 			Card.new("C", 8),
 		]
-		assert_eq(rank.check_straight_flush(cards), {"state": true, "highcard":6})
+		assert_eq(rank.check_straight_flush(cards), {"state": true, "cards": [6, 5, 4, 3, 2]})
 
 	func test_straight_flush_case_two():
 		cards = [
@@ -74,7 +74,7 @@ class TestStraightFlushHandRanking:
 			Card.new("S", 7),
 			Card.new("C", 8),
 		]
-		assert_eq(rank.check_straight_flush(cards), {"state": true, "highcard":7})
+		assert_eq(rank.check_straight_flush(cards), {"state": true, "cards": [7, 6, 5, 4, 3]})
 
 	func test_straight_flush_case_three():
 		cards = [
@@ -86,7 +86,7 @@ class TestStraightFlushHandRanking:
 			Card.new("S", 7),
 			Card.new("S", 8),
 		]
-		assert_eq(rank.check_straight_flush(cards), {"state": true, "highcard":8})
+		assert_eq(rank.check_straight_flush(cards), {"state": true, "cards": [8, 7, 6, 5, 4]})
 
 	func test_straight_flush_case_four():
 		cards = [
@@ -99,7 +99,7 @@ class TestStraightFlushHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_straight_flush(cards), {"state": true, "highcard":5})
+		assert_eq(rank.check_straight_flush(cards), {"state": true, "cards": [5, 4, 3, 2, 1]})
 
 	func test_straight_flush_case_five():
 		cards = [
@@ -112,7 +112,7 @@ class TestStraightFlushHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_straight_flush(cards), {"state": false, "highcard":0})
+		assert_eq(rank.check_straight_flush(cards), {"state": false, "cards": []})
 
 	func test_straight_flush_case_six():
 		cards = [
@@ -122,7 +122,7 @@ class TestStraightFlushHandRanking:
 			Card.new("H", 5),
 			Card.new("S", 6)
 		]
-		assert_eq(rank.check_straight_flush(cards), {"state": false, "highcard":0})
+		assert_eq(rank.check_straight_flush(cards), {"state": false, "cards": []})
 
 class TestFourKindHandRanking:
 	extends GutTest
@@ -189,7 +189,7 @@ class TestFullHouseHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_full_house(cards), {"state": true, "three_kind_highcard": 2, "pair_highcard": 3})
+		assert_eq(rank.check_full_house(cards), {"state": true, "full_house_three_kind_highcard": 2, "full_house_pair_highcard": 3})
 
 	func test_full_house_case_two():
 		cards = [
@@ -202,7 +202,7 @@ class TestFullHouseHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_full_house(cards), {"state": false, "three_kind_highcard": 0, "pair_highcard": 0})
+		assert_eq(rank.check_full_house(cards), {"state": false, "full_house_three_kind_highcard": 0, "full_house_pair_highcard": 0})
 		
 	func test_full_house_case_three():
 		cards = [
@@ -215,7 +215,7 @@ class TestFullHouseHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_full_house(cards), {"state": false, "three_kind_highcard": 0, "pair_highcard": 0})
+		assert_eq(rank.check_full_house(cards), {"state": false, "full_house_three_kind_highcard": 0, "full_house_pair_highcard": 0})
 	
 	func test_full_house_case_four():
 		cards = [
@@ -228,7 +228,7 @@ class TestFullHouseHandRanking:
 			Card.new("C", 8),
 		]
 
-		assert_eq(rank.check_full_house(cards), {"state": true, "three_kind_highcard": 3, "pair_highcard": 2})
+		assert_eq(rank.check_full_house(cards), {"state": true, "full_house_three_kind_highcard": 3, "full_house_pair_highcard": 2})
 	
 	func test_full_house_case_five():
 		cards = [
@@ -241,7 +241,7 @@ class TestFullHouseHandRanking:
 			Card.new("C", 9),
 		]
 
-		assert_eq(rank.check_full_house(cards), {"state": true, "three_kind_highcard": 2, "pair_highcard": 9})
+		assert_eq(rank.check_full_house(cards), {"state": true, "full_house_three_kind_highcard": 2, "full_house_pair_highcard": 9})
 
 class TestFlushHandRanking:
 	extends GutTest
@@ -428,7 +428,7 @@ class TestTwoPairHandRanking:
 			Card.new("C", 7),
 			Card.new("C", 3),
 		]
-		assert_eq(rank.check_two_pair(cards), {"state": true, "high_pair": 3, "low_pair": 2})
+		assert_eq(rank.check_two_pair(cards), {"state": true, "two_pair_high_pair": 3, "two_pair_low_pair": 2})
 
 	func test_two_pair_case_two():
 		cards = [
@@ -440,7 +440,7 @@ class TestTwoPairHandRanking:
 			Card.new("C", 4),
 			Card.new("C", 8),
 		]
-		assert_eq(rank.check_two_pair(cards), {"state": true, "high_pair": 4, "low_pair": 3})
+		assert_eq(rank.check_two_pair(cards), {"state": true, "two_pair_high_pair": 4, "two_pair_low_pair": 3})
 
 	func test_two_pair_case_three():
 		cards = [
@@ -452,7 +452,7 @@ class TestTwoPairHandRanking:
 			Card.new("C", 5),
 			Card.new("C", 9),
 		]
-		assert_eq(rank.check_two_pair(cards), {"state": false, "high_pair": 0, "low_pair": 0})
+		assert_eq(rank.check_two_pair(cards), {"state": false, "two_pair_high_pair": 0, "two_pair_low_pair": 0})
 
 class TestPairHandRanking:
 	extends GutTest
@@ -498,3 +498,132 @@ class TestPairHandRanking:
 			Card.new("C", 8),
 		]
 		assert_eq(rank.check_pair(cards), {"state": false, "highcard": 0})
+
+class TestDetermineHandRanking:
+	extends GutTest
+
+	var rank = null
+	var cards: Array[Card] = []
+
+	func before_each():
+		rank = Rank.new()
+
+	func test_determine_hand_ranking_case_one():
+		cards = [
+			Card.new("S", 10),
+			Card.new("S", 3),
+			Card.new("S", 11),
+			Card.new("S", 12),
+			Card.new("S", 13),
+			Card.new("C", 7),
+			Card.new("S", 14),
+		]
+		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.ROYAL_FLUSH)
+
+	func test_determine_hand_ranking_case_two():
+		cards = [
+			Card.new("S", 2),
+			Card.new("S", 3),
+			Card.new("S", 4),
+			Card.new("S", 5),
+			Card.new("S", 6),
+			Card.new("C", 7),
+			Card.new("S", 8),
+		]
+		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.STRAIGHT_FLUSH)
+
+	func test_determine_hand_ranking_case_three():
+		cards = [
+			Card.new("S", 2),
+			Card.new("S", 2),
+			Card.new("C", 2),
+			Card.new("S", 7),
+			Card.new("S", 2),
+			Card.new("C", 7),
+			Card.new("C", 8),
+		]
+		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.FOUR_OF_A_KIND)
+
+	func test_determine_hand_ranking_case_four():
+		cards = [
+			Card.new("S", 2),
+			Card.new("S", 2),
+			Card.new("C", 2),
+			Card.new("S", 7),
+			Card.new("S", 7),
+			Card.new("C", 7),
+			Card.new("C", 8),
+		]
+		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.FULL_HOUSE)
+	
+	func test_determine_hand_ranking_case_five():
+		cards = [
+			Card.new("S", 2),
+			Card.new("S", 3),
+			Card.new("S", 4),
+			Card.new("S", 5),
+			Card.new("S", 7),
+			Card.new("C", 7),
+			Card.new("S", 8),
+		]
+		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.FLUSH)
+	
+	func test_determine_hand_ranking_case_six():
+		cards = [
+			Card.new("S", 2),
+			Card.new("S", 3),
+			Card.new("C", 4),
+			Card.new("S", 5),
+			Card.new("D", 6),
+			Card.new("C", 7),
+			Card.new("S", 8),
+		]
+		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.STRAIGHT)
+	
+	func test_determine_hand_ranking_case_seven():
+		cards = [
+			Card.new("S", 2),
+			Card.new("S", 2),
+			Card.new("C", 2),
+			Card.new("S", 3),
+			Card.new("S", 4),
+			Card.new("C", 7),
+			Card.new("C", 8),
+		]
+		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.THREE_OF_A_KIND)
+
+	func test_determine_hand_ranking_case_eight():
+		cards = [
+			Card.new("S", 2),
+			Card.new("S", 2),
+			Card.new("C", 3),
+			Card.new("S", 3),
+			Card.new("S", 4),
+			Card.new("C", 7),
+			Card.new("C", 8),
+		]
+		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.TWO_PAIR)
+	
+	func test_determine_hand_ranking_case_nine():
+		cards = [
+			Card.new("S", 2),
+			Card.new("S", 2),
+			Card.new("C", 3),
+			Card.new("S", 4),
+			Card.new("S", 5),
+			Card.new("C", 7),
+			Card.new("C", 8),
+		]
+		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.PAIR)
+
+	func test_determine_hand_ranking_case_ten():
+		cards = [
+			Card.new("S", 2),
+			Card.new("S", 10),
+			Card.new("C", 4),
+			Card.new("S", 11),
+			Card.new("S", 6),
+			Card.new("C", 12),
+			Card.new("C", 8),
+		]
+		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.HIGH_CARD)

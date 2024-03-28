@@ -15,11 +15,24 @@ enum RankEnum {
 }
 
 var rank: RankEnum
-var value: int
+var high_card_in_rank: int
+var straight_flush_cards: Array[int]
+var full_house_three_kind_highcard: int
+var full_house_pair_highcard: int
+var flush_cards: Array[int]
+var straight_cards: Array[int]
+var two_pair_high_pair: int
+var two_pair_low_pair: int
 
 func _init() -> void:
   self.rank = RankEnum.HIGH_CARD
-  self.value = 0
+  self.high_card_in_rank = 0
+  self.full_house_three_kind_highcard = 0
+  self.full_house_pair_highcard = 0
+  self.flush_cards = []
+  self.straight_cards = []
+  self.two_pair_high_pair = 0
+  self.two_pair_low_pair = 0
 
 func check_royal_flush(cards: Array[Card]) -> bool:
     var suits = []
@@ -78,7 +91,7 @@ func check_straight_flush(cards: Array[Card]) -> Dictionary:
             unique_suits[suit] = 1
 
     if not flush_suit:
-        return {"state": false, "highcard": highcard}
+        return {"state": false, "cards": []}
 
     # Filter values to include only cards of the flush suit
     var filtered_values = []
@@ -89,18 +102,23 @@ func check_straight_flush(cards: Array[Card]) -> Dictionary:
     filtered_values.reverse()
 
     var is_straight_flush = false
+    var flush_cards: Array[int] = []  # Initialize array to store cards in the straight flush
     # Check for a straight flush using a sliding window of 5 cards
     for i in range(len(filtered_values) - 4):
+        flush_cards = []  # Reset the array of cards in the straight flush
         is_straight_flush = true
         for j in range(i + 1, i + 5):
             if filtered_values[j] != filtered_values[j - 1] - 1:
                 is_straight_flush = false
                 break
+            flush_cards.append(filtered_values[j - 1])
         if is_straight_flush:
             highcard = filtered_values[i]  # Assign highcard to the highest card in the straight flush
-            return {"state": true, "highcard": highcard}  # Found a straight flush
+            var lowest_card = flush_cards[flush_cards.size() - 1]
+            flush_cards.append(lowest_card - 1)  # Append one more card that is one less than the lowest card
+            return {"state": true, "cards": flush_cards}  # Found a straight flush
 
-    return {"state": false, "highcard": highcard}  # No straight flush found
+    return {"state": false, "cards": []}  # No straight flush found
 
 func check_four_kind(cards: Array[Card]) -> Dictionary:
     var unique_values = {}
@@ -154,11 +172,11 @@ func check_full_house(cards: Array[Card]) -> Dictionary:
     elif pair == 0:
         pair = second_three_kind
 
-    return {"state": is_full_house, "three_kind_highcard": three_kind, "pair_highcard": pair}
+    return {"state": is_full_house, "full_house_three_kind_highcard": three_kind, "full_house_pair_highcard": pair}
 
 func check_flush(cards: Array[Card]) -> Dictionary:
     var suit_counts = {}
-    var flush_cards = []
+    var flush_cards: Array[int] = []
 
     # Count the number of cards for each suit
     for card in cards:
@@ -200,7 +218,7 @@ func check_straight(cards: Array[Card]) -> Dictionary:
 
     # Check for a straight by iterating through sorted values
     var is_straight = false
-    var straight_cards = []  # Initialize array to store cards in the straight
+    var straight_cards: Array[int] = []  # Initialize array to store cards in the straight
     for i in range(len(values) - 4):  # Use len(values) - 4 to ensure enough cards for a straight
         is_straight = true
         for j in range(i + 1, i + 5):  # Check consecutive values in the descending straight
@@ -266,7 +284,7 @@ func check_two_pair(cards: Array[Card]) -> Dictionary:
         high_pair = 0
         low_pair = 0
 
-    return {"state": is_two_pair, "high_pair": high_pair, "low_pair": low_pair}
+    return {"state": is_two_pair, "two_pair_high_pair": high_pair, "two_pair_low_pair": low_pair}
 
 func check_pair(cards: Array[Card]) -> Dictionary:
     var card_counts = {}
@@ -288,9 +306,68 @@ func check_pair(cards: Array[Card]) -> Dictionary:
     else:
         return {"state": false, "highcard": 0}
 
+func determine_hand_ranking(player_and_community_cards: Array[Card]) -> RankEnum:
+    var cards = player_and_community_cards
+
+    if check_royal_flush(cards):
+        rank = RankEnum.ROYAL_FLUSH
+        return rank
+
+    var straight_flush = check_straight_flush(cards)
+    if straight_flush["state"]:
+        rank = RankEnum.STRAIGHT_FLUSH
+        straight_flush_cards = straight_flush["cards"]
+        return rank
+
+    var four_kind = check_four_kind(cards)
+    if four_kind["state"]:
+        rank = RankEnum.FOUR_OF_A_KIND
+        high_card_in_rank = four_kind["highcard"]
+        return rank
+
+    var full_house = check_full_house(cards)
+    if full_house["state"]:
+        rank = RankEnum.FULL_HOUSE
+        full_house_three_kind_highcard = full_house["full_house_three_kind_highcard"]
+        full_house_pair_highcard = full_house["full_house_pair_highcard"]
+        return rank
+
+    var flush = check_flush(cards)
+    if flush["state"]:
+        rank = RankEnum.FLUSH
+        flush_cards = flush["flush_cards"]
+        return rank
+
+    var straight = check_straight(cards)
+    if straight["state"]:
+        rank = RankEnum.STRAIGHT
+        straight_cards = straight["straight_cards"]
+        return rank
+
+    var three_kind = check_three_kind(cards)
+    if three_kind["state"]:
+        rank = RankEnum.THREE_OF_A_KIND
+        high_card_in_rank = three_kind["highcard"]
+        return rank
+
+    var two_pair = check_two_pair(cards)
+    if two_pair["state"]:
+        rank = RankEnum.TWO_PAIR
+        two_pair_high_pair = two_pair["two_pair_high_pair"]
+        two_pair_low_pair = two_pair["two_pair_low_pair"]
+        return rank
+
+    var pair = check_pair(cards)
+    if pair["state"]:
+        rank = RankEnum.PAIR
+        high_card_in_rank = pair["highcard"]
+        return rank
+
+    return RankEnum.HIGH_CARD
+
 #removes duplicates from array
-func array_unique(array: Array) -> Array:
-    var unique: Array = []
+func array_unique(array: Array[int]) -> Array[int]:
+    var unique: Array[int] = []
 
     for item in array:
         if not unique.has(item):
