@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cxm2wy616ba6o"]
+[gd_scene load_steps=16 format=3 uid="uid://cxm2wy616ba6o"]
 
 [ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://assets/tiles/tile.png" id="1_biwwp"]
 [ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://assets/sprites/table-2.png" id="2_mi3hp"]
@@ -6,7 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
 [ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://assets/sprites/dealer.png" id="5_c4uga"]
 [ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://scenes/slot_machine.tscn" id="6_b3ihe"]
-[ext_resource type="PackedScene" uid="uid://cht2u0r6p8u5x" path="res://scenes/game_ui.tscn" id="7_1yhxm"]
+[ext_resource type="PackedScene" uid="uid://c4aek5qcrjwfq" path="res://scenes/game_ui.tscn" id="7_1yhxm"]
+[ext_resource type="Script" path="res://scripts/game_ui.gd" id="8_x6skd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_440jg"]
 texture = ExtResource("1_biwwp")
@@ -50,7 +51,7 @@ position = Vector2(24.2654, 91.7305)
 texture = ExtResource("2_mi3hp")
 
 [node name="Casino Board" type="Sprite2D" parent="."]
-position = Vector2(155, 81)
+position = Vector2(173, 81)
 texture = ExtResource("3_3h1r3")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Casino Board"]
@@ -77,7 +78,7 @@ texture = ExtResource("3_jq61r")
 texture_scale = 0.5
 
 [node name="Dealer" type="Sprite2D" parent="."]
-position = Vector2(155, 101)
+position = Vector2(172, 101)
 texture = ExtResource("5_c4uga")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Dealer"]
@@ -144,3 +145,4 @@ texture = ExtResource("3_jq61r")
 texture_scale = 0.5
 
 [node name="UI" parent="." instance=ExtResource("7_1yhxm")]
+script = ExtResource("8_x6skd")
