@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://8noh0ok2j3p6"]
+[gd_scene load_steps=8 format=3 uid="uid://8noh0ok2j3p6"]
 
 [ext_resource type="Texture2D" uid="uid://dnyo7iuwmln8j" path="res://assets/sprites/slot-machine.png" id="1_pol4i"]
 [ext_resource type="Script" path="res://scenes/slot_machine.gd" id="2_x0khb"]
 [ext_resource type="PackedScene" uid="uid://cmbac1x0lwcm1" path="res://scenes/slot.tscn" id="3_32gnm"]
-[ext_resource type="AudioStream" uid="uid://dn0rrdemspg62" path="res://assets/sound_effects/slot_moving(2).mp3" id="5_dyqi1"]
 [ext_resource type="Texture2D" uid="uid://du5wqa8xhirwm" path="res://assets/sprites/slot_hand_animation.png" id="5_ibond"]
 
 [sub_resource type="Animation" id="Animation_pxxr4"]
@@ -74,10 +73,6 @@ timer_duration = 3.7
 
 [node name="SlotFinished" type="Timer" parent="."]
 wait_time = 7.0
-
-[node name="SoundEffect" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_dyqi1")
-volume_db = -10.0
 
 [connection signal="timeout" from="SlotFinished" to="." method="_on_slot_finished_timeout"]
 [connection signal="timeout" from="SlotFinished" to="Slot" method="_on_slot_finished_timeout"]

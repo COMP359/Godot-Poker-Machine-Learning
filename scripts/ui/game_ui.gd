@@ -79,6 +79,13 @@ func _process(delta):
 
 	$Pot/potAmount.text = "[center]$"+potAmount+"[/center]"
 
+func _on_start_button_pressed():
+	$"../TitleScreen".hide()
+	$"../Casino Board/Light".show()
+	$".".show()
+	$AI_UI.show()
+	$"../SlotMachine".show()
+
 func add_card(player, card):
 	var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(card.suit) + str(card.value) + ".png")
 	var flipped_texture_rect = TextureRect.new()
@@ -92,15 +99,8 @@ func add_card(player, card):
 	elif player == Player.PlayerColor.GREEN:
 		$Cards/greenHand.add_child(flipped_texture_rect)
 
-func add_flow_card(card):
+func add_community_card(card):
 	var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(card.suit) + str(card.value) + ".png")
 	var flipped_texture_rect = TextureRect.new()
 	flipped_texture_rect.texture = flipped_card_texture
-	
-
-func _on_start_button_pressed():
-	$"../TitleScreen".hide()
-	$"../Casino Board/Light".show()
-	$".".show()
-	$AI_UI.show()
-	$"../SlotMachine".show()
+	$Pot/table.add_child(flipped_texture_rect)
