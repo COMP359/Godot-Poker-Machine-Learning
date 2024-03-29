@@ -28,35 +28,26 @@ func _ready():
 
 	# Pot is $0
 	$Pot/potAmount.text = "[center]$0[/center]"
+	
+	# Load title screen
+	$"../Casino Board/Light".hide()
+	$".".hide()
+	$AI_UI.hide()
+	$"../SlotMachine".hide()
+	$"../TitleScreen/startButton".modulate = Color(3, 3, 3)
 
-	# Generate 2 cards for each color
-	for i in range(2):
-		var flipped_card_texture = load("res://assets/ui/cards_alt/card_back_pix.png")
-		# var flipped_card_texture = load("res://assets/ui/cards_pixel/2_spades.png")
-		var flipped_texture_rect = TextureRect.new()
-		flipped_texture_rect.texture = flipped_card_texture
+	# var deck = Deck.new()
+	# var player = Player.new(Player.PlayerColor.BLUE, true, 100000)
 
-		# Add to hboxcontainer (visual representation of cards)
-		$Cards/blueHand.add_child(flipped_texture_rect)
-		flipped_texture_rect = TextureRect.new()
-		flipped_texture_rect.texture = flipped_card_texture
-		$Cards/redHand.add_child(flipped_texture_rect)
-		flipped_texture_rect = TextureRect.new()
-		flipped_texture_rect.texture = flipped_card_texture
-		$Cards/yellowHand.add_child(flipped_texture_rect)
-		flipped_texture_rect = TextureRect.new()
-		flipped_texture_rect.texture = flipped_card_texture
-		$Cards/greenHand.add_child(flipped_texture_rect)
+	# var aiGreen = Player.new(Player.PlayerColor.GREEN, false, 100000)
+	# var aiRed = Player.new(Player.PlayerColor.RED, false, 100000)
+	# var aiYellow = Player.new(Player.PlayerColor.YELLOW, false, 100000)
 
-	# Add 5 cards to the table
-	for i in range(5):
-		# var flipped_card_texture = load("res://assets/ui/cards_alt/card_back_pix.png")
-		var flipped_card_texture = load("res://assets/ui/cards_pixel/2_spades.png")
-		var flipped_texture_rect = TextureRect.new()
-		flipped_texture_rect.texture = flipped_card_texture
-
-		# Add to hboxcontainer (visual representation of cards)
-		$Pot/table.add_child(flipped_texture_rect)
+	# var new_card = deck.draw_card()
+	# var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(new_card.suit) + str(new_card.value) + ".png")
+	# var flipped_texture_rect = TextureRect.new()
+	# flipped_texture_rect.texture = flipped_card_texture
+	# $Cards/blueHand.add_child(flipped_texture_rect)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -87,3 +78,11 @@ func _process(delta):
 		potAmount = potAmount.insert(len(potAmount)-3, ",")
 
 	$Pot/potAmount.text = "[center]$"+potAmount+"[/center]"
+
+
+func _on_start_button_pressed():
+	$"../TitleScreen".hide()
+	$"../Casino Board/Light".show()
+	$".".show()
+	$AI_UI.show()
+	$"../SlotMachine".show()

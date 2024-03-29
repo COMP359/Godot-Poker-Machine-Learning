@@ -15,4 +15,3 @@ func _on_slot_finished_timeout():
 	handle.play("handle_swung")
 	if (soundEffectOn):
 		sound_effect.play()
-	

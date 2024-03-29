@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cxm2wy616ba6o"]
+[gd_scene load_steps=17 format=3 uid="uid://cxm2wy616ba6o"]
 
 [ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://assets/tiles/tile.png" id="1_biwwp"]
 [ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://assets/sprites/table-2.png" id="2_mi3hp"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://scenes/slot_machine.tscn" id="6_b3ihe"]
 [ext_resource type="PackedScene" uid="uid://c4aek5qcrjwfq" path="res://scenes/game_ui.tscn" id="7_1yhxm"]
 [ext_resource type="Script" path="res://scripts/ui/game_ui.gd" id="8_x6skd"]
+[ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="9_g6vtq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_440jg"]
 texture = ExtResource("1_biwwp")
@@ -59,6 +60,7 @@ material = SubResource("CanvasItemMaterial_un68a")
 occluder = SubResource("OccluderPolygon2D_5775n")
 
 [node name="Light" type="Node2D" parent="Casino Board"]
+visible = false
 position = Vector2(0, -3)
 scale = Vector2(0.681526, -0.572889)
 
@@ -146,4 +148,61 @@ texture = ExtResource("3_jq61r")
 texture_scale = 0.5
 
 [node name="UI" parent="." instance=ExtResource("7_1yhxm")]
+visible = false
 script = ExtResource("8_x6skd")
+
+[node name="TitleScreen" type="CanvasLayer" parent="."]
+
+[node name="titleText" type="Label" parent="TitleScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.0
+offset_top = -56.5
+offset_right = 93.0
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_g6vtq")
+text = "POKER
+MACHINE
+LEARNING"
+horizontal_alignment = 1
+
+[node name="creditsText" type="Label" parent="TitleScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.0
+offset_top = 4.0
+offset_right = 93.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_g6vtq")
+theme_override_font_sizes/font_size = 3
+text = "Andrew Meier, Braedon McRae, Callum Brezden"
+horizontal_alignment = 1
+
+[node name="startButton" type="Button" parent="TitleScreen"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -43.0
+offset_right = 249.0
+offset_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.25, 0.25)
+theme_override_fonts/font = ExtResource("9_g6vtq")
+theme_override_font_sizes/font_size = 36
+text = "START"
+
+[connection signal="pressed" from="TitleScreen/startButton" to="UI" method="_on_start_button_pressed"]
