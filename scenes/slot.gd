@@ -3,7 +3,7 @@ extends Sprite2D
 @onready var animation = $Animation
 @onready var timer = $Timer
 @onready var light = $Light/Texture
-@onready var sound_effect = $SoundEffect
+#@onready var sound_effect = $SoundEffect
 @export_range(0.5,4.5) var timer_duration: float = 1.0
 
 var orange_slot = Color8(166, 52, 22, 255)
@@ -28,7 +28,7 @@ func _process(delta):
 
 func _on_timer_timeout():
 	timer.stop()
-	sound_effect.play()
+	#sound_effect.play()
 	slot_finished = !slot_finished
 	update_slot_visibility()
 	randomize_slot_frames()

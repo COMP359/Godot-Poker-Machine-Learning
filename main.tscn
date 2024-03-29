@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
 [ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://assets/sprites/dealer.png" id="5_c4uga"]
 [ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://scenes/slot_machine.tscn" id="6_b3ihe"]
-[ext_resource type="PackedScene" uid="uid://c4aek5qcrjwfq" path="res://scenes/game_ui.tscn" id="7_1yhxm"]
+[ext_resource type="PackedScene" uid="uid://bmx40fxtv723w" path="res://scenes/game_ui.tscn" id="7_1yhxm"]
 [ext_resource type="Script" path="res://scripts/ui/game_ui.gd" id="8_x6skd"]
 [ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="9_g6vtq"]
 
@@ -60,7 +60,6 @@ material = SubResource("CanvasItemMaterial_un68a")
 occluder = SubResource("OccluderPolygon2D_5775n")
 
 [node name="Light" type="Node2D" parent="Casino Board"]
-visible = false
 position = Vector2(0, -3)
 scale = Vector2(0.681526, -0.572889)
 
@@ -90,7 +89,6 @@ occluder = SubResource("OccluderPolygon2D_x5n3l")
 position = Vector2(294.365, 72.6401)
 scale = Vector2(1.25, 1.25)
 SlotFinishedTimeout = 8.0
-soundEffectOn = false
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="SlotMachine"]
 material = SubResource("CanvasItemMaterial_7e1rm")
@@ -121,7 +119,6 @@ visible = false
 position = Vector2(294.365, 130.64)
 scale = Vector2(1.25, 1.25)
 SlotFinishedTimeout = 10.0
-soundEffectOn = false
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="SlotMachine2"]
 material = SubResource("CanvasItemMaterial_7e1rm")
@@ -148,7 +145,6 @@ texture = ExtResource("3_jq61r")
 texture_scale = 0.5
 
 [node name="UI" parent="." instance=ExtResource("7_1yhxm")]
-visible = false
 script = ExtResource("8_x6skd")
 
 [node name="TitleScreen" type="CanvasLayer" parent="."]
