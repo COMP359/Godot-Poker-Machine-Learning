@@ -18,4 +18,4 @@ func clear_hand():
 
 func rank_hand():
   """Determines the rank of the hand by passing the cards to the Rank class."""
-  ranking.determine_rank(cards)
+  ranking.determine_hand_ranking(cards)

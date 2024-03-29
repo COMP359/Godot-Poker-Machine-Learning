@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://c4aek5qcrjwfq"]
+[gd_scene load_steps=12 format=3 uid="uid://c4aek5qcrjwfq"]
 
+[ext_resource type="Script" path="res://scripts/card_logic.gd" id="1_ohhkq"]
 [ext_resource type="Texture2D" uid="uid://b6xrhk5bc33lv" path="res://assets/ui/blue_headshot.png" id="1_t8h5y"]
 [ext_resource type="Texture2D" uid="uid://bqtl44a8lnebk" path="res://assets/ui/progbar_under.png" id="3_cyg1k"]
 [ext_resource type="Texture2D" uid="uid://2tr6fsyd3x55" path="res://assets/ui/progbar_over.png" id="4_88mys"]
@@ -12,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cmd48dmk1iwhu" path="res://scenes/ai_controls.tscn" id="10_eu5m8"]
 
 [node name="UI" type="CanvasLayer"]
+script = ExtResource("1_ohhkq")
 
 [node name="Cards" type="Control" parent="."]
 z_index = -5
@@ -86,7 +88,7 @@ offset_left = 34.0
 offset_top = 23.0
 offset_right = 163.0
 offset_bottom = 39.0
-color = Color(0.262745, 0.215686, 0.223529, 1)
+color = Color(0.294118, 0.160784, 0.168627, 1)
 
 [node name="potBorder2" type="ColorRect" parent="Pot"]
 layout_mode = 0
@@ -731,10 +733,9 @@ text = "TURN"
 anchors_preset = -1
 anchor_right = 0.025
 anchor_bottom = 0.044
-offset_left = 3.0
-offset_top = 161.0
-offset_right = 745.0
-offset_bottom = 313.08
+offset_top = 156.0
+offset_right = 772.0
+offset_bottom = 298.08
 scale = Vector2(0.1, 0.1)
 theme_override_fonts/font = ExtResource("7_utfff")
 theme_override_font_sizes/font_size = 40
@@ -742,7 +743,9 @@ text = "PLAY AGAINST AI"
 script = ExtResource("8_hxrc6")
 
 [node name="Player_UI" parent="." instance=ExtResource("9_3rj0d")]
+visible = false
 
 [node name="AI_UI" parent="." instance=ExtResource("10_eu5m8")]
+visible = false
 
 [connection signal="pressed" from="playAIbutton" to="playAIbutton" method="_on_ai_button_pressed"]
