@@ -1,10 +1,12 @@
-extends CanvasLayer
+extends Control
 
 var flipped_card_texture
 var flipped_texture_rect
 var new_card
+var node
 
 func _ready():
+	node = get_node("/root/Main/UI")
 	var deck = Deck.new()
 	var player = Player.new(Player.PlayerColor.BLUE, true, 100000)
 
@@ -18,27 +20,8 @@ func _ready():
 
 		new_card = deck.draw_card()
 		# flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(new_card.suit) + str(new_card.value) + ".png")
-		flipped_texture_rect = TextureRect.new()
-		flipped_texture_rect.texture = flipped_card_texture
-		$Cards/blueHand.add_child(flipped_texture_rect)
+		# Send a signal to the ui script to update the player's hand
 
-		# new_card = deck.draw_card()
-		# flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(new_card.suit) + str(new_card.value) + ".png")
-		# flipped_texture_rect = TextureRect.new()
-		# flipped_texture_rect.texture = flipped_card_texture
-		# $Cards/redHand.add_child(flipped_texture_rect)
-
-		# new_card = deck.draw_card()
-		# flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(new_card.suit) + str(new_card.value) + ".png")
-		# flipped_texture_rect = TextureRect.new()
-		# flipped_texture_rect.texture = flipped_card_texture
-		# $Cards/yellowHand.add_child(flipped_texture_rect)
-
-		# new_card = deck.draw_card()
-		# flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(new_card.suit) + str(new_card.value) + ".png")
-		# flipped_texture_rect = TextureRect.new()
-		# flipped_texture_rect.texture = flipped_card_texture
-		# $Cards/greenHand.add_child(flipped_texture_rect)
 
 	# Add 5 cards to the table
 	for i in range(5):
@@ -69,4 +52,8 @@ func _ready():
 	# player.hand.rank_hand()
 	
 	# Some tests to see if the classes are working as expected
+	pass
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
 	pass
