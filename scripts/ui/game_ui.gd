@@ -28,7 +28,7 @@ func _ready():
 
 	# Pot is $0
 	$Pot/potAmount.text = "[center]$0[/center]"
-	
+
 	# Load title screen
 	$"../Casino Board/Light".hide()
 	$".".hide()
@@ -79,6 +79,24 @@ func _process(delta):
 
 	$Pot/potAmount.text = "[center]$"+potAmount+"[/center]"
 
+func add_card(player, card):
+	var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(card.suit) + str(card.value) + ".png")
+	var flipped_texture_rect = TextureRect.new()
+	flipped_texture_rect.texture = flipped_card_texture
+	if player == Player.PlayerColor.BLUE:
+		$Cards/blueHand.add_child(flipped_texture_rect)
+	elif player == Player.PlayerColor.RED:
+		$Cards/redHand.add_child(flipped_texture_rect)
+	elif player == Player.PlayerColor.YELLOW:
+		$Cards/yellowHand.add_child(flipped_texture_rect)
+	elif player == Player.PlayerColor.GREEN:
+		$Cards/greenHand.add_child(flipped_texture_rect)
+
+func add_flow_card(card):
+	var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(card.suit) + str(card.value) + ".png")
+	var flipped_texture_rect = TextureRect.new()
+	flipped_texture_rect.texture = flipped_card_texture
+	
 
 func _on_start_button_pressed():
 	$"../TitleScreen".hide()
