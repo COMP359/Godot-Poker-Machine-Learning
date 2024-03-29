@@ -2,7 +2,7 @@ class_name Player
 extends Node
 
 enum PlayerColor {
-  BLUE, RED, GREEN, YELLOW
+  BLUE, RED, YELLOW, GREEN
 }
 
 var player_color: PlayerColor

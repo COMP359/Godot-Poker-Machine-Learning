@@ -19,3 +19,7 @@ func clear_hand():
 func rank_hand():
   """Determines the rank of the hand by passing the cards to the Rank class."""
   ranking.determine_hand_ranking(cards)
+
+func get_first_card():
+  """Returns the first card in the hand."""
+  return cards[0]

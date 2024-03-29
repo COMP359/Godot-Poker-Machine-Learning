@@ -44,32 +44,33 @@ func _init() -> void:
 	self.pair_high_card = 0
 
 func check_royal_flush(cards: Array[Card]) -> bool:
-    var suits = []
-    var values = []
-    var unique_values = {}
-    var highcard = 0
-    var kind = 0
-
-    for card in cards:
-        var value = card.value
-        values.append(value)
-    
-    # Check if all required cards are present in the hand
-    var required_values = [10, 11, 12, 13, 14] # Values for 10, J, Q, K, A
-    var royal_flush_suit = ""
-    var found_cards = 0
-    
-    for required_value in required_values:
-        var found = false
-        for i in range(cards.size()):
-            if values[i] == required_value and (royal_flush_suit == "" or suits[i] == royal_flush_suit):
-                royal_flush_suit = suits[i]
-                found = true
-                found_cards += 1
-                break
-        
-        if not found:
-            return false
+	var suits = []
+	var values = []
+	
+	# Extract suits and values from the cards
+	for card in cards:
+		var suit = card.suit
+		var value = card.value
+		
+		suits.append(suit)
+		values.append(value)
+	
+	# Check if all required cards are present in the hand
+	var required_values = [10, 11, 12, 13, 14] # Values for 10, J, Q, K, A
+	var royal_flush_suit = ""
+	var found_cards = 0
+	
+	for required_value in required_values:
+		var found = false
+		for i in range(cards.size()):
+			if values[i] == required_value and (royal_flush_suit == "" or suits[i] == royal_flush_suit):
+				royal_flush_suit = suits[i]
+				found = true
+				found_cards += 1
+				break
+		
+		if not found:
+			return false
 
 	# Check if all required cards are of the same suit
 	return found_cards == required_values.size() and royal_flush_suit != ""
@@ -201,7 +202,7 @@ func check_flush(cards: Array[Card]) -> Dictionary:
 			for card in cards:
 				if card.suit == suit:
 					flush_cards.append(card.value)
-			flush_cards.sort()  # Sort cards 
+			flush_cards.sort()  # Sort cards
 			
 			#flush cards needed for possible tie, cut to highest 5 to make the "best" flush
 			while flush_cards.size() > 5:
@@ -241,7 +242,6 @@ func check_straight(cards: Array[Card]) -> Dictionary:
 				straight_cards = array_unique(straight_cards)
 
 		if is_straight:
-			print(straight_cards)
 			return {"state": true, "straight_cards": straight_cards}
 
 	return {"state": false}  # No straight found
@@ -378,6 +378,28 @@ func determine_hand_ranking(player_and_community_cards: Array[Card]) -> RankEnum
 
 	return RankEnum.HIGH_CARD
 
+func get_rank_string(rank_enum: int):
+	match rank_enum:
+		RankEnum.HIGH_CARD:
+			return "High Card"
+		RankEnum.PAIR:
+			return "Pair"
+		RankEnum.TWO_PAIR:
+			return "Two Pair"
+		RankEnum.THREE_OF_A_KIND:
+			return "Three of a Kind"
+		RankEnum.STRAIGHT:
+			return "Straight"
+		RankEnum.FLUSH:
+			return "Flush"
+		RankEnum.FULL_HOUSE:
+			return "Full House"
+		RankEnum.FOUR_OF_A_KIND:
+			return "Four of a Kind"
+		RankEnum.STRAIGHT_FLUSH:
+			return "Straight Flush"
+		RankEnum.ROYAL_FLUSH:
+			return "Royal Flush"
 #removes duplicates from array
 func array_unique(array: Array[int]) -> Array[int]:
 	var unique: Array[int] = []
