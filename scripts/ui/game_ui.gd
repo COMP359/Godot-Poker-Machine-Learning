@@ -1,6 +1,9 @@
 extends CanvasLayer
 
 var potAmount = 0
+signal add_card_signal
+signal add_community_card_signal
+signal add_hidden_community_card_signal
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,20 +38,6 @@ func _ready():
 	$AI_UI.hide()
 	$"../SlotMachine".hide()
 	$"../TitleScreen/startButton".modulate = Color(3, 3, 3)
-
-	# var deck = Deck.new()
-	# var player = Player.new(Player.PlayerColor.BLUE, true, 100000)
-
-	# var aiGreen = Player.new(Player.PlayerColor.GREEN, false, 100000)
-	# var aiRed = Player.new(Player.PlayerColor.RED, false, 100000)
-	# var aiYellow = Player.new(Player.PlayerColor.YELLOW, false, 100000)
-
-	# var new_card = deck.draw_card()
-	# var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(new_card.suit) + str(new_card.value) + ".png")
-	# var flipped_texture_rect = TextureRect.new()
-	# flipped_texture_rect.texture = flipped_card_texture
-	# $Cards/blueHand.add_child(flipped_texture_rect)
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -90,17 +79,22 @@ func add_card(player, card):
 	var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(card.suit) + str(card.value) + ".png")
 	var flipped_texture_rect = TextureRect.new()
 	flipped_texture_rect.texture = flipped_card_texture
-	if player == Player.PlayerColor.BLUE:
+	if player.player_color == Player.PlayerColor.BLUE:
 		$Cards/blueHand.add_child(flipped_texture_rect)
-	elif player == Player.PlayerColor.RED:
+	elif player.player_color == Player.PlayerColor.RED:
 		$Cards/redHand.add_child(flipped_texture_rect)
-	elif player == Player.PlayerColor.YELLOW:
+	elif player.player_color == Player.PlayerColor.YELLOW:
 		$Cards/yellowHand.add_child(flipped_texture_rect)
-	elif player == Player.PlayerColor.GREEN:
+	elif player.player_color == Player.PlayerColor.GREEN:
 		$Cards/greenHand.add_child(flipped_texture_rect)
 
 func add_community_card(card):
-	var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(card.suit) + str(card.value) + ".png")
 	var flipped_texture_rect = TextureRect.new()
+	var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(card.suit) + str(card.value) + ".png")
 	flipped_texture_rect.texture = flipped_card_texture
+	$Pot/table.add_child(flipped_texture_rect)
+
+func add_hidden_community_card():
+	var flipped_texture_rect = TextureRect.new()
+	flipped_texture_rect.texture = load("res://assets/ui/cards_alt/card_back_pix.png")
 	$Pot/table.add_child(flipped_texture_rect)

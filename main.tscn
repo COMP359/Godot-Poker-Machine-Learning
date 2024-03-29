@@ -1,12 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://cxm2wy616ba6o"]
+[gd_scene load_steps=19 format=3 uid="uid://cxm2wy616ba6o"]
 
 [ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://assets/tiles/tile.png" id="1_biwwp"]
+[ext_resource type="Script" path="res://scripts/card_logic.gd" id="1_ye476"]
 [ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://assets/sprites/table-2.png" id="2_mi3hp"]
 [ext_resource type="Texture2D" uid="uid://cpir4cuqpn6oc" path="res://assets/sprites/casino-robots.png" id="3_3h1r3"]
 [ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
 [ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://assets/sprites/dealer.png" id="5_c4uga"]
 [ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://scenes/slot_machine.tscn" id="6_b3ihe"]
 [ext_resource type="PackedScene" uid="uid://bmx40fxtv723w" path="res://scenes/game_ui.tscn" id="7_1yhxm"]
+[ext_resource type="Script" path="res://scripts/classes/dealer.gd" id="7_uxvku"]
 [ext_resource type="Script" path="res://scripts/ui/game_ui.gd" id="8_x6skd"]
 [ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="9_g6vtq"]
 
@@ -37,6 +39,7 @@ blend_mode = 1
 polygon = PackedVector2Array(-12.493, 14.5047, 12.5038, 14.5047, 12.5038, 15.5036, -12.5179, 15.4537)
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_ye476")
 
 [node name="Shader" type="CanvasModulate" parent="."]
 color = Color(0.145098, 0.145098, 0.145098, 1)
@@ -81,6 +84,7 @@ texture_scale = 0.5
 [node name="Dealer" type="Sprite2D" parent="."]
 position = Vector2(157, 101)
 texture = ExtResource("5_c4uga")
+script = ExtResource("7_uxvku")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Dealer"]
 occluder = SubResource("OccluderPolygon2D_x5n3l")
@@ -106,36 +110,6 @@ energy = 0.0
 texture = ExtResource("3_jq61r")
 
 [node name="Shadow" type="PointLight2D" parent="SlotMachine/Light7"]
-position = Vector2(0, -1)
-energy = 0.2
-shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.0470588)
-shadow_filter_smooth = 3.6
-texture = ExtResource("3_jq61r")
-texture_scale = 0.5
-
-[node name="SlotMachine2" parent="." instance=ExtResource("6_b3ihe")]
-visible = false
-position = Vector2(294.365, 130.64)
-scale = Vector2(1.25, 1.25)
-SlotFinishedTimeout = 10.0
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="SlotMachine2"]
-material = SubResource("CanvasItemMaterial_7e1rm")
-occluder = SubResource("OccluderPolygon2D_svhkc")
-
-[node name="Light7" type="Node2D" parent="SlotMachine2"]
-position = Vector2(0.0130768, -0.0792408)
-scale = Vector2(0.454351, -0.381926)
-
-[node name="Texture" type="PointLight2D" parent="SlotMachine2/Light7"]
-visible = false
-position = Vector2(2, -1)
-color = Color(1, 0.670588, 0.619608, 1)
-energy = 0.0
-texture = ExtResource("3_jq61r")
-
-[node name="Shadow" type="PointLight2D" parent="SlotMachine2/Light7"]
 position = Vector2(0, -1)
 energy = 0.2
 shadow_enabled = true
@@ -201,4 +175,7 @@ theme_override_fonts/font = ExtResource("9_g6vtq")
 theme_override_font_sizes/font_size = 36
 text = "START"
 
+[connection signal="add_card_signal" from="UI" to="UI" method="add_card"]
+[connection signal="add_community_card_signal" from="UI" to="UI" method="add_community_card"]
+[connection signal="add_hidden_community_card_signal" from="UI" to="UI" method="add_hidden_community_card"]
 [connection signal="pressed" from="TitleScreen/startButton" to="UI" method="_on_start_button_pressed"]
