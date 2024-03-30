@@ -4,7 +4,7 @@ class TestRoyalFlushTie:
 	extends GutTest
 	var dealer = null
 
-	func before_all():
+	func before_each():
 		dealer = Dealer.new()
 		# Hands get automatically created on the dealer class
 		# This is just to clear the hands so we can test the hands we want
@@ -28,7 +28,7 @@ class TestStraightFlushTie:
 
 	var dealer = null
 
-	func before_all():
+	func before_each():
 		dealer = Dealer.new()
 		# Hands get automatically created on the dealer class
 		# This is just to clear the hands so we can test the hands we want
@@ -112,7 +112,7 @@ class TestStraightTie:
 
 	var dealer = null
 
-	func before_all():
+	func before_each():
 		dealer = Dealer.new()
 		# Hands get automatically created on the dealer class
 		# This is just to clear the hands so we can test the hands we want
@@ -170,3 +170,116 @@ class TestStraightTie:
 		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1], dealer.players[2]]
 		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.STRAIGHT), [dealer.players[2]])
 
+class TestFourOfKindTie:
+	extends GutTest
+	var dealer = null
+
+	func before_each():
+		dealer = Dealer.new()
+		# Hands get automatically created on the dealer class
+		# This is just to clear the hands so we can test the hands we want
+		dealer.community_cards.clear_hand()
+		dealer.players[0].hand.clear_hand()
+		dealer.players[1].hand.clear_hand()
+
+	func test_four_of_kind_case_one():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('S', 10), Card.new('C', 10)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 9), Card.new('S', 11)]
+		var dealer_hand_cards: Array[Card] = [Card.new('D', 10), Card.new('H', 10), Card.new('D', 9), Card.new('H', 9), Card.new('S', 9)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FOUR_OF_A_KIND), [dealer.players[0]])
+
+	func test_four_of_kind_case_two():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('S', 10), Card.new('C', 2)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('D', 13)]
+		var dealer_hand_cards: Array[Card] = [Card.new('D', 10), Card.new('H', 10), Card.new('D', 9), Card.new('H', 9), Card.new('S', 2)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FOUR_OF_A_KIND), [dealer.players[1]])
+
+	func test_four_of_kind_case_three():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('S', 10), Card.new('C', 2)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('D', 2)]
+		var dealer_hand_cards: Array[Card] = [Card.new('D', 10), Card.new('H', 10), Card.new('D', 9), Card.new('H', 9), Card.new('S', 2)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FOUR_OF_A_KIND), [dealer.players[0], dealer.players[1]])
+
+class TestThreeOfKindTie:
+	extends GutTest
+	var dealer = null
+
+	func before_each():
+		dealer = Dealer.new()
+		# Hands get automatically created on the dealer class
+		# This is just to clear the hands so we can test the hands we want
+		dealer.community_cards.clear_hand()
+		dealer.players[0].hand.clear_hand()
+		dealer.players[1].hand.clear_hand()
+
+	func test_three_of_kind_case_one():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('S', 10), Card.new('D', 11)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('H', 11)]
+		var dealer_hand_cards: Array[Card] = [Card.new('D', 10), Card.new('S', 7), Card.new('D', 2), Card.new('H', 9), Card.new('S', 9)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.THREE_OF_A_KIND), [dealer.players[0], dealer.players[1]])
+
+	func test_three_of_kind_case_two():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('S', 10), Card.new('D', 12)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 11), Card.new('H', 13)]
+		var dealer_hand_cards: Array[Card] = [Card.new('D', 10), Card.new('C', 10), Card.new('D', 11), Card.new('H', 11), Card.new('S', 9)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.THREE_OF_A_KIND), [dealer.players[1]])
+
+	func test_three_of_kind_case_three():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('S', 10), Card.new('C', 2)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('D', 3)]
+		var dealer_hand_cards: Array[Card] = [Card.new('D', 10), Card.new('H', 10), Card.new('D', 8), Card.new('H', 9), Card.new('S', 7)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.THREE_OF_A_KIND), [dealer.players[1]])

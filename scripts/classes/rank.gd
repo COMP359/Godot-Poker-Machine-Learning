@@ -225,7 +225,6 @@ func check_straight(cards: Array[Card]) -> Dictionary:
 	if values.has(14):
 			values.append(1)
 
-	print(values)
 	var is_straight = false
 	var straight_cards: Array[int] = []
 	for i in range(len(values) - 4):

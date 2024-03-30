@@ -96,7 +96,34 @@ func determine_tie(players_with_same_rank: Array[Player], tied_rank: int):
 		pass
 
 	elif (tied_rank in [Rank.RankEnum.FOUR_OF_A_KIND, Rank.RankEnum.THREE_OF_A_KIND]):
-		pass
+		var highest_pair_card = 0
+
+		for player in players_with_same_rank:
+			var player_highest_pair_card = 0
+			if tied_rank == Rank.RankEnum.FOUR_OF_A_KIND:
+					player_highest_pair_card = player.hand.ranking.four_of_a_kind_highcard
+			elif tied_rank == Rank.RankEnum.THREE_OF_A_KIND:
+					player_highest_pair_card = player.hand.ranking.three_of_a_kind_highcard
+
+			if player_highest_pair_card > highest_pair_card:
+					highest_pair_card = player_highest_pair_card
+					winners = [player]
+			elif player_highest_pair_card == highest_pair_card:
+					winners.append(player)
+
+		# If there is a tie, check the next highest card
+		if winners.size() > 1:
+				var highest_card = 0
+				for player in winners:
+						for card in player.hand.cards:
+								if card.value != highest_pair_card:  # Exclude the cards that are part of the three-of-a-kind or four-of-a-kind
+										if card.value > highest_card:
+												highest_card = card.value
+												winners = [player]
+										elif card.value == highest_card and player not in winners:
+												winners.append(player)
+
+		return winners
 
 	elif (tied_rank == Rank.RankEnum.FULL_HOUSE):
 		pass
