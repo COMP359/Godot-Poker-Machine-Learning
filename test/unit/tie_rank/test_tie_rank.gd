@@ -283,3 +283,75 @@ class TestThreeOfKindTie:
 
 		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
 		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.THREE_OF_A_KIND), [dealer.players[1]])
+
+class TestFlushTie:
+	extends GutTest
+	var dealer = null
+
+	func before_each():
+		dealer = Dealer.new()
+		# Hands get automatically created on the dealer class
+		# This is just to clear the hands so we can test the hands we want
+		dealer.community_cards.clear_hand()
+		dealer.players[0].hand.clear_hand()
+		dealer.players[1].hand.clear_hand()
+
+	func test_flush_case_one():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('C', 11)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('C', 12)]
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('C', 7), Card.new('C', 2), Card.new('H', 9), Card.new('S', 9)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FLUSH), [dealer.players[1]])
+		
+	func test_flush_case_two():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('C', 11)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('C', 11)]
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('C', 7), Card.new('C', 2), Card.new('H', 9), Card.new('S', 9)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FLUSH), [dealer.players[0],dealer.players[1]])
+
+	func test_flush_case_three():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('C', 12)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('C', 11)]
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('C', 7), Card.new('C', 2), Card.new('H', 9), Card.new('S', 9)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FLUSH), [dealer.players[0]])
+		
+	func test_flush_case_four():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 2), Card.new('C', 5)] #10,9,8,5,2
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 3), Card.new('C', 5)] #10,9,8,5,3
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 10), Card.new('C', 9), Card.new('C', 8), Card.new('H', 9), Card.new('S', 9)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FLUSH), [dealer.players[1]])
