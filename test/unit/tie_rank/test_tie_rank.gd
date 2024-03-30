@@ -355,7 +355,7 @@ class TestFlushTie:
 
 		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
 		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FLUSH), [dealer.players[1]])
-		
+
 class TestFullHouseTie:
 	extends GutTest
 	var dealer = null
@@ -382,7 +382,7 @@ class TestFullHouseTie:
 
 		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
 		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FULL_HOUSE), [dealer.players[1]])
-		
+
 	func test_full_house_case_two():
 		var dealer_hands: Hand = Hand.new()
 		var player_one_hand_cards: Array[Card] = [Card.new('C', 12), Card.new('C', 12)]
@@ -410,20 +410,35 @@ class TestFullHouseTie:
 		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
 		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
 
-		var player_tied: Array[Player] = [dealer.players[0], dealer.players[0]]
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
 		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FULL_HOUSE), [dealer.players[0]])
 
-	#func test_full_house_case_four():
-		#var dealer_hands: Hand = Hand.new()
-		#var player_one_hand_cards: Array[Card] = [Card.new('C', 12), Card.new('C', 8)]
-		#var player_two_hand_cards: Array[Card] = [Card.new('C', 12), Card.new('C', 8)]
-		#var dealer_hand_cards: Array[Card] = [Card.new('C', 12), Card.new('C', 12), Card.new('C', 8), Card.new('H', 7), Card.new('S', 9)]
-		#dealer_hands.add_mulitple_cards(dealer_hand_cards)
-		#dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
-		#dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
-#
-		#dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
-		#dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
-#
-		#var player_tied: Array[Player] = [dealer.players[0], dealer.players[0]]
-		#assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FULL_HOUSE), [dealer.players[0],dealer.players[1]])
+	func test_full_house_case_four():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 12), Card.new('C', 8)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 12), Card.new('C', 8)]
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 12), Card.new('C', 12), Card.new('C', 8), Card.new('H', 7), Card.new('S', 9)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FULL_HOUSE), [dealer.players[0], dealer.players[1]])
+
+	func test_full_house_case_five():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 12), Card.new('C', 7)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 12), Card.new('C', 8)]
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 12), Card.new('C', 12), Card.new('C', 8), Card.new('H', 7), Card.new('S', 9)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FULL_HOUSE), [dealer.players[1]])
