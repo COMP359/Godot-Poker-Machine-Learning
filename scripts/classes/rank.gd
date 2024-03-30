@@ -2,16 +2,16 @@ class_name Rank
 extends Node
 
 enum RankEnum {
-	HIGH_CARD,
+	HIGH_CARD, 
 	PAIR,
 	TWO_PAIR,
-	THREE_OF_A_KIND,
-	STRAIGHT,
-	FLUSH,
-	FULL_HOUSE,
-	FOUR_OF_A_KIND,
-	STRAIGHT_FLUSH,
-	ROYAL_FLUSH
+	THREE_OF_A_KIND, # Done
+	STRAIGHT, # Done
+	FLUSH, # Done
+	FULL_HOUSE, # Done
+	FOUR_OF_A_KIND, # Done
+	STRAIGHT_FLUSH, # Done
+	ROYAL_FLUSH # Done
 }
 
 var rank: RankEnum
