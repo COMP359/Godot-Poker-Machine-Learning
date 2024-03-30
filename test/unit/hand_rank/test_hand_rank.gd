@@ -585,6 +585,20 @@ class TestDetermineHandRanking:
 		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.FULL_HOUSE)
 		assert_eq(rank.full_house_three_kind_highcard, 7)
 		assert_eq(rank.full_house_pair_highcard, 2)
+		
+	func test_determine_hand_ranking_case_eleven():
+		cards = [
+			Card.new("C", 12),
+			Card.new("C", 7),
+			Card.new("C", 12),
+			Card.new("C", 12),
+			Card.new("C", 8),
+			Card.new("H", 7),
+			Card.new("S", 9),
+		]
+		assert_eq(rank.determine_hand_ranking(cards), rank.RankEnum.FULL_HOUSE)
+		assert_eq(rank.full_house_three_kind_highcard, 12)
+		assert_eq(rank.full_house_pair_highcard, 7)
 	
 	func test_determine_hand_ranking_case_five():
 		cards = [
