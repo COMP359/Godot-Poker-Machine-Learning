@@ -16,7 +16,7 @@ func _init():
 	players.append(Player.new(Player.PlayerColor.RED, false, 100000))
 	players.append(Player.new(Player.PlayerColor.YELLOW, false, 100000))
 	players.append(Player.new(Player.PlayerColor.GREEN, false, 100000))
-#
+
 func _ready():
 	deal_player_cards()
 	deal_community_cards(5)
@@ -92,7 +92,6 @@ func determine_tie(players_with_same_rank: Array[Player], tied_rank: int):
 				elif player_highest_card == highest_card:
 						winners.append(player)
 
-
 	elif tied_rank == Rank.RankEnum.FLUSH:
 		var highest_cards = players_with_same_rank[0].hand.ranking.flush_cards  # Get the flush cards of the first player
 		var num_cards = len(highest_cards)
@@ -115,11 +114,6 @@ func determine_tie(players_with_same_rank: Array[Player], tied_rank: int):
 			if equal:
 				winners.append(player)  # Add the player to winners if all cards are equal
 		return winners
-
-
-
-			
-			
 
 	elif (tied_rank in [Rank.RankEnum.FOUR_OF_A_KIND, Rank.RankEnum.THREE_OF_A_KIND]):
 		var highest_pair_card = 0
@@ -149,39 +143,19 @@ func determine_tie(players_with_same_rank: Array[Player], tied_rank: int):
 										elif card.value == highest_card and player not in winners:
 												winners.append(player)
 
-		return winners
-
 	elif tied_rank == Rank.RankEnum.FULL_HOUSE:
 		var highest_three_kind = -1
 		var highest_pair = -1
-		print(players_with_same_rank[1].hand.ranking.full_house_pair_highcard)
-		print(players_with_same_rank[0].hand.ranking.full_house_pair_highcard)
+		winners = []
 		for player in players_with_same_rank:
-			var player_three_kind = player.hand.ranking.full_house_three_kind_highcard
-			# Compare three of a kind high cards
-			if player_three_kind > highest_three_kind:
-				winners = [player]
-				highest_three_kind = player_three_kind
-			elif player_three_kind == highest_three_kind:
-				winners.append(player)
-				
-		if(len(winners) > 1):
-			print("in here")
-			for player in winners:
-				print(winners)
-				print(player.hand.ranking.full_house_pair_highcard)
+				var player_three_kind = player.hand.ranking.full_house_three_kind_highcard
 				var player_two_kind = player.hand.ranking.full_house_pair_highcard
-				print(player_two_kind)
-				if player_two_kind > highest_pair:
-					winners = [player]
-					highest_pair = player_two_kind
-				elif player_two_kind == highest_pair:
-					winners.append(player)
-			
-
-		return winners
-
-
+				if player_three_kind > highest_three_kind or (player_three_kind == highest_three_kind and player_two_kind > highest_pair):
+						highest_three_kind = player_three_kind
+						highest_pair = player_two_kind
+						winners = [player]
+				elif player_three_kind == highest_three_kind and player_two_kind == highest_pair:
+						winners.append(player)
 
 	elif (tied_rank == Rank.RankEnum.TWO_PAIR):
 		pass
