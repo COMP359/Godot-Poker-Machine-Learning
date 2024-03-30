@@ -157,11 +157,42 @@ func determine_tie(players_with_same_rank: Array[Player], tied_rank: int):
 				elif player_three_kind == highest_three_kind and player_two_kind == highest_pair:
 						winners.append(player)
 
-	elif (tied_rank == Rank.RankEnum.TWO_PAIR):
-		pass
+	elif tied_rank == Rank.RankEnum.TWO_PAIR:
+		var highest_pair = -1
+		var second_highest_pair = -1
+		var highest_card = 0
+		winners = []
+		for player in players_with_same_rank:
+				var player_highest_pair = player.hand.ranking.two_pair_high_pair
+				var player_second_highest_pair = player.hand.ranking.two_pair_low_pair
+				var player_highest_card = 0
+				for card in player.hand.cards:
+					if card.value != player_highest_pair and card.value != player_second_highest_pair:
+						player_highest_card = max(player_highest_card, card.value)
+				if player_highest_pair > highest_pair or (player_highest_pair == highest_pair and player_second_highest_pair > second_highest_pair) or (player_highest_pair == highest_pair and player_second_highest_pair == second_highest_pair and player_highest_card > highest_card):
+						highest_pair = player_highest_pair
+						second_highest_pair = player_second_highest_pair
+						highest_card = player_highest_card
+						winners = [player]
+				elif player_highest_pair == highest_pair and player_second_highest_pair == second_highest_pair and player_highest_card == highest_card:
+						winners.append(player)
 
 	elif (tied_rank == Rank.RankEnum.PAIR):
-		pass
+		var highest_pair = -1
+		var highest_card = 0
+		winners = []
+		for player in players_with_same_rank:
+				var player_highest_pair = player.hand.ranking.pair_high_card
+				var player_highest_card = 0
+				for card in player.hand.cards:
+					if card.value != player_highest_pair:
+						player_highest_card = max(player_highest_card, card.value)
+				if player_highest_pair > highest_pair or (player_highest_pair == highest_pair and player_highest_card > highest_card):
+						highest_pair = player_highest_pair
+						highest_card = player_highest_card
+						winners = [player]
+				elif player_highest_pair == highest_pair and player_highest_card == highest_card:
+						winners.append(player)
 
 	elif tied_rank == Rank.RankEnum.HIGH_CARD:
 		var highest_card_value = -1
