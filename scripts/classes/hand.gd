@@ -12,6 +12,11 @@ func add_card(card: Card):
   """Adds a card to the hand."""
   cards.append(card)
 
+func add_mulitple_cards(cards: Array[Card]):
+  """Adds multiple cards to the hand."""
+  for card in cards:
+    add_card(card)
+
 func clear_hand():
   """Clears the hand of all cards."""
   cards.clear()
