@@ -2,16 +2,16 @@ class_name Rank
 extends Node
 
 enum RankEnum {
-	HIGH_CARD, 
+	HIGH_CARD,
 	PAIR,
 	TWO_PAIR,
-	THREE_OF_A_KIND, # Done
-	STRAIGHT, # Done
-	FLUSH, # Done
-	FULL_HOUSE, # Done
-	FOUR_OF_A_KIND, # Done
-	STRAIGHT_FLUSH, # Done
-	ROYAL_FLUSH # Done
+	THREE_OF_A_KIND,
+	STRAIGHT,
+	FLUSH,
+	FULL_HOUSE,
+	FOUR_OF_A_KIND,
+	STRAIGHT_FLUSH,
+	ROYAL_FLUSH
 }
 
 var rank: RankEnum
@@ -103,10 +103,11 @@ func check_straight_flush(cards: Array[Card]) -> Dictionary:
 		return {"state": false, "cards": []}
 
 	# Filter values to include only cards of the flush suit
-	var filtered_values = []
+	var filtered_values: Array[int] = []
 	for i in range(values.size()):
 		if suits[i] == flush_suit:
 			filtered_values.append(values[i])
+	filtered_values = array_unique(filtered_values)
 	filtered_values.sort()
 	filtered_values.reverse()
 
@@ -213,38 +214,34 @@ func check_flush(cards: Array[Card]) -> Dictionary:
 	return {"state": false}  # No flush found
 
 func check_straight(cards: Array[Card]) -> Dictionary:
-	# Make array of values
-	var values = []
+	var values: Array[int] = []
 	for card in cards:
-		values.append(card.value)
+			values.append(card.value)
 
-	#ordered reverse to get the highest number straight
+	values = array_unique(values)
 	values.sort()
 	values.reverse()
 
 	if values.has(14):
-		values.append(1)  # Add a 1 to check for low straights as well
+			values.append(1)
 
-	# Check for a straight by iterating through sorted values
+	print(values)
 	var is_straight = false
-	var straight_cards: Array[int] = []  # Initialize array to store cards in the straight
-	for i in range(len(values) - 4):  # Use len(values) - 4 to ensure enough cards for a straight
-		is_straight = true
-		for j in range(i + 1, i + 5):  # Check consecutive values in the descending straight
-			if values[j] != values[j - 1] - 1:
-				is_straight = false
-				break
-			else:
-				#store the highest straight
-				straight_cards.append(values[j-1])
-				straight_cards.append(values[j])
-				#remove duplicates
-				straight_cards = array_unique(straight_cards)
+	var straight_cards: Array[int] = []
+	for i in range(len(values) - 4):
+			is_straight = true
+			straight_cards = [values[i]]  # Initialize straight_cards with the first card of the potential straight
+			for j in range(i + 1, i + 5):
+					if values[j] != values[j - 1] - 1:
+							is_straight = false
+							break
+					else:
+							straight_cards.append(values[j])  # Append the next card in the potential straight
 
-		if is_straight:
-			return {"state": true, "straight_cards": straight_cards}
+			if is_straight:
+					return {"state": true, "straight_cards": straight_cards}
 
-	return {"state": false}  # No straight found
+	return {"state": false}
 
 func check_three_kind(cards: Array[Card]) -> Dictionary:
 	var card_counts = {}
