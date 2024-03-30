@@ -72,6 +72,8 @@ func determine_tie(players_with_same_rank: Array[Player], tied_rank: int):
 	var winners: Array[Player] = []
 
 	if (tied_rank == Rank.RankEnum.ROYAL_FLUSH):
+		# Impossible to have a tie with a royal flush for 52 cards.
+		# This is just here for completeness.
 		winners = players_with_same_rank
 
 	elif (tied_rank in [Rank.RankEnum.STRAIGHT_FLUSH, Rank.RankEnum.STRAIGHT]):
@@ -80,7 +82,6 @@ func determine_tie(players_with_same_rank: Array[Player], tied_rank: int):
 		for player in players_with_same_rank:
 				var player_highest_card = 0
 				if tied_rank == Rank.RankEnum.STRAIGHT_FLUSH:
-						print(player.hand.ranking.straight_flush_cards)
 						player_highest_card = player.hand.ranking.straight_flush_cards.max()
 				elif tied_rank == Rank.RankEnum.STRAIGHT:
 						player_highest_card = player.hand.ranking.straight_cards.max()

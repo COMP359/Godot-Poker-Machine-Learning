@@ -123,6 +123,19 @@ class TestStraightFlushHandRanking:
 			Card.new("S", 6)
 		]
 		assert_eq(rank.check_straight_flush(cards), {"state": false, "cards": []})
+	
+	func test_straight_flush_case_seven():
+		cards = [
+			Card.new('D', 7),
+			Card.new('D', 8),
+			Card.new('D', 4),
+			Card.new('D', 5),
+			Card.new('D', 6),
+			Card.new('D', 7),
+			Card.new('D', 9)
+		]
+
+		assert_eq(rank.check_straight_flush(cards), {"state": true, "cards": [9,8,7,6,5]})
 
 class TestFourKindHandRanking:
 	extends GutTest
@@ -364,6 +377,19 @@ class TestStraightHandRanking:
 		]
 
 		assert_eq(rank.check_straight(cards), {"state": true,"straight_cards": [5, 4, 3, 2, 1]})
+	
+	func test_straight_case_five():
+		cards = [
+			Card.new('D', 7),
+			Card.new('C', 8),
+			Card.new('D', 4),
+			Card.new('S', 5),
+			Card.new('C', 6),
+			Card.new('C', 7),
+			Card.new('D', 9)
+		]
+
+		assert_eq(rank.check_straight(cards), {"state": true, "straight_cards": [9,8,7,6,5]})
 
 class TestThreeKindHandRanking:
 	extends GutTest
