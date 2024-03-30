@@ -163,10 +163,31 @@ func determine_tie(players_with_same_rank: Array[Player], tied_rank: int):
 	elif (tied_rank == Rank.RankEnum.PAIR):
 		pass
 
-	elif (tied_rank == Rank.RankEnum.HIGH_CARD):
-		pass
+	elif tied_rank == Rank.RankEnum.HIGH_CARD:
+		var highest_card_value = -1
+
+		for player in players_with_same_rank:
+			var player_cards = player.hand.cards
+			var player_highest_card_value = -1
+
+			# Compare each card to find the highest card value for the player
+			for card in player_cards:
+				if card.value > player_highest_card_value:
+					player_highest_card_value = card.value
+
+			# Compare the highest card value with the highest found so far
+			if player_highest_card_value > highest_card_value:
+				winners = [player]
+				highest_card_value = player_highest_card_value
+			elif player_highest_card_value == highest_card_value:
+				# If there's a tie on the highest card value, compare all cards
+				if player_cards > winners[0].hand.cards:
+					winners = [player]
+				elif player_cards == winners[0].hand.cards:
+					winners.append(player)
 
 	return winners
+
 
 func handle_pot(players_with_same_rank: Array[Player]):
 	"""Split the pot between one or more players"""

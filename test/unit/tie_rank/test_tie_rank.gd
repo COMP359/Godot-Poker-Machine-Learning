@@ -442,3 +442,108 @@ class TestFullHouseTie:
 
 		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
 		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FULL_HOUSE), [dealer.players[1]])
+
+class TestHighCardTie:
+	extends GutTest
+	var dealer = null
+
+	func before_each():
+		dealer = Dealer.new()
+		# Hands get automatically created on the dealer class
+		# This is just to clear the hands so we can test the hands we want
+		dealer.community_cards.clear_hand()
+		dealer.players[0].hand.clear_hand()
+		dealer.players[1].hand.clear_hand()
+
+	func test_high_card_case_one():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 3), Card.new('C', 9)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 6), Card.new('C', 12)]
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 2), Card.new('C', 3), Card.new('C', 4), Card.new('H', 6), Card.new('S', 13)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.HIGH_CARD), [dealer.players[1]])
+	
+	func test_high_card_case_two():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 3), Card.new('C', 12)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 6), Card.new('C', 9)]
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 2), Card.new('C', 3), Card.new('C', 4), Card.new('H', 6), Card.new('S', 13)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.HIGH_CARD), [dealer.players[0]])
+
+	func test_high_card_case_three():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 6), Card.new('C', 12)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 3), Card.new('C', 12)]
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 2), Card.new('C', 3), Card.new('C', 4), Card.new('H', 6), Card.new('S', 13)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.HIGH_CARD), [dealer.players[0]])
+
+	func test_high_card_case_four():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 3), Card.new('C', 12)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 6), Card.new('C', 12)]
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 2), Card.new('C', 3), Card.new('C', 4), Card.new('H', 6), Card.new('S', 13)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.HIGH_CARD), [dealer.players[1]])
+
+	func test_high_card_case_five():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 3), Card.new('C', 12)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 3), Card.new('C', 12)]
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 2), Card.new('C', 3), Card.new('C', 4), Card.new('H', 6), Card.new('S', 13)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.HIGH_CARD), [dealer.players[0], dealer.players[1]])
+
+	func test_high_card_case_six():
+		var dealer_hands: Hand = Hand.new()
+		var player_one_hand_cards: Array[Card] = [Card.new('C', 3), Card.new('C', 12)]
+		var player_two_hand_cards: Array[Card] = [Card.new('C', 3), Card.new('C', 12)]
+		var player_two_three_cards: Array[Card] = [Card.new('C', 14), Card.new('C', 12)]
+		var dealer_hand_cards: Array[Card] = [Card.new('C', 2), Card.new('C', 3), Card.new('C', 4), Card.new('H', 6), Card.new('S', 13)]
+		dealer_hands.add_mulitple_cards(dealer_hand_cards)
+		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
+		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
+		dealer.players[2].hand.add_mulitple_cards(player_two_hand_cards)
+		
+		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
+		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
+		dealer.players[2].hand.add_mulitple_cards(player_two_hand_cards)
+		
+		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1], dealer.players[2]]
+		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.HIGH_CARD), [dealer.players[2]])
