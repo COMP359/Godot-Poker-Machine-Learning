@@ -17,10 +17,9 @@ func _init():
 	players.append(Player.new(Player.PlayerColor.YELLOW, false, 100000))
 	players.append(Player.new(Player.PlayerColor.GREEN, false, 100000))
 
-func _ready():
-	pot_balance = 100000
-	deal_player_cards()
-	deal_community_cards(5)
+
+	# deal_player_cards()
+	# deal_community_cards(5)
 
 func deal_player_cards():
 	for player in players:
