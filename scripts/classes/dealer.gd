@@ -18,6 +18,7 @@ func _init():
 	players.append(Player.new(Player.PlayerColor.GREEN, false, 100000))
 
 func _ready():
+	pot_balance = 100000
 	deal_player_cards()
 	deal_community_cards(5)
 
@@ -46,27 +47,28 @@ func deal_community_cards(amount_of_cards: int):
 	for player in players:
 		var player_rank_enum = player.hand.ranking.determine_hand_ranking(player.hand.cards + community_cards.cards)
 		print("Player " + str(player.player_color) + " has " + str(player.hand.ranking.get_rank_string(player_rank_enum)))
+	
+	# TESTING
+	determine_winner()
 
 func determine_winner():
 	var highest_ranked_players: Array[Player] = []
 	var highest_rank = -1
 
 	for player in players:
-		if player.rank > highest_rank:
-			highest_rank = player.rank
+		if player.hand.ranking.rank > highest_rank:
+			highest_rank = player.hand.ranking.rank
 			highest_ranked_players.clear()
 			highest_ranked_players.append(player)
-		elif player.rank == highest_rank:
+		elif player.hand.ranking.rank == highest_rank:
 			highest_ranked_players.append(player)
 
-	if highest_ranked_players.size() == 1:
-		# Winner
-		return
-	else:
-		# Tie
+	if highest_ranked_players.size() > 1:
 		var winners: Array[Player] = []
 		winners = determine_tie(highest_ranked_players, highest_rank)
 		handle_pot(winners)
+	else:
+		handle_pot(highest_ranked_players)
 
 func determine_tie(players_with_same_rank: Array[Player], tied_rank: int):
 	var winners: Array[Player] = []
@@ -198,30 +200,41 @@ func determine_tie(players_with_same_rank: Array[Player], tied_rank: int):
 		var highest_card_value = -1
 
 		for player in players_with_same_rank:
-			var player_cards = player.hand.cards
-			var player_highest_card_value = -1
+				var player_cards = player.hand.cards
+				var player_highest_card_value = -1
 
-			# Compare each card to find the highest card value for the player
-			for card in player_cards:
-				if card.value > player_highest_card_value:
-					player_highest_card_value = card.value
+				for card in player_cards:
+						if card.value > player_highest_card_value:
+								player_highest_card_value = card.value
 
-			# Compare the highest card value with the highest found so far
-			if player_highest_card_value > highest_card_value:
-				winners = [player]
-				highest_card_value = player_highest_card_value
-			elif player_highest_card_value == highest_card_value:
-				# If there's a tie on the highest card value, compare all cards
-				if player_cards > winners[0].hand.cards:
-					winners = [player]
-				elif player_cards == winners[0].hand.cards:
-					winners.append(player)
+				if player_highest_card_value > highest_card_value:
+						winners = [player]
+						highest_card_value = player_highest_card_value
+				elif player_highest_card_value == highest_card_value:
+						var player_card_values = []
+						for card in player_cards:
+								player_card_values.append(card.value)
+						player_card_values.sort()
+
+						var winner_card_values = []
+						for card in winners[0].hand.cards:
+								winner_card_values.append(card.value)
+						winner_card_values.sort()
+
+						if player_card_values > winner_card_values:
+								winners = [player]
+						elif player_card_values == winner_card_values:
+								winners.append(player)
 
 	return winners
-
 
 func handle_pot(players_with_same_rank: Array[Player]):
 	"""Split the pot between one or more players"""
 	var split_amount = float(pot_balance) / players_with_same_rank.size()
 	for player in players_with_same_rank:
 		player.balance += int(split_amount)
+
+	print("Pot split between: " + str(players_with_same_rank.size()) + " players")
+	for player in players_with_same_rank:
+		print("Player " + str(player.player_color) + " receives: " + str(split_amount))
+
