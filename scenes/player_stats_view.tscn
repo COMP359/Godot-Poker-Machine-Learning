@@ -17,6 +17,15 @@ offset_bottom = -10.02
 scale = Vector2(0.9, 0.9)
 script = ExtResource("1_cvk6m")
 
+[node name="player_hand" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 45.2636
+offset_top = -15.0075
+offset_right = 1088.26
+offset_bottom = 359.992
+scale = Vector2(0.04, 0.04)
+theme_override_constants/separation = 50
+
 [node name="background_border" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = -1

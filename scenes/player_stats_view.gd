@@ -7,6 +7,7 @@ extends Control
 @onready var bet_amount = $bet_amount
 @onready var bet_total_progress_bar = $bet_total_progress_bar
 @onready var player_balance = $player_balance
+@onready var player_hand = $player_hand
 
 func _ready():
 	if (player_selected == 0):
@@ -28,6 +29,13 @@ func _ready():
 func set_bet_amount(bet_amount: int):
 	self.bet_amount.text = "[right][b]%s[/b][/right]" % format_money_text(bet_amount)
 	bet_total_progress_bar.value = (bet_amount / float(get_player_balance_amount())) * 100
+
+func add_card(card_texture):
+	player_hand.add_child(card_texture)
+
+func clear_hand():
+	for card in player_hand.get_children():
+		card.queue_free()
 
 func set_balance_amount(player_balance: int):
 	self.player_balance.text = "%s" % format_money_text(player_balance)
