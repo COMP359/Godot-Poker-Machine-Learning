@@ -1,6 +1,9 @@
 extends CanvasLayer
 
 var betAmount
+signal player_called
+signal player_folded
+signal player_raise
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,27 +16,18 @@ func _ready():
 	# Change fold text color
 	$playerButtons/foldButton.set("theme_override_colors/font_color", "#b82727")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_call_button_pressed():
-	pass # Replace with function body.
-
+	emit_signal("player_called")
 
 func _on_raise_button_pressed():
-	pass # Replace with function body.
-
+	emit_signal("player_raise")
 
 func _on_fold_button_pressed():
-	pass # Replace with function body.
-
+	emit_signal("player_folded")
 
 func _on_arrow_up_pressed():
 	betAmount = int($playerButtons/raiseButton/raistAmt.text) + 1000
 	$playerButtons/raiseButton/raistAmt.text = "+ $" + str(betAmount)
-
 
 func _on_arrow_down_pressed():
 	betAmount = int($playerButtons/raiseButton/raistAmt.text) - 1000
