@@ -6,12 +6,6 @@ func _ready():
 	$"../Player_UI".hide()
 	$"../AI_UI".show()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_ai_button_pressed():
 	playerIsPlaying = !playerIsPlaying
 	# Change the button's text and color when it's pressed
