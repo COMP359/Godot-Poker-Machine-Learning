@@ -8,6 +8,7 @@ extends Control
 @onready var bet_total_progress_bar = $bet_total_progress_bar
 @onready var player_balance = $player_balance
 @onready var player_hand = $player_hand
+@onready var player_hidden_rectangle = $player_hidden_rectangle
 
 func _ready():
 	if (player_selected == 0):
@@ -46,8 +47,44 @@ func get_bet_amount() -> int:
 func get_player_balance_amount() -> int:
 	return player_balance.text.to_int()
 
-func toggle_player_turn():
-	player_turn_status.visible = !player_turn_status.visible
+func update_player_stats(player: Player):
+	update_player_label(player.current_action)
+	set_bet_amount(player.bet)
+	set_balance_amount(player.balance)
+
+func update_player_label(action: Player.Action):
+	if (action == Player.Action.TURN):
+		player_turn_status.text = "TURN"
+		player_turn_status.modulate = Color(0, 1, 0)
+		player_hidden_rectangle.visible = false
+	else:
+		player_hidden_rectangle.visible = true
+
+	if (action == Player.Action.FOLD):
+		player_turn_status.text = "FOLD"
+		player_turn_status.modulate = Color(1, 0, 0)
+	elif (action == Player.Action.CHECK):
+		player_turn_status.text = "CHECK"
+		player_turn_status.modulate = Color(0, 1, 0)
+	elif (action == Player.Action.CALL):
+		player_turn_status.text = "CALL"
+		player_turn_status.modulate = Color(0, 1, 0)
+	elif (action == Player.Action.RAISE):
+		player_turn_status.text = "RAISE"
+		player_turn_status.modulate = Color(0, 1, 0)
+	elif (action == Player.Action.ALL_IN):
+		player_turn_status.text = "ALL IN"
+		player_turn_status.modulate = Color(0, 1, 0)
+	elif (action == Player.Action.WIN):
+		player_turn_status.text = "WIN"
+		player_turn_status.modulate = Color(0, 1, 0)
+		player_hidden_rectangle.visible = false
+	elif (action == Player.Action.LOSE):
+		player_turn_status.text = "LOSE"
+		player_turn_status.modulate = Color(1, 0, 0)
+	elif (action == Player.Action.TIE):
+		player_turn_status.text = "TIE"
+		player_turn_status.modulate = Color(1, 1, 0)
 
 func format_money_text(amount: int) -> String:
 	var str_amount = str(amount)

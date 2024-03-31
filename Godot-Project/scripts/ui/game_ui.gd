@@ -11,6 +11,7 @@ signal add_community_card_signal
 signal add_hidden_community_card_signal
 signal update_pot_balance
 signal player_playing_pressed
+signal update_player_stats_signal
 
 var pot_amount = 0
 var player_views: Array = []
@@ -84,6 +85,16 @@ func update_pot_amount():
 	for player in self.player_views:
 		pot_amount += (player.get_bet_amount())
 	$Pot/potAmount.text = "[center]"+format_money_text(pot_amount)+"[/center]"
+
+func update_player_stats(player: Player):
+	if (player.player_color == Player.PlayerColor.BLUE):
+		blue_player.update_player_stats(player)
+	elif (player.player_color == Player.PlayerColor.RED):
+		red_player.update_player_stats(player)
+	elif (player.player_color == Player.PlayerColor.YELLOW):
+		yellow_player.update_player_stats(player)
+	elif (player.player_color == Player.PlayerColor.GREEN):
+		green_player.update_player_stats(player)
 
 func format_money_text(amount: int) -> String:
 	var str_amount = str(amount)

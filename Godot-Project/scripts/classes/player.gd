@@ -6,7 +6,7 @@ enum PlayerColor {
 }
 
 enum Action {
-	FOLD, CHECK, CALL, RAISE
+	FOLD, CHECK, CALL, RAISE, ALL_IN, WIN, LOSE, TIE, TURN
 }
 
 var player_color: PlayerColor
@@ -16,6 +16,7 @@ var balance: int
 var bet: int
 var has_folded: bool = false
 var dealer_signal: Signal
+var current_action: Action
 
 func _init(player_selected: PlayerColor, is_human: bool, new_balance: int, dealer_signal: Signal) -> void:
 	"""Initialize a new player with the selected color, type, and balance."""
@@ -61,17 +62,22 @@ func ai_play_hand() -> void:
 
 	if hand_value >= 8:
 			if random_factor < 0.7:
+					# TODO: WE NEED TO CHECK IF THE PLAYER HAS ENOUGH BALANCE TO RAISE
 					action = Action.RAISE
 					amount = int(hand_value * 10 * random_factor)
+					self.balance -= amount
 			else:
 					action = Action.CALL
+					self.balance -= amount
 
 	elif hand_value >= 5:
 			if random_factor < 0.5:
 					action = Action.RAISE
 					amount = int(hand_value * 10 * random_factor)
+					self.balance -= amount
 			else:
 					action = Action.CALL
+					self.balance -= amount
 
 	elif hand_value >= 2:
 			if random_factor < 0.3:
