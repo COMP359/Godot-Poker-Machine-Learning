@@ -12,6 +12,7 @@ signal add_hidden_community_card_signal
 signal update_pot_balance
 signal player_playing_pressed
 signal update_player_stats_signal
+signal enable_player_controls_signal
 
 var pot_amount = 0
 var player_views: Array = []
@@ -86,6 +87,9 @@ func update_pot_amount():
 		pot_amount += (player.get_bet_amount())
 	$Pot/potAmount.text = "[center]"+format_money_text(pot_amount)+"[/center]"
 
+func enable_player_controls():
+	$"Player_UI".show()
+
 func update_player_stats(player: Player):
 	if (player.player_color == Player.PlayerColor.BLUE):
 		blue_player.update_player_stats(player)
@@ -108,3 +112,14 @@ func format_money_text(amount: int) -> String:
 		counter += 1
 
 	return "$" + formatted_amount
+
+
+func _on_player_ui_player_called():
+	dealer.player_ui_moved(Player.Action.CALL, 0)
+
+func _on_player_ui_player_folded():
+	dealer.player_ui_moved(Player.Action.FOLD, 0)
+
+func _on_player_ui_player_raise():
+	# TODO: NEED AMOUNT OF MONEY FROM THE RAISE UI INSIDE OF HERE
+	dealer.player_ui_moved(Player.Action.RAISE, 100)

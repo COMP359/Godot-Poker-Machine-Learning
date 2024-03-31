@@ -50,8 +50,22 @@ func get_hand() -> Hand:
 	"""Return the player's hand."""
 	return self.hand
 
-func human_play_hand() -> void:
-	pass
+func human_play_hand(action: Player.Action, amount: int) -> void:
+	# TODO: Check if the player has enough balance to make the bet
+	# TODO: If the player does not have enough balance, set the bet to the maximum possible amount (ALL_IN)
+	if (action == Action.FOLD):
+		self.has_folded = true
+	elif (action == Action.CALL):
+		self.bet += amount
+		self.balance -= amount
+	elif (action == Action.RAISE):
+		self.bet += amount
+		self.balance -= amount
+	elif (action == Action.ALL_IN):
+		self.bet += amount
+		self.balance -= amount
+
+	dealer_signal.emit(self.player_color, action, amount)
 
 func ai_play_hand() -> void:
 	"""Have the AI play their hand. (This is a placeholder for the AI logic.)"""
@@ -66,6 +80,7 @@ func ai_play_hand() -> void:
 					action = Action.RAISE
 					amount = int(hand_value * 10 * random_factor)
 					self.balance -= amount
+					self.bet += amount
 			else:
 					action = Action.CALL
 					self.balance -= amount
@@ -74,6 +89,7 @@ func ai_play_hand() -> void:
 			if random_factor < 0.5:
 					action = Action.RAISE
 					amount = int(hand_value * 10 * random_factor)
+					self.bet += amount
 					self.balance -= amount
 			else:
 					action = Action.CALL

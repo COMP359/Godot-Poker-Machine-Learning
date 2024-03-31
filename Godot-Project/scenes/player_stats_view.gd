@@ -4,6 +4,7 @@ extends Control
 @onready var background_rectangle = $background_rectangle
 @onready var robot_mugshot = $robot_mugshot
 @onready var player_turn_status = $player_turn_status
+@onready var player_turn_status_turn_text = $player_turn_status/TurnText
 @onready var bet_amount = $bet_amount
 @onready var bet_total_progress_bar = $bet_total_progress_bar
 @onready var player_balance = $player_balance
@@ -53,37 +54,38 @@ func update_player_stats(player: Player):
 	set_balance_amount(player.balance)
 
 func update_player_label(action: Player.Action):
+	player_turn_status.visible = true
 	if (action == Player.Action.TURN):
-		player_turn_status.text = "TURN"
+		player_turn_status_turn_text.text = "TURN"
 		player_turn_status.modulate = Color(0, 1, 0)
 		player_hidden_rectangle.visible = false
 	else:
 		player_hidden_rectangle.visible = true
 
 	if (action == Player.Action.FOLD):
-		player_turn_status.text = "FOLD"
+		player_turn_status_turn_text.text = "FOLD"
 		player_turn_status.modulate = Color(1, 0, 0)
 	elif (action == Player.Action.CHECK):
-		player_turn_status.text = "CHECK"
+		player_turn_status_turn_text.text = "CHECK"
 		player_turn_status.modulate = Color(0, 1, 0)
 	elif (action == Player.Action.CALL):
-		player_turn_status.text = "CALL"
+		player_turn_status_turn_text.text = "CALL"
 		player_turn_status.modulate = Color(0, 1, 0)
 	elif (action == Player.Action.RAISE):
-		player_turn_status.text = "RAISE"
+		player_turn_status_turn_text.text = "RAISE"
 		player_turn_status.modulate = Color(0, 1, 0)
 	elif (action == Player.Action.ALL_IN):
-		player_turn_status.text = "ALL IN"
+		player_turn_status_turn_text.text = "ALL IN"
 		player_turn_status.modulate = Color(0, 1, 0)
 	elif (action == Player.Action.WIN):
-		player_turn_status.text = "WIN"
+		player_turn_status_turn_text.text = "WIN"
 		player_turn_status.modulate = Color(0, 1, 0)
 		player_hidden_rectangle.visible = false
 	elif (action == Player.Action.LOSE):
-		player_turn_status.text = "LOSE"
+		player_turn_status_turn_text.text = "LOSE"
 		player_turn_status.modulate = Color(1, 0, 0)
 	elif (action == Player.Action.TIE):
-		player_turn_status.text = "TIE"
+		player_turn_status_turn_text.text = "TIE"
 		player_turn_status.modulate = Color(1, 1, 0)
 
 func format_money_text(amount: int) -> String:
