@@ -54,6 +54,7 @@ func update_player_stats(player: Player):
 	set_balance_amount(player.balance)
 
 func update_player_label(action: Player.Action):
+	print("This is players action on update", action)
 	player_turn_status.visible = true
 	if (action == Player.Action.TURN):
 		player_turn_status_turn_text.text = "TURN"

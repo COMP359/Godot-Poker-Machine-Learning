@@ -51,6 +51,7 @@ func get_hand() -> Hand:
 	return self.hand
 
 func human_play_hand(action: Player.Action, amount: int) -> void:
+	print(action, amount)
 	# TODO: Check if the player has enough balance to make the bet
 	# TODO: If the player does not have enough balance, set the bet to the maximum possible amount (ALL_IN)
 	if (action == Action.FOLD):
@@ -64,8 +65,8 @@ func human_play_hand(action: Player.Action, amount: int) -> void:
 	elif (action == Action.ALL_IN):
 		self.bet += amount
 		self.balance -= amount
-
-	dealer_signal.emit(self.player_color, action, amount)
+	self.current_action = action
+	dealer_signal.emit(self, action, amount)
 
 func ai_play_hand() -> void:
 	"""Have the AI play their hand. (This is a placeholder for the AI logic.)"""
@@ -73,34 +74,40 @@ func ai_play_hand() -> void:
 	var amount: int = 0
 	var hand_value: int = self.hand.ranking.rank
 	var random_factor: float = randf()
-
-	if hand_value >= 8:
-			if random_factor < 0.7:
-					# TODO: WE NEED TO CHECK IF THE PLAYER HAS ENOUGH BALANCE TO RAISE
-					action = Action.RAISE
-					amount = int(hand_value * 10 * random_factor)
-					self.balance -= amount
-					self.bet += amount
-			else:
-					action = Action.CALL
-					self.balance -= amount
-
-	elif hand_value >= 5:
-			if random_factor < 0.5:
-					action = Action.RAISE
-					amount = int(hand_value * 10 * random_factor)
-					self.bet += amount
-					self.balance -= amount
-			else:
-					action = Action.CALL
-					self.balance -= amount
-
-	elif hand_value >= 2:
-			if random_factor < 0.3:
-					action = Action.FOLD
-			else:
-					action = Action.CHECK
+	if random_factor > 0.5:
+		action = Action.FOLD
+		self.fold()
 	else:
-			action = Action.FOLD
+		action = Action.CALL
+		self.balance -= amount
 
-	dealer_signal.emit(self.player_color, action, amount)
+	# if hand_value >= 8:
+	# 		if random_factor < 0.7:
+	# 				# TODO: WE NEED TO CHECK IF THE PLAYER HAS ENOUGH BALANCE TO RAISE
+	# 				action = Action.RAISE
+	# 				amount = int(hand_value * 10 * random_factor)
+	# 				self.balance -= amount
+	# 				self.bet += amount
+	# 		else:
+	# 				action = Action.CALL
+	# 				self.balance -= amount
+
+	# elif hand_value >= 5:
+	# 		if random_factor < 0.5:
+	# 				action = Action.RAISE
+	# 				amount = int(hand_value * 10 * random_factor)
+	# 				self.bet += amount
+	# 				self.balance -= amount
+	# 		else:
+	# 				action = Action.CALL
+	# 				self.balance -= amount
+
+	# elif hand_value >= 2:
+	# 		if random_factor < 0.3:
+	# 				action = Action.FOLD
+	# 		else:
+	# 				action = Action.CHECK
+	# else:
+	# 		action = Action.FOLD
+	self.current_action = action
+	dealer_signal.emit(self, action, amount)
