@@ -1,54 +1,23 @@
 extends CanvasLayer
 
-var potAmount = 0
+@onready var blue_player = $Blue_Player
+@onready var red_player = $Red_Player
+@onready var yellow_player = $Yellow_Player
+@onready var green_player = $Green_Player
+
 signal add_card_signal
 signal add_community_card_signal
 signal add_hidden_community_card_signal
 
-# Called when the node enters the scene tree for the first time.
+var pot_amount = 0
+var player_views: Array = []
+
 func _ready():
-	### Ui elements ###
 	# Lighter color for play against AI button
 	$playAIbutton.modulate = Color(3, 3, 3)
-
-	# Pot is $0
 	$Pot/potAmount.text = "[center]$0[/center]"
-
-	# Load title screen
-	$"../Casino Board/Light".hide()
-	$".".hide()
-	$AI_UI.hide()
-	$"../SlotMachine".hide()
-	$"../TitleScreen/startButton".modulate = Color(3, 3, 3)
-
-## Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-	## Update progress bars with bet $ / total $ for each color
-	## Progress bar is out of 80
-	#$BlueBar/blueProgress.value = round(float(float($BlueBar/blueBet.text.to_int()) /
-	#($BlueBar/blueBal.text.to_float()*10))) * 0.8
-#
-	#$RedBar/redProgress.value = round(float(float($RedBar/redBet.text.to_int()) /
-	#($RedBar/redBal.text.to_float()*10))) * 0.8
-#
-	#$YellowBar/yellowProgress.value = round(float(float($YellowBar/yellowBet.text.to_int()) /
-	#($YellowBar/yellowBal.text.to_float()*10))) * 0.8
-#
-	#$GreenBar/greenProgress.value = round(float(float($GreenBar/greenBet.text.to_int()) /
-	#($GreenBar/greenBal.text.to_float()*10))) * 0.8
-#
-	## Update pot amount by adding all bets
-	#potAmount = ($BlueBar/blueBet.text.to_int()
-		#+ $RedBar/redBet.text.to_int()
-		#+ $YellowBar/yellowBet.text.to_int()
-		#+ $GreenBar/greenBet.text.to_int())
-#
-	## Add comma to pot amount
-	#if potAmount > 999:
-		#potAmount = str(potAmount)
-		#potAmount = potAmount.insert(len(potAmount)-3, ",")
-#
-	#$Pot/potAmount.text = "[center]$"+potAmount+"[/center]"
+	load_title_screen()
+	self.player_views = [blue_player, red_player, yellow_player, green_player]	
 
 func _on_start_button_pressed():
 	$"../TitleScreen".hide()
@@ -56,6 +25,14 @@ func _on_start_button_pressed():
 	$".".show()
 	$AI_UI.show()
 	$"../SlotMachine".show()
+	update_pot_amount()
+
+func load_title_screen():
+	$"../Casino Board/Light".hide()
+	$".".hide()
+	$AI_UI.hide()
+	$"../SlotMachine".hide()
+	$"../TitleScreen/startButton".modulate = Color(3, 3, 3)
 
 func add_card(player, card):
 	var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(card.suit) + str(card.value) + ".png")
@@ -80,3 +57,22 @@ func add_hidden_community_card():
 	var flipped_texture_rect = TextureRect.new()
 	flipped_texture_rect.texture = load("res://assets/ui/cards_alt/card_back_pix.png")
 	$Pot/table.add_child(flipped_texture_rect)
+
+func update_pot_amount():
+	pot_amount = 0
+	for player in self.player_views:
+		pot_amount += (player.get_bet_amount())
+	$Pot/potAmount.text = "[center]"+format_money_text(pot_amount)+"[/center]"
+
+func format_money_text(amount: int) -> String:
+	var str_amount = str(amount)
+	var formatted_amount = ""
+	var counter = 0
+
+	for i in range(str_amount.length() - 1, -1, -1):
+		if counter > 0 and counter % 3 == 0:
+			formatted_amount = "," + formatted_amount
+		formatted_amount = str_amount[i] + formatted_amount
+		counter += 1
+
+	return "$" + formatted_amount
