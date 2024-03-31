@@ -2,24 +2,31 @@ class_name Dealer
 extends Node
 @onready var ui = $"../UI"
 
+signal start_new_game
+signal clear_previous_game
+
 var pot_balance: int
 var community_cards: Hand
 var deck_of_cards: Deck
 var players: Array[Player]
 
 func _init():
-	pot_balance = 0
-	community_cards = Hand.new()
-	deck_of_cards = Deck.new()
+	reset_dealer_state()
 	players = []
 	players.append(Player.new(Player.PlayerColor.BLUE, false, 100000))
 	players.append(Player.new(Player.PlayerColor.RED, false, 100000))
 	players.append(Player.new(Player.PlayerColor.YELLOW, false, 100000))
 	players.append(Player.new(Player.PlayerColor.GREEN, false, 100000))
 
+func start_game():
+	deal_player_cards()
+	deal_community_cards(5)
 
-	# deal_player_cards()
-	# deal_community_cards(5)
+func clear_game():
+	reset_dealer_state()
+	
+	for player in players:
+		player.reset_player_state()
 
 func deal_player_cards():
 	for player in players:
@@ -49,6 +56,12 @@ func deal_community_cards(amount_of_cards: int):
 	
 	# TESTING
 	determine_winner()
+
+func reset_dealer_state():
+	pot_balance = 0
+	self.community_cards = Hand.new()
+	self.deck_of_cards = Deck.new()
+	print(self.deck_of_cards.deck_of_cards.size())
 
 func determine_winner():
 	var highest_ranked_players: Array[Player] = []
@@ -236,4 +249,3 @@ func handle_pot(players_with_same_rank: Array[Player]):
 	print("Pot split between: " + str(players_with_same_rank.size()) + " players")
 	for player in players_with_same_rank:
 		print("Player " + str(player.player_color) + " receives: " + str(split_amount))
-

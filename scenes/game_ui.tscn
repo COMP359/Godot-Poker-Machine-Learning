@@ -8,56 +8,6 @@
 
 [node name="UI" type="CanvasLayer"]
 
-[node name="Cards" type="Control" parent="."]
-z_index = -5
-layout_mode = 3
-anchors_preset = 0
-offset_top = -10.0
-offset_right = 87.0
-offset_bottom = 138.0
-scale = Vector2(0.9, 0.9)
-
-[node name="blueHand" type="HBoxContainer" parent="Cards"]
-layout_mode = 0
-offset_left = 39.0
-offset_top = 15.3333
-offset_right = 1082.0
-offset_bottom = 390.333
-scale = Vector2(0.04, 0.04)
-theme_override_constants/separation = 50
-
-[node name="redHand" type="HBoxContainer" parent="Cards"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.448
-anchor_top = 0.318
-anchor_right = 0.928
-anchor_bottom = 0.419
-offset_left = 0.0239983
-offset_top = 6.6026
-offset_right = 1001.26
-offset_bottom = 366.655
-scale = Vector2(0.04, 0.04)
-theme_override_constants/separation = 50
-
-[node name="yellowHand" type="HBoxContainer" parent="Cards"]
-layout_mode = 0
-offset_left = 39.0
-offset_top = 93.1108
-offset_right = 1082.0
-offset_bottom = 468.111
-scale = Vector2(0.04, 0.04)
-theme_override_constants/separation = 50
-
-[node name="greenHand" type="HBoxContainer" parent="Cards"]
-layout_mode = 0
-offset_left = 39.0
-offset_top = 131.444
-offset_right = 1082.0
-offset_bottom = 506.444
-scale = Vector2(0.04, 0.04)
-theme_override_constants/separation = 50
-
 [node name="Pot" type="Control" parent="."]
 layout_mode = 3
 anchor_left = 0.491

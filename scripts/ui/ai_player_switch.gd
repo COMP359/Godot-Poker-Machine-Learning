@@ -1,4 +1,5 @@
 extends Button
+@onready var ui = $".."
 var playerIsPlaying = false
 
 # Called when the node enters the scene tree for the first time.
@@ -7,6 +8,7 @@ func _ready():
 	$"../AI_UI".show()
 
 func _on_ai_button_pressed():
+	ui.emit_signal("player_playing_pressed", !playerIsPlaying)
 	playerIsPlaying = !playerIsPlaying
 	# Change the button's text and color when it's pressed
 	if playerIsPlaying:

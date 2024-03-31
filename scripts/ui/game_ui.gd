@@ -4,10 +4,13 @@ extends CanvasLayer
 @onready var red_player = $Red_Player
 @onready var yellow_player = $Yellow_Player
 @onready var green_player = $Green_Player
+@onready var dealer = $"../Dealer"
 
 signal add_card_signal
 signal add_community_card_signal
 signal add_hidden_community_card_signal
+signal update_pot_balance
+signal player_playing_pressed
 
 var pot_amount = 0
 var player_views: Array = []
@@ -27,6 +30,20 @@ func _on_start_button_pressed():
 	$"../SlotMachine".show()
 	update_pot_amount()
 
+func start_game_dealer(playerPlaying: bool):
+	if (playerPlaying):
+		dealer.emit_signal("start_new_game")
+	else:
+		dealer.emit_signal("clear_previous_game")
+		clear_game_ui()
+
+func clear_game_ui():
+	for player in self.player_views:
+		player.clear_hand()
+	
+	for card in $Pot/table.get_children():
+		card.queue_free()
+	
 func load_title_screen():
 	$"../Casino Board/Light".hide()
 	$".".hide()
@@ -39,13 +56,13 @@ func add_card(player, card):
 	var flipped_texture_rect = TextureRect.new()
 	flipped_texture_rect.texture = flipped_card_texture
 	if player.player_color == Player.PlayerColor.BLUE:
-		$Cards/blueHand.add_child(flipped_texture_rect)
+		blue_player.add_card(flipped_texture_rect)
 	elif player.player_color == Player.PlayerColor.RED:
-		$Cards/redHand.add_child(flipped_texture_rect)
+		red_player.add_card(flipped_texture_rect)
 	elif player.player_color == Player.PlayerColor.YELLOW:
-		$Cards/yellowHand.add_child(flipped_texture_rect)
+		yellow_player.add_card(flipped_texture_rect)
 	elif player.player_color == Player.PlayerColor.GREEN:
-		$Cards/greenHand.add_child(flipped_texture_rect)
+		green_player.add_card(flipped_texture_rect)
 
 func add_community_card(card):
 	var flipped_texture_rect = TextureRect.new()
