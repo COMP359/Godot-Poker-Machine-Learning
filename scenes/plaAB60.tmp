@@ -107,28 +107,27 @@ anchors_preset = -1
 anchor_left = -0.724138
 anchor_top = -0.381
 anchor_right = 0.241
-offset_left = 63.163
-offset_top = 0.868966
-offset_right = -5.80397
-offset_bottom = 0.772966
-scale = Vector2(2.0428, 0.897108)
+offset_left = 63.7937
+offset_top = 0.845607
+offset_right = -5.1733
+offset_bottom = 0.749607
+scale = Vector2(1.22222, 1)
 color = Color(1, 1, 1, 0.0901961)
 
-[node name="player_balance" type="RichTextLabel" parent="."]
+[node name="player_balance" type="RichTextLabel" parent="player_balance_rectangle"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.006
 anchor_top = 0.111
 anchor_right = 0.075
 anchor_bottom = 0.156
-offset_left = 0.560486
-offset_top = -5.81322
-offset_right = 19.5575
-offset_bottom = 0.466784
-scale = Vector2(1.051, 1)
+offset_left = 0.604439
+offset_top = 0.0222048
+offset_right = 19.6014
+offset_bottom = 6.30221
 theme_override_fonts/normal_font = ExtResource("4_ijq5e")
 theme_override_font_sizes/normal_font_size = 3
-text = "$0"
+text = "$192"
 
 [node name="player_hidden_rectangle" type="ColorRect" parent="."]
 visible = false
