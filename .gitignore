@@ -4,3 +4,9 @@ Python-ML/rl/
 Godot-Project/.godot/
 Godot-Project/.vscode/
 Godot-Project/venv
+
+.godot/
+.vscode/
+
+*.tmp
+*.import
