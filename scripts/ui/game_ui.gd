@@ -30,9 +30,9 @@ func _on_start_button_pressed():
 	$"../SlotMachine".show()
 	update_pot_amount()
 
-func start_game_dealer(playerPlaying: bool):
-	if (playerPlaying):
-		dealer.emit_signal("start_new_game")
+func start_game_dealer(playing_state: bool, player_playing: bool):
+	if (playing_state):
+		dealer.emit_signal("start_new_game", player_playing)
 	else:
 		dealer.emit_signal("clear_previous_game")
 		clear_game_ui()
@@ -51,8 +51,12 @@ func load_title_screen():
 	$"../SlotMachine".hide()
 	$"../TitleScreen/startButton".modulate = Color(3, 3, 3)
 
-func add_card(player, card):
-	var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(card.suit) + str(card.value) + ".png")
+func add_card(player, card, hidden_card):
+	var flipped_card_texture = ""
+	if hidden_card:
+		flipped_card_texture = load("res://assets/ui/cards_alt/card_back_pix.png")
+	else:
+		flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(card.suit) + str(card.value) + ".png")
 	var flipped_texture_rect = TextureRect.new()
 	flipped_texture_rect.texture = flipped_card_texture
 	if player.player_color == Player.PlayerColor.BLUE:
@@ -65,8 +69,8 @@ func add_card(player, card):
 		green_player.add_card(flipped_texture_rect)
 
 func add_community_card(card):
-	var flipped_texture_rect = TextureRect.new()
 	var flipped_card_texture = load("res://assets/ui/cards_pixel/" + str(card.suit) + str(card.value) + ".png")
+	var flipped_texture_rect = TextureRect.new()
 	flipped_texture_rect.texture = flipped_card_texture
 	$Pot/table.add_child(flipped_texture_rect)
 

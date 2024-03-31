@@ -13,14 +13,18 @@ var players: Array[Player]
 func _init():
 	reset_dealer_state()
 	players = []
-	players.append(Player.new(Player.PlayerColor.BLUE, false, 100000))
+	players.append(Player.new(Player.PlayerColor.BLUE, true, 100000))
 	players.append(Player.new(Player.PlayerColor.RED, false, 100000))
 	players.append(Player.new(Player.PlayerColor.YELLOW, false, 100000))
 	players.append(Player.new(Player.PlayerColor.GREEN, false, 100000))
 
-func start_game():
+func start_game(player_playing: bool):
+	for player in players:
+		if (player.player_color != Player.PlayerColor.BLUE): # Always show player ones cards
+			player.is_human_player = !player_playing
 	deal_player_cards()
-	deal_community_cards(5)
+	deal_community_cards(3, false)
+	deal_community_cards(2, true)
 
 func clear_game():
 	reset_dealer_state()
@@ -34,21 +38,17 @@ func deal_player_cards():
 		for i in range(2):
 			var card_dealt = deck_of_cards.draw_card()
 			player.hand.add_card(card_dealt)
-			ui.emit_signal("add_card_signal", player, card_dealt)
+			ui.emit_signal("add_card_signal", player, card_dealt, !player.is_human_player)
 
-func deal_community_cards(amount_of_cards: int):
+func deal_community_cards(amount_of_cards: int, hidden_card: bool):
 	for i in range(amount_of_cards):
-		var card_dealt = deck_of_cards.draw_card()
-		community_cards.add_card(card_dealt)
-		ui.emit_signal("add_community_card_signal", card_dealt)
-	# TODO: THIS IS SCUFFED NEEDS TO BE FIXED JUST FOR TESTING
-	# MAKE A FUNCTION TO AUTOMATICALLY FILL IN THE REMAINING SPOTS
-	#for i in range(2):
-		## MAKE THE UI TAKE AWAY THE HIDDEN CARDS AND SHOW THE REAL ONES AFTER
-		##var card_dealt = deck_of_cards.draw_card()
-		##community_cards.add_card(card_dealt)
-		#ui.emit_signal("add_hidden_community_card_signal")
-	
+		if (!hidden_card):
+			var card_dealt = deck_of_cards.draw_card()
+			community_cards.add_card(card_dealt)
+			ui.emit_signal("add_community_card_signal", card_dealt)
+		else:
+			ui.emit_signal("add_hidden_community_card_signal")
+
 	# TESTING
 	for player in players:
 		var player_rank_enum = player.hand.ranking.determine_hand_ranking(player.hand.cards + community_cards.cards)
@@ -61,7 +61,6 @@ func reset_dealer_state():
 	pot_balance = 0
 	self.community_cards = Hand.new()
 	self.deck_of_cards = Deck.new()
-	print(self.deck_of_cards.deck_of_cards.size())
 
 func determine_winner():
 	var highest_ranked_players: Array[Player] = []
