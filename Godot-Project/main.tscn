@@ -188,10 +188,12 @@ action_repeat = 5
 speed_up = 100
 
 [connection signal="clear_previous_game" from="Dealer" to="Dealer" method="clear_game"]
+[connection signal="player_action_signal" from="Dealer" to="Dealer" method="players_move_state"]
 [connection signal="start_new_game" from="Dealer" to="Dealer" method="start_game"]
 [connection signal="add_card_signal" from="UI" to="UI" method="add_card"]
 [connection signal="add_community_card_signal" from="UI" to="UI" method="add_community_card"]
 [connection signal="add_hidden_community_card_signal" from="UI" to="UI" method="add_hidden_community_card"]
 [connection signal="player_playing_pressed" from="UI" to="UI" method="start_game_dealer"]
+[connection signal="update_player_stats_signal" from="UI" to="UI" method="update_player_stats"]
 [connection signal="update_pot_balance" from="UI" to="UI" method="update_pot_amount"]
 [connection signal="pressed" from="TitleScreen/startButton" to="UI" method="_on_start_button_pressed"]
