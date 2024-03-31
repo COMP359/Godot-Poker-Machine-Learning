@@ -124,7 +124,7 @@ visible = false
 [connection signal="add_community_card_signal" from="." to="." method="add_community_card"]
 [connection signal="add_hidden_community_card_signal" from="." to="." method="add_hidden_community_card"]
 [connection signal="enable_player_controls_signal" from="." to="." method="enable_player_controls"]
-[connection signal="player_playing_pressed" from="." to="." method="_on_start_button_pressed"]
+[connection signal="player_playing_pressed" from="." to="." method="start_game_dealer"]
 [connection signal="update_player_stats_signal" from="." to="." method="update_player_stats"]
 [connection signal="update_pot_balance" from="." to="." method="update_pot_amount"]
 [connection signal="pressed" from="playAIbutton" to="playAIbutton" method="_on_ai_button_pressed"]
