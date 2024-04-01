@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bmx40fxtv723w"]
 
 [ext_resource type="Script" path="res://scripts/ui/game_ui.gd" id="1_rxy7u"]
-[ext_resource type="PackedScene" uid="uid://c6oqf0ebodb02" path="res://scenes/player_stats_view.tscn" id="2_1cgi2"]
+[ext_resource type="PackedScene" path="res://scenes/player_stats_view.tscn" id="2_1cgi2"]
 [ext_resource type="Script" path="res://scripts/ui/ai_spectate_switch.gd" id="4_pfxb5"]
 [ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="7_utfff"]
 [ext_resource type="Script" path="res://scripts/ui/ai_player_switch.gd" id="8_hxrc6"]

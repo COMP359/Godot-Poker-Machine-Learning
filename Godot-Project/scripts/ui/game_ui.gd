@@ -16,6 +16,7 @@ signal enable_player_controls_signal
 
 var pot_amount = 0
 var player_views: Array = []
+var raise_amount = 0
 
 func _ready():
 	# Lighter color for play against AI button
@@ -121,5 +122,5 @@ func _on_player_ui_player_folded():
 	dealer.player_ui_moved(Player.Action.FOLD, 0)
 
 func _on_player_ui_player_raise():
-	# TODO: NEED AMOUNT OF MONEY FROM THE RAISE UI INSIDE OF HERE
-	dealer.player_ui_moved(Player.Action.RAISE, 100)
+	raise_amount = $Player_UI/playerButtons/raiseButton/raistAmt.text.to_int()
+	dealer.player_ui_moved(Player.Action.RAISE, $Player_UI/playerButtons/raiseButton/raistAmt.text.to_int())
