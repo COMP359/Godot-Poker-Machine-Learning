@@ -3,8 +3,8 @@ extends Control
 @export_range(0, 3) var player_selected = 0
 @onready var background_rectangle = $background_rectangle
 @onready var robot_mugshot = $robot_mugshot
-@onready var player_turn_status = $player_turn_status
-@onready var player_turn_status_turn_text = $player_turn_status/TurnText
+@onready var player_turn_status = $player_action_label
+@onready var player_turn_status_turn_text = $player_action_label/player_action_label_text
 @onready var bet_amount = $bet_amount
 @onready var bet_total_progress_bar = $bet_total_progress_bar
 @onready var player_balance = $player_balance
@@ -28,44 +28,39 @@ func _ready():
 	set_balance_amount(100000)
 	set_bet_amount(34000)
 
-func set_bet_amount(bet_amount: int):
-	self.bet_amount.text = "[right][b]%s[/b][/right]" % format_money_text(bet_amount)
-	bet_total_progress_bar.value = (bet_amount / float(get_player_balance_amount())) * 100
-
-func add_card(card_texture):
+func add_card(card_texture) -> void:
 	player_hand.add_child(card_texture)
 
-func clear_hand():
+func clear_hand() -> void:
 	for card in player_hand.get_children():
 		card.queue_free()
-
-func set_balance_amount(player_balance: int):
-	self.player_balance.text = "%s" % format_money_text(player_balance)
-
-func get_bet_amount() -> int:
-	return bet_amount.text.to_int()
 
 func get_player_balance_amount() -> int:
 	return player_balance.text.to_int()
 
-func update_player_stats(player: Player):
-	update_player_label(player.current_action)
+func get_bet_amount() -> int:
+	return bet_amount.text.to_int()
+
+func set_balance_amount(player_balance_amount: int) -> void:
+	self.player_balance.text = "%s" % format_money_text(player_balance_amount)
+
+func set_bet_amount(player_bet_amount: int) -> void:
+	self.bet_amount.text = "[right][b]%s[/b][/right]" % format_money_text(player_bet_amount)
+	bet_total_progress_bar.value = (bet_amount / float(get_player_balance_amount())) * 100
+
+func update_player_stats(player: Player) -> void:
+	update_player_label_for_action(player.current_action)
 	set_bet_amount(player.bet)
 	set_balance_amount(player.balance)
 
-func update_player_label(action: Player.Action):
+func update_player_label_for_action(action: Player.Action) -> void:
 	print("This is players action on update", action)
 	player_turn_status.visible = true
-	if (action == Player.Action.TURN):
-		player_turn_status_turn_text.text = "TURN"
-		player_turn_status.modulate = Color(0, 1, 0)
-		player_hidden_rectangle.visible = false
-	else:
-		player_hidden_rectangle.visible = true
-
+	player_hidden_rectangle.visible = false
 	if (action == Player.Action.FOLD):
 		player_turn_status_turn_text.text = "FOLD"
 		player_turn_status.modulate = Color(1, 0, 0)
+		player_hidden_rectangle.visible = true
 	elif (action == Player.Action.CHECK):
 		player_turn_status_turn_text.text = "CHECK"
 		player_turn_status.modulate = Color(0, 1, 0)
@@ -78,16 +73,11 @@ func update_player_label(action: Player.Action):
 	elif (action == Player.Action.ALL_IN):
 		player_turn_status_turn_text.text = "ALL IN"
 		player_turn_status.modulate = Color(0, 1, 0)
-	elif (action == Player.Action.WIN):
-		player_turn_status_turn_text.text = "WIN"
-		player_turn_status.modulate = Color(0, 1, 0)
-		player_hidden_rectangle.visible = false
-	elif (action == Player.Action.LOSE):
-		player_turn_status_turn_text.text = "LOSE"
-		player_turn_status.modulate = Color(1, 0, 0)
-	elif (action == Player.Action.TIE):
-		player_turn_status_turn_text.text = "TIE"
-		player_turn_status.modulate = Color(1, 1, 0)
+
+func update_player_label_for_turn() -> void:
+	player_turn_status.visible = true
+	player_hidden_rectangle.visible = false
+	player_turn_status_turn_text.text = "TURN"
 
 func format_money_text(amount: int) -> String:
 	var str_amount = str(amount)
