@@ -16,7 +16,6 @@ offset_right = -0.0400085
 offset_bottom = -10.02
 scale = Vector2(0.9, 0.9)
 script = ExtResource("1_cvk6m")
-player_selected = null
 
 [node name="player_hand" type="HBoxContainer" parent="."]
 layout_mode = 0

@@ -15,8 +15,9 @@ var hand: Hand
 var balance: int
 var bet: int
 var has_folded: bool = false
-var dealer_signal: Signal
 var current_action: Action
+
+var dealer_signal: Signal
 
 func _init(player_selected: PlayerColor, is_human: bool, new_balance: int, dealer_signal: Signal) -> void:
 	"""Initialize a new player with the selected color, type, and balance."""
@@ -30,6 +31,7 @@ func _init(player_selected: PlayerColor, is_human: bool, new_balance: int, deale
 
 func reset_player_state() -> void:
 	"""Reset the player's hand, bet, and fold status."""
+	self.is_human_player = false
 	self.hand = Hand.new()
 	self.bet = 0
 	self.has_folded = false
