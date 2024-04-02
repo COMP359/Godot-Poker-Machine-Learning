@@ -6,7 +6,7 @@ enum PlayerColor {
 }
 
 enum Action {
-	FOLD, CHECK, CALL, RAISE, ALL_IN, WIN, LOSE, TIE, TURN
+	FOLD, CHECK, CALL, RAISE, ALL_IN
 }
 
 var player_color: PlayerColor
