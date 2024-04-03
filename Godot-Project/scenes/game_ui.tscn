@@ -1,0 +1,124 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmx40fxtv723w"]
+
+[ext_resource type="PackedScene" uid="uid://c6oqf0ebodb02" path="res://scenes/player_stats_view.tscn" id="2_1cgi2"]
+[ext_resource type="Script" path="res://scripts/ui/ai_spectate_switch.gd" id="4_pfxb5"]
+[ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="7_utfff"]
+[ext_resource type="Script" path="res://scripts/ui/ai_player_switch.gd" id="8_hxrc6"]
+[ext_resource type="PackedScene" uid="uid://iagdimtnide8" path="res://scenes/player_controls.tscn" id="9_3rj0d"]
+[ext_resource type="PackedScene" uid="uid://cmd48dmk1iwhu" path="res://scenes/ai_controls.tscn" id="10_eu5m8"]
+
+[node name="UI" type="CanvasLayer"]
+follow_viewport_enabled = true
+
+[node name="Pot" type="Control" parent="."]
+layout_mode = 3
+anchor_left = 0.491
+anchor_right = 1.0
+anchor_bottom = 0.344
+offset_left = -0.12001
+offset_bottom = -59.92
+
+[node name="table" type="HBoxContainer" parent="Pot"]
+layout_mode = 0
+offset_left = 35.7
+offset_top = 4.0
+offset_right = 2860.7
+offset_bottom = 479.0
+scale = Vector2(0.045, 0.045)
+theme_override_constants/separation = 50
+
+[node name="potBackground" type="ColorRect" parent="Pot"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 23.0
+offset_right = 163.0
+offset_bottom = 39.0
+color = Color(0.294118, 0.160784, 0.168627, 1)
+
+[node name="potBorder2" type="ColorRect" parent="Pot"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 23.0
+offset_right = 49.0
+offset_bottom = 24.0
+rotation = 1.5708
+
+[node name="potBorder3" type="ColorRect" parent="Pot"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 38.0
+offset_right = 163.0
+offset_bottom = 39.0
+
+[node name="potBorder1" type="ColorRect" parent="Pot"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 22.0
+offset_right = 163.0
+offset_bottom = 24.0
+color = Color(0.780392, 0.780392, 0.780392, 1)
+
+[node name="potAmount" type="RichTextLabel" parent="Pot"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 26.0
+offset_right = 163.0
+offset_bottom = 37.0
+theme_override_fonts/normal_font = ExtResource("7_utfff")
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "$85,000"
+
+[node name="Blue_Player" parent="." instance=ExtResource("2_1cgi2")]
+
+[node name="Red_Player" parent="." instance=ExtResource("2_1cgi2")]
+offset_top = 22.0
+offset_bottom = 21.98
+player_selected = 1
+
+[node name="Yellow_Player" parent="." instance=ExtResource("2_1cgi2")]
+offset_top = 52.0
+offset_bottom = 51.98
+player_selected = 2
+
+[node name="Green_Player" parent="." instance=ExtResource("2_1cgi2")]
+offset_top = 84.0
+offset_bottom = 83.98
+player_selected = 3
+
+[node name="playAIbutton" type="Button" parent="."]
+anchors_preset = -1
+anchor_right = 0.025
+anchor_bottom = 0.044
+offset_top = 140.0
+offset_right = 772.0
+offset_bottom = 282.08
+scale = Vector2(0.1, 0.1)
+theme_override_fonts/font = ExtResource("7_utfff")
+theme_override_font_sizes/font_size = 40
+text = "PLAY AGAINST AI"
+script = ExtResource("8_hxrc6")
+
+[node name="spectateAIButton" type="Button" parent="."]
+anchors_preset = -1
+anchor_right = 0.025
+anchor_bottom = 0.044
+offset_left = 1.0
+offset_top = 160.0
+offset_right = 773.0
+offset_bottom = 302.08
+scale = Vector2(0.1, 0.1)
+theme_override_fonts/font = ExtResource("7_utfff")
+theme_override_font_sizes/font_size = 40
+text = "SPECTATE AI"
+script = ExtResource("4_pfxb5")
+
+[node name="Player_UI" parent="." instance=ExtResource("9_3rj0d")]
+visible = false
+
+[node name="AI_UI" parent="." instance=ExtResource("10_eu5m8")]
+visible = false
+follow_viewport_enabled = true
+
+[connection signal="pressed" from="playAIbutton" to="playAIbutton" method="_on_ai_button_pressed"]
+[connection signal="pressed" from="spectateAIButton" to="spectateAIButton" method="_on_pressed"]

@@ -1,0 +1,194 @@
+[gd_scene load_steps=21 format=3 uid="uid://cxm2wy616ba6o"]
+
+[ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://assets/tiles/tile.png" id="1_biwwp"]
+[ext_resource type="Script" path="res://scripts/card_logic.gd" id="1_ye476"]
+[ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://assets/sprites/table-2.png" id="2_mi3hp"]
+[ext_resource type="Texture2D" uid="uid://cpir4cuqpn6oc" path="res://assets/sprites/casino-robots.png" id="3_3h1r3"]
+[ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
+[ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://assets/sprites/dealer.png" id="5_c4uga"]
+[ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://scenes/slot_machine.tscn" id="6_b3ihe"]
+[ext_resource type="PackedScene" uid="uid://bmx40fxtv723w" path="res://scenes/game_ui.tscn" id="7_1yhxm"]
+[ext_resource type="Script" path="res://scripts/classes/dealer.gd" id="7_uxvku"]
+[ext_resource type="Script" path="res://scripts/ui/game_ui.gd" id="8_x6skd"]
+[ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="9_g6vtq"]
+[ext_resource type="Script" path="res://scripts/AIController.gd" id="12_tkpkj"]
+[ext_resource type="Script" path="res://addons/godot_rl_agents/sync.gd" id="13_4v4u1"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_440jg"]
+texture = ExtResource("1_biwwp")
+0:0/0 = 0
+1:0/0 = 0
+1:1/0 = 0
+1:2/0 = 0
+2:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_uwxr6"]
+sources/0 = SubResource("TileSetAtlasSource_440jg")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_un68a"]
+blend_mode = 1
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_5775n"]
+polygon = PackedVector2Array(14, -28.4875, 24.0125, -28.4875, 24.0125, -27.4875, 14, -27.4875)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_x5n3l"]
+polygon = PackedVector2Array(-6, -9, -5, -9, -5, 5, -3, 5, -3, 6, -2, 6, -2, 7, 2, 7, 2, 6, 3, 6, 3, 5, 5, 5, 5, -9, 6, -9, 6, 5, 5, 5, 5, 6, 3, 6, 3, 7, 2, 7, 2, 8, 3, 8, 3, 9, 4, 9, 4, 10, 5, 10, 5, 12, 4, 12, 4, 13, 3, 13, 3, 15, 2, 15, 2, 16, -2, 16, -2, 15, -3, 15, -3, 13, -4, 13, -4, 12, -5, 12, -5, 10, -4, 10, -4, 9, -3, 9, -3, 8, -2, 8, -2, 7, -3, 7, -3, 6, -5, 6, -5, 5, -6, 5)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7e1rm"]
+blend_mode = 1
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_svhkc"]
+polygon = PackedVector2Array(-12.493, 14.5047, 12.5038, 14.5047, 12.5038, 15.5036, -12.5179, 15.4537)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ye476")
+
+[node name="Shader" type="CanvasModulate" parent="."]
+color = Color(0.145098, 0.145098, 0.145098, 1)
+metadata/_edit_lock_ = true
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_uwxr6")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 65536, 65536, 1342177280, 65537, 65536, 1342177280, 65538, 65536, 1342177280, 131074, 65536, 1610612736, 131075, 131072, 0, 196611, 65536, 0, 196612, 65536, 268435456, 262148, 65536, 268435456, 262149, 0, 0, 524292, 65536, 268435456, 131072, 65536, 1610612736, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 393216, 0, 0, 458752, 0, 0, 524288, 0, 0, 589824, 0, 0, 655360, 0, 0, 720896, 65536, 1342177280, 1, 0, 0, 131073, 65536, 1610612736, 196609, 0, 0, 262145, 0, 0, 327681, 0, 0, 393217, 0, 0, 458753, 0, 0, 524289, 0, 0, 589825, 0, 0, 655361, 0, 0, 720897, 65536, 1342177280, 2, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 0, 0, 393218, 0, 0, 458754, 0, 0, 524290, 0, 0, 589826, 0, 0, 655362, 0, 0, 720898, 65536, 1342177280, 3, 65536, 0, 65539, 131072, 0, 262147, 65536, 0, 327683, 65536, 0, 393219, 65536, 0, 458755, 65536, 0, 524291, 65536, 0, 589827, 65536, 0, 655363, 65536, 0, 720899, 131072, 0, 4, 65536, 268435456, 65540, 131072, 0, 131076, 131072, 0, 327684, 65536, 268435456, 393220, 65536, 268435456, 458756, 65536, 268435456, 589828, 65536, 268435456, 655364, 65536, 268435456, 720900, 131072, 0, 5, 0, 0, 65541, 65536, 1342177280, 131077, 65536, 1879048192, 196613, 0, 0, 327685, 0, 0, 393221, 0, 0, 458757, 0, 0, 524293, 0, 0, 589829, 0, 0, 655365, 0, 0, 720901, 65536, 1342177280, 6, 0, 0, 65542, 65536, 1342177280, 131078, 65536, 1879048192, 196614, 0, 0, 262150, 0, 0, 327686, 0, 0, 393222, 0, 0, 458758, 0, 0, 524294, 0, 0, 589830, 0, 0, 655366, 0, 0, 720902, 65536, 1342177280, 7, 0, 0, 65543, 65536, 1342177280, 131079, 65536, 1879048192, 196615, 0, 0, 262151, 0, 0, 327687, 0, 0, 393223, 0, 0, 458759, 0, 0, 524295, 0, 0, 589831, 0, 0, 655367, 0, 0, 720903, 65536, 1342177280, 8, 0, 0, 65544, 65536, 1342177280, 131080, 65536, 1879048192, 196616, 0, 0, 262152, 0, 0, 327688, 0, 0, 393224, 0, 0, 458760, 0, 0, 524296, 0, 0, 589832, 0, 0, 655368, 0, 0, 720904, 65536, 1342177280, 9, 0, 0, 65545, 65536, 1342177280, 131081, 65536, 1879048192, 196617, 0, 0, 262153, 0, 0, 327689, 0, 0, 393225, 0, 0, 458761, 0, 0, 524297, 0, 0, 589833, 0, 0, 655369, 0, 0, 720905, 65536, 1342177280, 10, 0, 0, 65546, 65536, 1342177280, 131082, 65536, 1879048192, 196618, 0, 0, 262154, 0, 0, 327690, 0, 0, 393226, 0, 0, 458762, 0, 0, 524298, 0, 0, 589834, 0, 0, 655370, 0, 0, 720906, 65536, 1342177280, 11, 0, 0, 65547, 65536, 1342177280, 131083, 65536, 1879048192, 196619, 0, 0, 262155, 0, 0, 327691, 0, 0, 393227, 0, 0, 458763, 0, 0, 524299, 0, 0, 589835, 0, 0, 655371, 0, 0, 720907, 65536, 1342177280, 12, 0, 0, 65548, 65536, 1342177280, 131084, 65536, 1879048192, 196620, 0, 0, 262156, 0, 0, 327692, 0, 0, 393228, 0, 0, 458764, 0, 0, 524300, 0, 0, 589836, 0, 0, 655372, 0, 0, 720908, 65536, 1342177280, 13, 0, 0, 65549, 65536, 1342177280, 131085, 65536, 1879048192, 196621, 0, 0, 262157, 0, 0, 327693, 0, 0, 393229, 0, 0, 458765, 0, 0, 524301, 0, 0, 589837, 0, 0, 655373, 0, 0, 720909, 65536, 1342177280, 14, 0, 0, 65550, 65536, 1342177280, 131086, 65536, 1879048192, 196622, 0, 0, 262158, 0, 0, 327694, 0, 0, 393230, 0, 0, 458766, 0, 0, 524302, 0, 0, 589838, 0, 0, 655374, 0, 0, 720910, 65536, 1342177280, 15, 65536, 0, 65551, 131072, 0, 131087, 131072, 0, 196623, 65536, 0, 262159, 65536, 0, 327695, 65536, 0, 393231, 65536, 0, 458767, 65536, 0, 524303, 65536, 0, 589839, 65536, 0, 655375, 65536, 0, 720911, 131072, 0, 16, 65536, 805306368, 65552, 131072, 0, 131088, 131072, 0, 196624, 65536, 805306368, 262160, 65536, 805306368, 327696, 65536, 805306368, 393232, 65536, 805306368, 458768, 65536, 805306368, 524304, 65536, 805306368, 589840, 65536, 805306368, 655376, 65536, 805306368, 720912, 131072, 0, 17, 0, 0, 65553, 65536, 1342177280, 131089, 65536, 1610612736, 196625, 0, 0, 262161, 0, 0, 327697, 0, 0, 393233, 0, 0, 458769, 0, 0, 524305, 0, 0, 589841, 0, 0, 655377, 0, 0, 720913, 65536, 1342177280, 18, 0, 0, 65554, 65536, 1342177280, 131090, 65536, 1610612736, 196626, 0, 0, 262162, 0, 0, 327698, 0, 0, 393234, 0, 0, 458770, 0, 0, 524306, 0, 0, 589842, 0, 0, 655378, 0, 0, 720914, 65536, 1342177280, 19, 0, 0, 65555, 65536, 1342177280, 131091, 65536, 1610612736, 196627, 0, 0, 262163, 0, 0, 327699, 0, 0, 393235, 0, 0, 458771, 0, 0, 524307, 0, 0, 589843, 0, 0, 655379, 0, 0, 720915, 65536, 1342177280)
+
+[node name="Table" type="Sprite2D" parent="."]
+position = Vector2(24.2654, 91.7305)
+texture = ExtResource("2_mi3hp")
+
+[node name="Casino Board" type="Sprite2D" parent="."]
+position = Vector2(158, 81)
+texture = ExtResource("3_3h1r3")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Casino Board"]
+material = SubResource("CanvasItemMaterial_un68a")
+occluder = SubResource("OccluderPolygon2D_5775n")
+
+[node name="Light" type="Node2D" parent="Casino Board"]
+position = Vector2(0, -3)
+scale = Vector2(0.681526, -0.572889)
+
+[node name="Texture" type="PointLight2D" parent="Casino Board/Light"]
+position = Vector2(2, -1)
+color = Color(1, 0.670588, 0.619608, 1)
+energy = 1.23
+texture = ExtResource("3_jq61r")
+
+[node name="Shadow" type="PointLight2D" parent="Casino Board/Light"]
+position = Vector2(0, -1)
+energy = 0.32
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.0470588)
+shadow_filter_smooth = 3.6
+texture = ExtResource("3_jq61r")
+texture_scale = 0.5
+
+[node name="Dealer" type="Sprite2D" parent="."]
+position = Vector2(157, 101)
+texture = ExtResource("5_c4uga")
+script = ExtResource("7_uxvku")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Dealer"]
+occluder = SubResource("OccluderPolygon2D_x5n3l")
+
+[node name="SlotMachine" parent="." instance=ExtResource("6_b3ihe")]
+position = Vector2(294.365, 72.6401)
+scale = Vector2(1.25, 1.25)
+SlotFinishedTimeout = 8.0
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="SlotMachine"]
+material = SubResource("CanvasItemMaterial_7e1rm")
+occluder = SubResource("OccluderPolygon2D_svhkc")
+
+[node name="Light7" type="Node2D" parent="SlotMachine"]
+position = Vector2(0.0130768, -0.0792408)
+scale = Vector2(0.454351, -0.381926)
+
+[node name="Texture" type="PointLight2D" parent="SlotMachine/Light7"]
+visible = false
+position = Vector2(2, -1)
+color = Color(1, 0.670588, 0.619608, 1)
+energy = 0.0
+texture = ExtResource("3_jq61r")
+
+[node name="Shadow" type="PointLight2D" parent="SlotMachine/Light7"]
+position = Vector2(0, -1)
+energy = 0.2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.0470588)
+shadow_filter_smooth = 3.6
+texture = ExtResource("3_jq61r")
+texture_scale = 0.5
+
+[node name="UI" parent="." instance=ExtResource("7_1yhxm")]
+script = ExtResource("8_x6skd")
+
+[node name="TitleScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="titleText" type="Label" parent="TitleScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.0
+offset_top = -56.5
+offset_right = 93.0
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_g6vtq")
+text = "POKER
+MACHINE
+LEARNING"
+horizontal_alignment = 1
+
+[node name="creditsText" type="Label" parent="TitleScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.0
+offset_top = 4.0
+offset_right = 93.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_g6vtq")
+theme_override_font_sizes/font_size = 3
+text = "Andrew Meier, Braedon McRae, Callum Brezden"
+horizontal_alignment = 1
+
+[node name="startButton" type="Button" parent="TitleScreen"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -43.0
+offset_right = 249.0
+offset_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.25, 0.25)
+theme_override_fonts/font = ExtResource("9_g6vtq")
+theme_override_font_sizes/font_size = 36
+text = "START"
+
+[node name="AIController" type="Node2D" parent="."]
+script = ExtResource("12_tkpkj")
+
+[node name="Sync" type="Node" parent="."]
+script = ExtResource("13_4v4u1")
+
+[connection signal="clear_previous_game" from="Dealer" to="Dealer" method="clear_game"]
+[connection signal="start_new_game" from="Dealer" to="Dealer" method="start_game"]
+[connection signal="add_card_signal" from="UI" to="UI" method="add_card"]
+[connection signal="add_community_card_signal" from="UI" to="UI" method="add_community_card"]
+[connection signal="add_hidden_community_card_signal" from="UI" to="UI" method="add_hidden_community_card"]
+[connection signal="player_playing_pressed" from="UI" to="UI" method="start_game_dealer"]
+[connection signal="update_pot_balance" from="UI" to="UI" method="update_pot_amount"]
+[connection signal="pressed" from="TitleScreen/startButton" to="UI" method="_on_start_button_pressed"]

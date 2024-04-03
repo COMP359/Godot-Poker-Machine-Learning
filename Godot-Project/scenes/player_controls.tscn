@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://iagdimtnide8"]
+
+[ext_resource type="Script" path="res://scripts/ui/player_controls.gd" id="1_aupuh"]
+[ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="1_gtucq"]
+[ext_resource type="Texture2D" uid="uid://dndq7ty73kbkg" path="res://assets/ui/white_arrow_up.png" id="3_fenuk"]
+[ext_resource type="Texture2D" uid="uid://dt3c2x3g2vndj" path="res://assets/ui/white_arrow_down.png" id="4_btgka"]
+
+[node name="Player_UI" type="CanvasLayer"]
+follow_viewport_enabled = true
+script = ExtResource("1_aupuh")
+
+[node name="playerButtons" type="VBoxContainer" parent="."]
+offset_left = 262.0
+offset_top = 106.0
+offset_right = 370.0
+offset_bottom = 246.0
+scale = Vector2(0.5, 0.5)
+
+[node name="callButton" type="Button" parent="playerButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_gtucq")
+theme_override_font_sizes/font_size = 16
+text = "CALL"
+alignment = 2
+
+[node name="raiseButton" type="Button" parent="playerButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 0
+theme_override_fonts/font = ExtResource("1_gtucq")
+theme_override_font_sizes/font_size = 16
+text = "RAISE
+ "
+alignment = 2
+
+[node name="raistAmt" type="Label" parent="playerButtons/raiseButton"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 26.0
+offset_right = 101.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0, 1, 0, 0.831373)
+theme_override_fonts/font = ExtResource("1_gtucq")
+theme_override_font_sizes/font_size = 9
+text = "+ $1000"
+horizontal_alignment = 2
+
+[node name="foldButton" type="Button" parent="playerButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 0.501961, 0.435294, 1)
+theme_override_fonts/font = ExtResource("1_gtucq")
+theme_override_font_sizes/font_size = 16
+text = "FOLD"
+alignment = 2
+
+[node name="arrowUp" type="TextureButton" parent="."]
+offset_left = 251.0
+offset_top = 133.0
+offset_right = 348.0
+offset_bottom = 217.0
+scale = Vector2(0.08, 0.08)
+texture_normal = ExtResource("3_fenuk")
+
+[node name="arrowDown" type="TextureButton" parent="."]
+offset_left = 251.0
+offset_top = 143.0
+offset_right = 348.0
+offset_bottom = 227.0
+scale = Vector2(0.08, 0.08)
+texture_normal = ExtResource("4_btgka")
+
+[connection signal="pressed" from="playerButtons/callButton" to="." method="_on_call_button_pressed"]
+[connection signal="pressed" from="playerButtons/raiseButton" to="." method="_on_raise_button_pressed"]
+[connection signal="pressed" from="playerButtons/foldButton" to="." method="_on_fold_button_pressed"]
+[connection signal="pressed" from="arrowUp" to="." method="_on_arrow_up_pressed"]
+[connection signal="pressed" from="arrowDown" to="." method="_on_arrow_down_pressed"]
