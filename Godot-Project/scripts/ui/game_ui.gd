@@ -18,12 +18,20 @@ var pot_amount = 0
 var player_views: Array = []
 var raise_amount = 0
 
+func _init():
+	var callable_test = Callable(self, "_on_testGlobalSignal")
+	GlobalSignalHandler.connect("testGlobalSignal", callable_test)
+	print("Connected")
+
 func _ready():
 	# Lighter color for play against AI button
 	$playAIbutton.modulate = Color(3, 3, 3)
 	$Pot/potAmount.text = "[center]$0[/center]"
 	#load_title_screen()
 	self.player_views = [blue_player, red_player, yellow_player, green_player]	
+
+func _on_testGlobalSignal():
+	print("Global signal received")
 
 func _on_start_button_pressed():
 	$"../TitleScreen".hide()

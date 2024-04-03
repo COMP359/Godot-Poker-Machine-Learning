@@ -30,6 +30,7 @@ func _ready():
 
 func add_card(card_texture) -> void:
 	player_hand.add_child(card_texture)
+	GlobalSignalHandler.emit_signal("testGlobalSignal")
 
 func clear_hand() -> void:
 	for card in player_hand.get_children():
@@ -46,7 +47,7 @@ func set_balance_amount(player_balance_amount: int) -> void:
 
 func set_bet_amount(player_bet_amount: int) -> void:
 	self.bet_amount.text = "[right][b]%s[/b][/right]" % format_money_text(player_bet_amount)
-	bet_total_progress_bar.value = (bet_amount / float(get_player_balance_amount())) * 100
+	bet_total_progress_bar.value = (get_bet_amount() / float(get_player_balance_amount())) * 100
 
 func update_player_stats(player: Player) -> void:
 	update_player_label_for_action(player.current_action)

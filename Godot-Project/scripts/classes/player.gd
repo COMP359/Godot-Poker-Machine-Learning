@@ -17,9 +17,7 @@ var bet: int
 var has_folded: bool = false
 var current_action: Action
 
-var dealer_signal: Signal
-
-func _init(player_selected: PlayerColor, is_human: bool, new_balance: int, dealer_signal: Signal) -> void:
+func _init(player_selected: PlayerColor, is_human: bool, new_balance: int) -> void:
 	"""Initialize a new player with the selected color, type, and balance."""
 	self.player_color = player_selected
 	self.is_human_player = is_human
@@ -27,7 +25,6 @@ func _init(player_selected: PlayerColor, is_human: bool, new_balance: int, deale
 	self.hand = Hand.new()
 	self.bet = 0
 	self.has_folded = false
-	self.dealer_signal = dealer_signal
 
 func reset_player_state() -> void:
 	"""Reset the player's hand, bet, and fold status."""
@@ -68,7 +65,6 @@ func human_play_hand(action: Player.Action, amount: int) -> void:
 		self.bet += amount
 		self.balance -= amount
 	self.current_action = action
-	dealer_signal.emit(self, action, amount)
 
 func ai_play_hand() -> void:
 	"""Have the AI play their hand. (This is a placeholder for the AI logic.)"""
@@ -112,4 +108,4 @@ func ai_play_hand() -> void:
 	# else:
 	# 		action = Action.FOLD
 	self.current_action = action
-	dealer_signal.emit(self, action, amount)
+	# dealer_signal.emit(self, action, amount)
