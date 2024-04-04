@@ -65,6 +65,7 @@ func human_play_hand(action: Player.Action, amount: int) -> void:
 		self.bet += amount
 		self.balance -= amount
 	self.current_action = action
+	GlobalSignalHandler.emit_signal("player_done", self)
 
 func ai_play_hand() -> void:
 	"""Have the AI play their hand. (This is a placeholder for the AI logic.)"""
@@ -79,33 +80,5 @@ func ai_play_hand() -> void:
 		action = Action.CALL
 		self.balance -= amount
 
-	# if hand_value >= 8:
-	# 		if random_factor < 0.7:
-	# 				# TODO: WE NEED TO CHECK IF THE PLAYER HAS ENOUGH BALANCE TO RAISE
-	# 				action = Action.RAISE
-	# 				amount = int(hand_value * 10 * random_factor)
-	# 				self.balance -= amount
-	# 				self.bet += amount
-	# 		else:
-	# 				action = Action.CALL
-	# 				self.balance -= amount
-
-	# elif hand_value >= 5:
-	# 		if random_factor < 0.5:
-	# 				action = Action.RAISE
-	# 				amount = int(hand_value * 10 * random_factor)
-	# 				self.bet += amount
-	# 				self.balance -= amount
-	# 		else:
-	# 				action = Action.CALL
-	# 				self.balance -= amount
-
-	# elif hand_value >= 2:
-	# 		if random_factor < 0.3:
-	# 				action = Action.FOLD
-	# 		else:
-	# 				action = Action.CHECK
-	# else:
-	# 		action = Action.FOLD
 	self.current_action = action
-	# dealer_signal.emit(self, action, amount)
+	GlobalSignalHandler.emit_signal("player_done", self)

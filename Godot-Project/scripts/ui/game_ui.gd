@@ -19,9 +19,7 @@ var player_views: Array = []
 var raise_amount = 0
 
 func _init():
-	var callable_test = Callable(self, "_on_testGlobalSignal")
-	GlobalSignalHandler.connect("testGlobalSignal", callable_test)
-	print("Connected")
+	connect_signals()
 
 func _ready():
 	# Lighter color for play against AI button
@@ -30,8 +28,11 @@ func _ready():
 	#load_title_screen()
 	self.player_views = [blue_player, red_player, yellow_player, green_player]	
 
-func _on_testGlobalSignal():
-	print("Global signal received")
+func connect_signals():
+	GlobalSignalHandler.connect("ui_player_stats_update", Callable(self, "update_player_stats"))
+	GlobalSignalHandler.connect("ui_player_turn_update", Callable(self, "update_player_turn_label"))
+	GlobalSignalHandler.connect("ui_player_controls", Callable(self, "toggle_player_controls"))
+	print("Game UI - Connected signals")
 
 func _on_start_button_pressed():
 	$"../TitleScreen".hide()
@@ -96,8 +97,11 @@ func update_pot_amount():
 		pot_amount += (player.get_bet_amount())
 	$Pot/potAmount.text = "[center]"+format_money_text(pot_amount)+"[/center]"
 
-func enable_player_controls():
-	$"Player_UI".show()
+func toggle_player_controls(state: bool):
+	if (state):
+		$"Player_UI".show()
+	else:
+		$"Player_UI".hide()
 
 func update_player_stats(player: Player):
 	if (player.player_color == Player.PlayerColor.BLUE):
@@ -108,6 +112,17 @@ func update_player_stats(player: Player):
 		yellow_player.update_player_stats(player)
 	elif (player.player_color == Player.PlayerColor.GREEN):
 		green_player.update_player_stats(player)
+
+func update_player_turn_label(player: Player):
+	print("Updating player turn label ", player.player_color)
+	if (player.player_color == Player.PlayerColor.BLUE):
+		blue_player.update_player_label_for_turn()
+	elif (player.player_color == Player.PlayerColor.RED):
+		red_player.update_player_label_for_turn()
+	elif (player.player_color == Player.PlayerColor.YELLOW):
+		yellow_player.update_player_label_for_turn()
+	elif (player.player_color == Player.PlayerColor.GREEN):
+		green_player.update_player_label_for_turn()
 
 func format_money_text(amount: int) -> String:
 	var str_amount = str(amount)
