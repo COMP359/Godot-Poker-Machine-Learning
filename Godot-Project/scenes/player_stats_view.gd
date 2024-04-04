@@ -30,7 +30,6 @@ func _ready():
 
 func add_card(card_texture) -> void:
 	player_hand.add_child(card_texture)
-	GlobalSignalHandler.emit_signal("testGlobalSignal")
 
 func clear_hand() -> void:
 	for card in player_hand.get_children():
