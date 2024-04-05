@@ -15,7 +15,8 @@ func _run():
 		hand.add_card(dealer.deck_of_cards.draw_card())
 		player.hand = hand
 
-	# Deal flop
+	# Deal turn
+	dealer.community_cards.add_card(dealer.deck_of_cards.draw_card())
 	dealer.community_cards.add_card(dealer.deck_of_cards.draw_card())
 	dealer.community_cards.add_card(dealer.deck_of_cards.draw_card())
 	dealer.community_cards.add_card(dealer.deck_of_cards.draw_card())
@@ -25,7 +26,7 @@ func _run():
 	print("Player 2 Hand: ", dealer.players[1].hand.cards[0].suit, dealer.players[1].hand.cards[0].value," ", dealer.players[1].hand.cards[1].suit, dealer.players[1].hand.cards[1].value)
 	print("Player 3 Hand: ", dealer.players[2].hand.cards[0].suit, dealer.players[2].hand.cards[0].value," ", dealer.players[2].hand.cards[1].suit, dealer.players[2].hand.cards[1].value)
 	print("Player 4 Hand: ", dealer.players[3].hand.cards[0].suit, dealer.players[3].hand.cards[0].value," ", dealer.players[3].hand.cards[1].suit, dealer.players[3].hand.cards[1].value)
-	print("Community Cards: ", dealer.community_cards.cards[0].suit, dealer.community_cards.cards[0].value," ", dealer.community_cards.cards[1].suit, dealer.community_cards.cards[1].value," ", dealer.community_cards.cards[2].suit, dealer.community_cards.cards[2].value)
+	print("Community Cards: ", dealer.community_cards.cards[0].suit, dealer.community_cards.cards[0].value," ", dealer.community_cards.cards[1].suit, dealer.community_cards.cards[1].value," ", dealer.community_cards.cards[2].suit, dealer.community_cards.cards[2].value," ", dealer.community_cards.cards[3].suit, dealer.community_cards.cards[3].value)
 	print("\n")
 	calculate_percentage(dealer,true,false)
 
@@ -50,7 +51,7 @@ func calculate_percentage(dealer,turn,flop):
 			#add the turn card to the community cards
 			dealer.community_cards.add_card(turn_card)
 			#print out the community cards with the current turn card
-			print(dealer.community_cards.cards[0].suit, dealer.community_cards.cards[0].value," ", dealer.community_cards.cards[1].suit, dealer.community_cards.cards[1].value," ", dealer.community_cards.cards[2].suit, dealer.community_cards.cards[2].value," ", dealer.community_cards.cards[3].suit, dealer.community_cards.cards[3].value)
+			print(dealer.community_cards.cards[0].suit, dealer.community_cards.cards[0].value," ", dealer.community_cards.cards[1].suit, dealer.community_cards.cards[1].value," ", dealer.community_cards.cards[2].suit, dealer.community_cards.cards[2].value," ", dealer.community_cards.cards[3].suit, dealer.community_cards.cards[3].value, " ", dealer.community_cards.cards[4].suit, dealer.community_cards.cards[4].value)
 
 
 			#assign player ranks with the new community card added
@@ -68,7 +69,7 @@ func calculate_percentage(dealer,turn,flop):
 			for winner in winners:
 				player_wins[winner] += 1
 			#remove the turn card from the community cards
-			dealer.community_cards.cards.remove_at(3)
+			dealer.community_cards.cards.remove_at(4)
 
 		return(calculate_win_percentage(player_wins, deck_size))
 
