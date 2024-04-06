@@ -78,8 +78,10 @@ func determine_winner():
 		var winners: Array[Player] = []
 		winners = determine_tie(highest_ranked_players, highest_rank)
 		handle_pot(winners)
+		return winners
 	else:
 		handle_pot(highest_ranked_players)
+		return highest_ranked_players
 
 func determine_tie(players_with_same_rank: Array[Player], tied_rank: int):
 	var winners: Array[Player] = []
@@ -245,6 +247,7 @@ func handle_pot(players_with_same_rank: Array[Player]):
 	for player in players_with_same_rank:
 		player.balance += int(split_amount)
 
-	print("Pot split between: " + str(players_with_same_rank.size()) + " players")
+	# print("Pot split between: " + str(players_with_same_rank.size()) + " players")
 	for player in players_with_same_rank:
-		print("Player " + str(player.player_color) + " receives: " + str(split_amount))
+		pass
+		# print("Player " + str(player.player_color) + " receives: " + str(split_amount))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cxm2wy616ba6o"]
+[gd_scene load_steps=19 format=3 uid="uid://cxm2wy616ba6o"]
 
 [ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://assets/tiles/tile.png" id="1_biwwp"]
 [ext_resource type="Script" path="res://scripts/card_logic.gd" id="1_ye476"]
@@ -11,8 +11,6 @@
 [ext_resource type="Script" path="res://scripts/classes/dealer.gd" id="7_uxvku"]
 [ext_resource type="Script" path="res://scripts/ui/game_ui.gd" id="8_x6skd"]
 [ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="9_g6vtq"]
-[ext_resource type="Script" path="res://scripts/AIController.gd" id="12_tkpkj"]
-[ext_resource type="Script" path="res://addons/godot_rl_agents/sync.gd" id="13_4v4u1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_440jg"]
 texture = ExtResource("1_biwwp")
@@ -117,7 +115,6 @@ texture_scale = 0.5
 script = ExtResource("8_x6skd")
 
 [node name="TitleScreen" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="titleText" type="Label" parent="TitleScreen"]
 anchors_preset = 8
@@ -178,14 +175,6 @@ scale = Vector2(0.25, 0.25)
 theme_override_fonts/font = ExtResource("9_g6vtq")
 theme_override_font_sizes/font_size = 36
 text = "START"
-
-[node name="AIController" type="Node2D" parent="."]
-script = ExtResource("12_tkpkj")
-
-[node name="Sync" type="Node" parent="."]
-script = ExtResource("13_4v4u1")
-action_repeat = 5
-speed_up = 100
 
 [connection signal="clear_previous_game" from="Dealer" to="Dealer" method="clear_game"]
 [connection signal="start_new_game" from="Dealer" to="Dealer" method="start_game"]
