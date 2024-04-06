@@ -102,6 +102,13 @@ occluder = SubResource("OccluderPolygon2D_svhkc")
 position = Vector2(0.0130768, -0.0792408)
 scale = Vector2(0.454351, -0.381926)
 
+[node name="Texture" type="PointLight2D" parent="SlotMachine/Light7"]
+visible = false
+position = Vector2(2, -1)
+color = Color(1, 0.670588, 0.619608, 1)
+energy = 0.0
+texture = ExtResource("3_jq61r")
+
 [node name="Shadow" type="PointLight2D" parent="SlotMachine/Light7"]
 position = Vector2(0, -1)
 energy = 0.2
@@ -133,14 +140,6 @@ text = "POKER
 MACHINE
 LEARNING"
 horizontal_alignment = 1
-
-[node name="Texture" type="PointLight2D" parent="TitleScreen/titleText"]
-visible = false
-position = Vector2(228.517, 39.5185)
-scale = Vector2(0.567939, -0.477408)
-color = Color(1, 0.670588, 0.619608, 1)
-energy = 0.0
-texture = ExtResource("3_jq61r")
 
 [node name="creditsText" type="Label" parent="TitleScreen"]
 anchors_preset = 8
