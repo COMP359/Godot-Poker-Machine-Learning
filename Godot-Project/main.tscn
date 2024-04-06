@@ -184,6 +184,8 @@ script = ExtResource("12_tkpkj")
 
 [node name="Sync" type="Node" parent="."]
 script = ExtResource("13_4v4u1")
+action_repeat = 5
+speed_up = 100
 
 [connection signal="clear_previous_game" from="Dealer" to="Dealer" method="clear_game"]
 [connection signal="start_new_game" from="Dealer" to="Dealer" method="start_game"]
