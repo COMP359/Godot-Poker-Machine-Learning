@@ -19,9 +19,9 @@ script = ExtResource("1_cvk6m")
 
 [node name="player_hand" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 45.2636
-offset_top = -15.0075
-offset_right = 1088.26
+offset_left = 43.0414
+offset_top = -15.0074
+offset_right = 1086.04
 offset_bottom = 359.992
 scale = Vector2(0.04, 0.04)
 theme_override_constants/separation = 50

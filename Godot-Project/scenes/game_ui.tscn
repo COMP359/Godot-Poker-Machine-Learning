@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cmd48dmk1iwhu" path="res://scenes/ai_controls.tscn" id="10_eu5m8"]
 
 [node name="UI" type="CanvasLayer"]
+follow_viewport_enabled = true
 
 [node name="Pot" type="Control" parent="."]
 layout_mode = 3
@@ -117,6 +118,7 @@ visible = false
 
 [node name="AI_UI" parent="." instance=ExtResource("10_eu5m8")]
 visible = false
+follow_viewport_enabled = true
 
 [connection signal="pressed" from="playAIbutton" to="playAIbutton" method="_on_ai_button_pressed"]
 [connection signal="pressed" from="spectateAIButton" to="spectateAIButton" method="_on_pressed"]

@@ -19,7 +19,7 @@ func _ready():
 	# Lighter color for play against AI button
 	$playAIbutton.modulate = Color(3, 3, 3)
 	$Pot/potAmount.text = "[center]$0[/center]"
-	load_title_screen()
+	#load_title_screen()
 	self.player_views = [blue_player, red_player, yellow_player, green_player]	
 
 func _on_start_button_pressed():
