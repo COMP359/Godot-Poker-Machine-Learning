@@ -1,5 +1,6 @@
 Python-ML/rl/
+
 # Godot 4+ specific ignores
-.godot/
-.vscode/
-/venv
+Godot-Project/.godot/
+Godot-Project/.vscode/
+Godot-Project/venv
