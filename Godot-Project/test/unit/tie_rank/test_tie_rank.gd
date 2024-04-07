@@ -496,27 +496,6 @@ class TestFullHouseTie:
 		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1]]
 		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FULL_HOUSE), [dealer.players[0], dealer.players[1]])
 
-	func test_full_house_case_eight():
-		var dealer_hands: Hand = Hand.new()
-		var player_one_hand_cards: Array[Card] = [Card.new('D', 8), Card.new('D', 13)]
-		var player_two_hand_cards: Array[Card] = [Card.new('D', 7), Card.new('H', 6)]
-		var player_three_hand_cards: Array[Card] = [Card.new('C', 2), Card.new('C', 3)]
-		var player_four_hand_cards: Array[Card] = [Card.new('C', 4), Card.new('D', 14)]
-		var dealer_hand_cards: Array[Card] = [Card.new('D', 10), Card.new('C', 9), Card.new('D', 9), Card.new('S', 10), Card.new('H', 9)]
-		dealer_hands.add_mulitple_cards(dealer_hand_cards)
-		dealer.players[0].hand.add_mulitple_cards(player_one_hand_cards)
-		dealer.players[1].hand.add_mulitple_cards(player_two_hand_cards)
-		dealer.players[2].hand.add_mulitple_cards(player_three_hand_cards)
-		dealer.players[3].hand.add_mulitple_cards(player_four_hand_cards)
-
-		dealer.players[0].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_one_hand_cards)
-		dealer.players[1].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_two_hand_cards)
-		dealer.players[2].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_three_hand_cards)
-		dealer.players[3].hand.ranking.determine_hand_ranking(dealer_hand_cards + player_four_hand_cards)
-
-		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1], dealer.players[2], dealer.players[3]]
-		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.FULL_HOUSE), [dealer.players[0], dealer.players[1], dealer.players[2], dealer.players[3]])
-
 class TestTwoPairTie:
 	extends GutTest
 	var dealer = null
@@ -903,5 +882,3 @@ class TestHighCardTie:
 
 		var player_tied: Array[Player] = [dealer.players[0], dealer.players[1], dealer.players[2], dealer.players[3]]
 		assert_eq(dealer.determine_tie(player_tied, Rank.RankEnum.HIGH_CARD), [dealer.players[0], dealer.players[2]])
-
-

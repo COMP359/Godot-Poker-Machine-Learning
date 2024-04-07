@@ -13,7 +13,3 @@ func _init(newSuit: String, newValue: int):
 func valid_suit(input_suit: String) -> bool:
 	"""Check if the input suit is valid"""
 	return input_suit in ["H", "D", "C", "S"]
-
-func see_card():
-	"""Prints the card"""
-	print("Suit: ", self.suit, " Value: ", self.value)

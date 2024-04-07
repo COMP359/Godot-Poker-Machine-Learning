@@ -1,18 +1,14 @@
-[gd_scene load_steps=21 format=3 uid="uid://cxm2wy616ba6o"]
+[gd_scene load_steps=17 format=3 uid="uid://cxm2wy616ba6o"]
 
 [ext_resource type="Texture2D" uid="uid://dvcepw5auby7t" path="res://assets/tiles/tile.png" id="1_biwwp"]
-[ext_resource type="Script" path="res://scripts/card_logic.gd" id="1_ye476"]
 [ext_resource type="Texture2D" uid="uid://wja08r0dlhit" path="res://assets/sprites/table-2.png" id="2_mi3hp"]
 [ext_resource type="Texture2D" uid="uid://cpir4cuqpn6oc" path="res://assets/sprites/casino-robots.png" id="3_3h1r3"]
 [ext_resource type="Texture2D" uid="uid://d1m70j7r2la72" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="3_jq61r"]
 [ext_resource type="Texture2D" uid="uid://ijhk5qic0nm4" path="res://assets/sprites/dealer.png" id="5_c4uga"]
 [ext_resource type="PackedScene" uid="uid://8noh0ok2j3p6" path="res://scenes/slot_machine.tscn" id="6_b3ihe"]
 [ext_resource type="PackedScene" uid="uid://bmx40fxtv723w" path="res://scenes/game_ui.tscn" id="7_1yhxm"]
-[ext_resource type="Script" path="res://scripts/classes/dealer.gd" id="7_uxvku"]
-[ext_resource type="Script" path="res://scripts/ui/game_ui.gd" id="8_x6skd"]
 [ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="9_g6vtq"]
-[ext_resource type="Script" path="res://scripts/AIController.gd" id="12_tkpkj"]
-[ext_resource type="Script" path="res://addons/godot_rl_agents/sync.gd" id="13_4v4u1"]
+[ext_resource type="Script" path="res://scripts/AIController.gd" id="9_iixy5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_440jg"]
 texture = ExtResource("1_biwwp")
@@ -41,7 +37,6 @@ blend_mode = 1
 polygon = PackedVector2Array(-12.493, 14.5047, 12.5038, 14.5047, 12.5038, 15.5036, -12.5179, 15.4537)
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_ye476")
 
 [node name="Shader" type="CanvasModulate" parent="."]
 color = Color(0.145098, 0.145098, 0.145098, 1)
@@ -86,7 +81,6 @@ texture_scale = 0.5
 [node name="Dealer" type="Sprite2D" parent="."]
 position = Vector2(157, 101)
 texture = ExtResource("5_c4uga")
-script = ExtResource("7_uxvku")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Dealer"]
 occluder = SubResource("OccluderPolygon2D_x5n3l")
@@ -104,6 +98,13 @@ occluder = SubResource("OccluderPolygon2D_svhkc")
 position = Vector2(0.0130768, -0.0792408)
 scale = Vector2(0.454351, -0.381926)
 
+[node name="Texture" type="PointLight2D" parent="SlotMachine/Light7"]
+visible = false
+position = Vector2(2, -1)
+color = Color(1, 0.670588, 0.619608, 1)
+energy = 0.0
+texture = ExtResource("3_jq61r")
+
 [node name="Shadow" type="PointLight2D" parent="SlotMachine/Light7"]
 position = Vector2(0, -1)
 energy = 0.2
@@ -114,10 +115,8 @@ texture = ExtResource("3_jq61r")
 texture_scale = 0.5
 
 [node name="UI" parent="." instance=ExtResource("7_1yhxm")]
-script = ExtResource("8_x6skd")
 
 [node name="TitleScreen" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="titleText" type="Label" parent="TitleScreen"]
 anchors_preset = 8
@@ -136,14 +135,6 @@ text = "POKER
 MACHINE
 LEARNING"
 horizontal_alignment = 1
-
-[node name="Texture" type="PointLight2D" parent="TitleScreen/titleText"]
-visible = false
-position = Vector2(228.517, 39.5185)
-scale = Vector2(0.567939, -0.477408)
-color = Color(1, 0.670588, 0.619608, 1)
-energy = 0.0
-texture = ExtResource("3_jq61r")
 
 [node name="creditsText" type="Label" parent="TitleScreen"]
 anchors_preset = 8
@@ -180,20 +171,6 @@ theme_override_font_sizes/font_size = 36
 text = "START"
 
 [node name="AIController" type="Node2D" parent="."]
-script = ExtResource("12_tkpkj")
+script = ExtResource("9_iixy5")
 
-[node name="Sync" type="Node" parent="."]
-script = ExtResource("13_4v4u1")
-action_repeat = 5
-speed_up = 100
-
-[connection signal="clear_previous_game" from="Dealer" to="Dealer" method="clear_game"]
-[connection signal="player_action_signal" from="Dealer" to="Dealer" method="players_move_state"]
-[connection signal="start_new_game" from="Dealer" to="Dealer" method="start_game"]
-[connection signal="add_card_signal" from="UI" to="UI" method="add_card"]
-[connection signal="add_community_card_signal" from="UI" to="UI" method="add_community_card"]
-[connection signal="add_hidden_community_card_signal" from="UI" to="UI" method="add_hidden_community_card"]
-[connection signal="player_playing_pressed" from="UI" to="UI" method="start_game_dealer"]
-[connection signal="update_player_stats_signal" from="UI" to="UI" method="update_player_stats"]
-[connection signal="update_pot_balance" from="UI" to="UI" method="update_pot_amount"]
 [connection signal="pressed" from="TitleScreen/startButton" to="UI" method="_on_start_button_pressed"]
