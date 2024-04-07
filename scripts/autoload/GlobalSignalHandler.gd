@@ -11,6 +11,7 @@ signal ui_add_community_card_signal(card: Card)
 signal ui_add_default_community_cards
 signal ui_player_action_callback(action : Player.Action, amount: int)
 signal pause_game_for_bot
+signal ui_validate_player_control
 
 # UI Signals
 signal ui_clear_game_ui

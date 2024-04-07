@@ -11,6 +11,7 @@ var is_user_playing_game: bool = false
 var default_player_money: int = 100000
 var player_showdown: bool = false
 var game_stage: GameStage = GameStage.PRE_FLOP
+var current_highest_bet: int = 0
 var player_index: int = 0
 
 # Initialize the game cycle
@@ -47,6 +48,7 @@ func betting_round():
 
 	if (check_players_bet_equal() and no_players_have_check_action()):
 		print("Players Bet Equal")
+		toggle_first_iteration()
 		next_stage()
 		return
 
@@ -130,7 +132,12 @@ func check_players_bet_equal() -> bool:
 	return true
 
 func get_number_of_active_players():
-	return 2
+	"""Returns the number of active players"""
+	var active_players = 0
+	for player in players:
+			if !player.has_folded:
+					active_players += 1
+	return active_players
 
 func next_stage():
 	print("Next Stage", game_stage)
@@ -156,6 +163,10 @@ func find_winner():
 		GlobalSignalHandler.emit_signal("ui_player_stats_update", winner)
 	GlobalSignalHandler.emit_signal("ui_player_controls", false)
 
+func toggle_first_iteration():
+	for player in players:
+		player.current_action = Player.Action.NONE
+
 func player_action_callback(action: Player.Action, amount: int):
 	print("Player action callback", action, amount)
 	var player = players[player_index]
@@ -171,6 +182,8 @@ func player_action_callback(action: Player.Action, amount: int):
 		player.balance -= amount
 	elif action == Player.Action.RAISE:
 		player.bet += amount
+		if player.bet > current_highest_bet:
+				current_highest_bet = player.bet
 	if player.is_human_player:
 		GlobalSignalHandler.emit_signal("ui_player_controls", false)
 	dealer.update_pot(amount)
