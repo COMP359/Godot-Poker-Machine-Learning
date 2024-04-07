@@ -46,7 +46,7 @@ func _on_start_button_pressed():
 	$".".show()
 	$AI_UI.show()
 	$"../SlotMachine".show()
-	update_pot_amount()
+	#update_pot_amount()
 
 func start_game_dealer(playing_state: bool, player_playing: bool):
 	if (playing_state):
@@ -92,7 +92,7 @@ func add_community_card(card):
 	flipped_texture_rect.texture = flipped_card_texture
 	$Pot/table.add_child(flipped_texture_rect)
 
-func add_default_community_cards() -> void
+func add_default_community_cards() -> void:
 	for i in range(5):
 		var flipped_texture_rect = TextureRect.new()
 		flipped_texture_rect.texture = load("res://assets/ui/cards_alt/card_back_pix.png")

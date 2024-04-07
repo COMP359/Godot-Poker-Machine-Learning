@@ -1,7 +1,8 @@
-class_name Utils
+class_name Utility
+extends Node
 
 # Returns an array of players who have won the round. If there is a tie, the array will contain all players who have tied.
-func determine_winner() -> Array[Player]:
+func determine_winner(players: Array[Player]) -> Array[Player]:
 	var highest_ranked_players: Array[Player] = []
 	var highest_rank = -1
 
@@ -17,7 +18,7 @@ func determine_winner() -> Array[Player]:
 
 	if highest_ranked_players.size() > 1:
 		var winners: Array[Player] = []
-		winners = Utils.determine_tie(highest_ranked_players, highest_rank)
+		winners = determine_tie(highest_ranked_players, highest_rank)
 		return winners
 	else:
 		return highest_ranked_players
@@ -184,10 +185,11 @@ func determine_tie(players_with_same_rank: Array[Player], tied_rank: int) -> Arr
 # Split the pot between one or more players
 func handle_pot(players_with_same_rank: Array[Player]) -> void:
 	"""Split the pot between one or more players"""
-	var split_amount = float(pot_balance) / players_with_same_rank.size()
-	for player in players_with_same_rank:
-		player.balance += int(split_amount)
-
-	print("Pot split between: " + str(players_with_same_rank.size()) + " players")
-	for player in players_with_same_rank:
-		print("Player " + str(player.player_color) + " receives: " + str(split_amount))
+	#var split_amount = float(pot_balance) / players_with_same_rank.size()
+	#for player in players_with_same_rank:
+		#player.balance += int(split_amount)
+#
+	#print("Pot split between: " + str(players_with_same_rank.size()) + " players")
+	#for player in players_with_same_rank:
+		#print("Player " + str(player.player_color) + " receives: " + str(split_amount))
+	pass
