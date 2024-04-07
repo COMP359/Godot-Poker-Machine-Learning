@@ -33,8 +33,8 @@ func add_card(card_texture) -> void:
 
 func clear_ui() -> void:
 	clear_hand()
-	set_bet_amount(0)
 	set_balance_amount(100000)
+	set_bet_amount(0)
 	player_turn_status.visible = false
 	player_hidden_rectangle.visible = false
 

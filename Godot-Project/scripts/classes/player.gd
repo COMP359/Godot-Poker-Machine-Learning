@@ -60,8 +60,9 @@ func ai_play_hand() -> void:
 	var amount: int = 12500
 	var random_factor: float = randf()
 
-	if random_factor > 0.1:
+	if random_factor > 0.9:
 			action = Action.ALL_IN
+			amount = self.balance
 	elif random_factor > 0.7:
 			action = Action.RAISE
 			amount = min(self.balance, 20000)
