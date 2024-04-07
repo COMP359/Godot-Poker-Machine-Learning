@@ -12,6 +12,6 @@ func on_game_start(is_user_playing: bool):
 
 # Removing the game instance when the game is ended
 func end_game():
-	# TODO: Add a clearing signal for the UI so it can clear the existing game
+	GlobalSignalHandler.emit_signal("ui_clear_game_ui")
 	current_game.queue_free()
 	current_game = null
