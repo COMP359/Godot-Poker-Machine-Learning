@@ -50,26 +50,12 @@ func get_hand() -> Hand:
 	"""Return the player's hand."""
 	return self.hand
 
-func human_play_hand(action: Player.Action, amount: int) -> void:
-	print(action, amount)
-	# TODO: Check if the player has enough balance to make the bet
-	# TODO: If the player does not have enough balance, set the bet to the maximum possible amount (ALL_IN)
-	if (action == Action.FOLD):
-		self.has_folded = true
-	elif (action == Action.CALL):
-		self.bet += amount
-		self.balance -= amount
-	elif (action == Action.RAISE):
-		self.bet += amount
-		self.balance -= amount
-	elif (action == Action.ALL_IN):
-		self.bet += amount
-		self.balance -= amount
-	self.current_action = action
-	GlobalSignalHandler.emit_signal("player_done", self)
-
 func ai_play_hand() -> void:
 	"""Have the AI play their hand. (This is a placeholder for the AI logic.)"""
+	# --------------------------------
+	# This is a placeholder for the AI logic. We will randomly decide to fold or call.
+	# Machine learning work will be implemented here in the future...
+
 	var action: Action = Action.CHECK
 	var amount: int = 0
 	var hand_value: int = self.hand.ranking.rank
@@ -82,4 +68,7 @@ func ai_play_hand() -> void:
 		self.balance -= amount
 
 	self.current_action = action
-	GlobalSignalHandler.emit_signal("player_done", self)
+  # End of placeholder AI logic.
+	# --------------------------------
+
+	GlobalSignalHandler.emit_signal("ui_player_action_callback", action, amount)

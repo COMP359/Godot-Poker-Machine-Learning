@@ -23,6 +23,7 @@ func _init(is_user_playing_game: bool):
 	GlobalSignalHandler.emit_signal("ui_add_default_community_cards")
 	GlobalSignalHandler.connect("ui_player_action_callback", Callable(self, "player_action_callback"))
 	GlobalSignalHandler.connect("player_move_complete", Callable(self, "betting_round"))
+	GlobalSignalHandler.connect("bot_move_ready_callback", Callable(self, "call_next_player"))
 
 # Create the players for the game cycle and add them to the players array
 func create_players():
@@ -35,7 +36,7 @@ func betting_round():
 	print("Betting Round check")
 
 	if (check_for_first_iteration()):
-		call_next_player()
+		find_next_player()
 		return
 
 	if (check_players_folded()):
@@ -46,10 +47,10 @@ func betting_round():
 		next_stage()
 		return
 
-	call_next_player()
+	GlobalSignalHandler.emit_signal("call_next_player", players[player_index])
 	return
 
-func call_next_player() -> void:
+func find_next_player() -> void:
 	var next_player: Player = null
 
 	while true:
@@ -62,17 +63,21 @@ func call_next_player() -> void:
 			next_player = players[player_index]
 			break
 
-	print("Timer")
-	# await get_tree().create_timer(2).timeout
-	GlobalSignalHandler.emit_signal("ui_player_turn_update", next_player)
+	# Not the cleanest approach here. What is happening is since this script
+	# is not attached to a node in the scene tree, we cannot put a timer here
+
+	# If the next player is a bot, we need to pause the game for a bit to make it seem like the bot is thinking
+	# This is why we are emitting a signal here so on the UI side, we can pause the game for a bit. Once that is done,
+	# we call a signal to resume the game and the bot will make its move
+
 	if next_player.is_human_player:
 		GlobalSignalHandler.emit_signal("ui_player_controls", true)
-		print("Next player: ", next_player.player_color)
 	else:
-		print("Next bot player: ", next_player.player_color)
-		# await get_tree().create_timer(2).timeout
-		next_player.ai_play_hand()
-	return
+		GlobalSignalHandler.emit_signal("pause_game_for_bot")
+
+func call_next_player():
+	players[player_index].ai_play_hand()
+
 
 func check_for_first_iteration() -> bool:
 	"""Returns true if it is the first iteration of the game"""
