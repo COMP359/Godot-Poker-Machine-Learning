@@ -6,13 +6,13 @@ extends CanvasLayer
 @onready var green_player = $Green_Player
 @onready var dealer = $"../Dealer"
 
-signal add_card_signal
-signal add_community_card_signal
+signal add_card_signal(player: Player, card: Card, hidden_card: bool)
+signal add_community_card_signal(card: Card)
 signal add_hidden_community_card_signal
 signal update_pot_balance
-signal player_playing_pressed
-signal update_player_stats_signal
-signal enable_player_controls_signal
+signal player_playing_pressed(playing_state: bool, player_playing: bool)
+signal update_player_stats_signal(player: Player)
+signal enable_player_controls_signal(state: bool)
 
 var pot_amount = 0
 var player_views: Array = []
@@ -32,7 +32,13 @@ func connect_signals():
 	GlobalSignalHandler.connect("ui_player_stats_update", Callable(self, "update_player_stats"))
 	GlobalSignalHandler.connect("ui_player_turn_update", Callable(self, "update_player_turn_label"))
 	GlobalSignalHandler.connect("ui_player_controls", Callable(self, "toggle_player_controls"))
-	print("Game UI - Connected signals")
+	GlobalSignalHandler.connect("ui_player_add_card", Callable(self, "add_card"))
+	GlobalSignalHandler.connect("ui_player_add_community_card", Callable(self, "add_community_card"))
+	GlobalSignalHandler.connect("ui_player_add_hidden_community_card", Callable(self, "add_hidden_community_card"))
+	GlobalSignalHandler.connect("ui_update_pot_amount", Callable(self, "update_pot_amount"))
+	enable_player_controls_signal.connect(Callable(self, "toggle_player_controls"))
+	player_playing_pressed.connect(Callable(self, "start_game_dealer"))
+	update_player_stats_signal.connect(Callable(self, "update_player_stats"))
 
 func _on_start_button_pressed():
 	$"../TitleScreen".hide()
@@ -52,7 +58,7 @@ func start_game_dealer(playing_state: bool, player_playing: bool):
 func clear_game_ui():
 	for player in self.player_views:
 		player.clear_hand()
-	
+
 	for card in $Pot/table.get_children():
 		card.queue_free()
 	
@@ -91,10 +97,7 @@ func add_hidden_community_card():
 	flipped_texture_rect.texture = load("res://assets/ui/cards_alt/card_back_pix.png")
 	$Pot/table.add_child(flipped_texture_rect)
 
-func update_pot_amount():
-	pot_amount = 0
-	for player in self.player_views:
-		pot_amount += (player.get_bet_amount())
+func update_pot_amount(pot_amount: int):
 	$Pot/potAmount.text = "[center]"+format_money_text(pot_amount)+"[/center]"
 
 func toggle_player_controls(state: bool):
@@ -113,15 +116,15 @@ func update_player_stats(player: Player):
 	elif (player.player_color == Player.PlayerColor.GREEN):
 		green_player.update_player_stats(player)
 
-func update_player_turn_label(player: Player):
-	print("Updating player turn label ", player.player_color)
-	if (player.player_color == Player.PlayerColor.BLUE):
+func update_player_turn_label(player_color: Player.PlayerColor):
+	print("Updating player turn label ", player_color)
+	if (player_color == Player.PlayerColor.BLUE):
 		blue_player.update_player_label_for_turn()
-	elif (player.player_color == Player.PlayerColor.RED):
+	elif (player_color == Player.PlayerColor.RED):
 		red_player.update_player_label_for_turn()
-	elif (player.player_color == Player.PlayerColor.YELLOW):
+	elif (player_color == Player.PlayerColor.YELLOW):
 		yellow_player.update_player_label_for_turn()
-	elif (player.player_color == Player.PlayerColor.GREEN):
+	elif (player_color == Player.PlayerColor.GREEN):
 		green_player.update_player_label_for_turn()
 
 func format_money_text(amount: int) -> String:
@@ -147,3 +150,6 @@ func _on_player_ui_player_folded():
 func _on_player_ui_player_raise():
 	raise_amount = $Player_UI/playerButtons/raiseButton/raistAmt.text.to_int()
 	dealer.player_ui_moved(Player.Action.RAISE, $Player_UI/playerButtons/raiseButton/raistAmt.text.to_int())
+
+func _on_player_ui_player_check():
+	dealer.player_ui_moved(Player.Action.CHECK, 0)

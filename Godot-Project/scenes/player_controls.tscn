@@ -24,6 +24,14 @@ theme_override_font_sizes/font_size = 16
 text = "CALL"
 alignment = 2
 
+[node name="checkButton" type="Button" parent="playerButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_gtucq")
+theme_override_font_sizes/font_size = 16
+text = "CHECK"
+alignment = 2
+
 [node name="raiseButton" type="Button" parent="playerButtons"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -70,9 +78,3 @@ offset_right = 348.0
 offset_bottom = 227.0
 scale = Vector2(0.08, 0.08)
 texture_normal = ExtResource("4_btgka")
-
-[connection signal="pressed" from="playerButtons/callButton" to="." method="_on_call_button_pressed"]
-[connection signal="pressed" from="playerButtons/raiseButton" to="." method="_on_raise_button_pressed"]
-[connection signal="pressed" from="playerButtons/foldButton" to="." method="_on_fold_button_pressed"]
-[connection signal="pressed" from="arrowUp" to="." method="_on_arrow_up_pressed"]
-[connection signal="pressed" from="arrowDown" to="." method="_on_arrow_down_pressed"]
