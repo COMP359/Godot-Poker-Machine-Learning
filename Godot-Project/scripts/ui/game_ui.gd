@@ -34,8 +34,8 @@ func connect_signals():
 	GlobalSignalHandler.connect("ui_player_controls", Callable(self, "toggle_player_controls"))
 	GlobalSignalHandler.connect("ui_player_add_card", Callable(self, "add_card"))
 	GlobalSignalHandler.connect("ui_player_add_community_card", Callable(self, "add_community_card"))
-	GlobalSignalHandler.connect("ui_player_add_hidden_community_card", Callable(self, "add_hidden_community_card"))
 	GlobalSignalHandler.connect("ui_update_pot_amount", Callable(self, "update_pot_amount"))
+	GlobalSignalHandler.connect("ui_add_default_community_cards", Callable(self, "add_default_community_cards"))
 	enable_player_controls_signal.connect(Callable(self, "toggle_player_controls"))
 	player_playing_pressed.connect(Callable(self, "start_game_dealer"))
 	update_player_stats_signal.connect(Callable(self, "update_player_stats"))
@@ -92,10 +92,11 @@ func add_community_card(card):
 	flipped_texture_rect.texture = flipped_card_texture
 	$Pot/table.add_child(flipped_texture_rect)
 
-func add_hidden_community_card():
-	var flipped_texture_rect = TextureRect.new()
-	flipped_texture_rect.texture = load("res://assets/ui/cards_alt/card_back_pix.png")
-	$Pot/table.add_child(flipped_texture_rect)
+func add_default_community_cards() -> void
+	for i in range(5):
+		var flipped_texture_rect = TextureRect.new()
+		flipped_texture_rect.texture = load("res://assets/ui/cards_alt/card_back_pix.png")
+		$Pot/table.add_child(flipped_texture_rect)
 
 func update_pot_amount(pot_amount: int):
 	$Pot/potAmount.text = "[center]"+format_money_text(pot_amount)+"[/center]"

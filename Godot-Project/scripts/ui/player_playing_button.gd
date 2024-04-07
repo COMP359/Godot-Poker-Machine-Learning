@@ -9,7 +9,7 @@ func _ready():
 	$"../AI_UI".show()
 
 func _on_ai_button_pressed():
-	ui.emit_signal("player_playing_pressed", !playerIsPlaying, true)
+	GlobalSignalHandler.emit_signal("game_start", true)
 	playerIsPlaying = !playerIsPlaying
 	# Change the button's text and color when it's pressed
 	if playerIsPlaying:
