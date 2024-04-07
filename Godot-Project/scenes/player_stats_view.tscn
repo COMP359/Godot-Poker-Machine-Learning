@@ -151,10 +151,10 @@ color = Color(0, 0, 0, 0.607843)
 [node name="player_action_label" type="ColorRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 1.14667
-offset_top = 16.1212
-offset_right = 16.1467
-offset_bottom = 21.1212
+offset_left = 1.0
+offset_top = 16.0
+offset_right = 22.0
+offset_bottom = 21.0
 scale = Vector2(0.9, 0.9)
 color = Color(0.560784, 0.819608, 0.309804, 1)
 
@@ -162,7 +162,7 @@ color = Color(0.560784, 0.819608, 0.309804, 1)
 layout_mode = 0
 offset_left = 1.0
 offset_top = 1.0
-offset_right = 14.0
+offset_right = 24.0
 offset_bottom = 5.0
 theme_override_fonts/normal_font = ExtResource("4_ijq5e")
 theme_override_font_sizes/normal_font_size = 3

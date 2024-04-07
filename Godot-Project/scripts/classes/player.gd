@@ -6,7 +6,7 @@ enum PlayerColor {
 }
 
 enum Action {
-	FOLD, CHECK, CALL, RAISE, ALL_IN
+	NONE, FOLD, CHECK, CALL, RAISE, ALL_IN
 }
 
 var player_color: PlayerColor
@@ -25,6 +25,7 @@ func _init(player_selected: PlayerColor, is_human: bool, new_balance: int) -> vo
 	self.hand = Hand.new()
 	self.bet = 0
 	self.has_folded = false
+	self.current_action = Action.NONE
 
 func reset_player_state() -> void:
 	"""Reset the player's hand, bet, and fold status."""

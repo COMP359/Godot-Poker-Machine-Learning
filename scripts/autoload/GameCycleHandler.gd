@@ -15,3 +15,4 @@ func end_game():
 	GlobalSignalHandler.emit_signal("ui_clear_game_ui")
 	current_game.queue_free()
 	current_game = null
+	print("Game ended")
