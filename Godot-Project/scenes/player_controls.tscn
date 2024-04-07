@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dt3c2x3g2vndj" path="res://assets/ui/white_arrow_down.png" id="4_btgka"]
 
 [node name="Player_UI" type="CanvasLayer"]
-follow_viewport_enabled = true
 script = ExtResource("1_aupuh")
 
 [node name="playerButtons" type="VBoxContainer" parent="."]

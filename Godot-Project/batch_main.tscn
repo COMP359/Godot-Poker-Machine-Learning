@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://d22wljw7gpax4"]
+[gd_scene load_steps=5 format=3 uid="uid://d22wljw7gpax4"]
 
 [ext_resource type="PackedScene" uid="uid://cxm2wy616ba6o" path="res://main.tscn" id="1_sbv5e"]
 [ext_resource type="PackedScene" uid="uid://bmx40fxtv723w" path="res://scenes/game_ui.tscn" id="2_e5boi"]
-[ext_resource type="Script" path="res://scripts/ui/game_ui.gd" id="3_g00bg"]
 [ext_resource type="PackedScene" uid="uid://iagdimtnide8" path="res://scenes/player_controls.tscn" id="4_37rtq"]
 [ext_resource type="PackedScene" uid="uid://cmd48dmk1iwhu" path="res://scenes/ai_controls.tscn" id="5_1ok8t"]
 
@@ -13,7 +12,6 @@
 [node name="Game" parent="Games" instance=ExtResource("1_sbv5e")]
 
 [node name="UI2" parent="Games/Game" instance=ExtResource("2_e5boi")]
-script = ExtResource("3_g00bg")
 
 [node name="Player_UI2" parent="Games/Game/UI2" instance=ExtResource("4_37rtq")]
 
@@ -26,7 +24,6 @@ position = Vector2(320, 0)
 [node name="UI2" parent="Games/Game2" instance=ExtResource("2_e5boi")]
 offset = Vector2(320, 0)
 transform = Transform2D(1, 0, 0, 1, 320, 0)
-script = ExtResource("3_g00bg")
 
 [node name="Player_UI2" parent="Games/Game2/UI2" instance=ExtResource("4_37rtq")]
 offset = Vector2(320, 0)
@@ -43,7 +40,6 @@ position = Vector2(0, 192)
 [node name="UI2" parent="Games/Game3" instance=ExtResource("2_e5boi")]
 offset = Vector2(0, 192)
 transform = Transform2D(1, 0, 0, 1, 0, 192)
-script = ExtResource("3_g00bg")
 
 [node name="Player_UI2" parent="Games/Game3/UI2" instance=ExtResource("4_37rtq")]
 offset = Vector2(0, 192)
@@ -60,7 +56,6 @@ position = Vector2(320, 192)
 [node name="UI2" parent="Games/Game4" instance=ExtResource("2_e5boi")]
 offset = Vector2(320, 192)
 transform = Transform2D(1, 0, 0, 1, 320, 192)
-script = ExtResource("3_g00bg")
 
 [node name="Player_UI2" parent="Games/Game4/UI2" instance=ExtResource("4_37rtq")]
 offset = Vector2(320, 192)
@@ -77,21 +72,17 @@ zoom = Vector2(0.5, 0.47)
 
 [connection signal="add_card_signal" from="Games/Game/UI2" to="Games/Game/UI2" method="add_card"]
 [connection signal="add_community_card_signal" from="Games/Game/UI2" to="Games/Game/UI2" method="add_community_card"]
-[connection signal="add_hidden_community_card_signal" from="Games/Game/UI2" to="Games/Game/UI2" method="add_hidden_community_card"]
 [connection signal="player_playing_pressed" from="Games/Game/UI2" to="Games/Game/UI2" method="start_game_dealer"]
 [connection signal="update_pot_balance" from="Games/Game/UI2" to="Games/Game/UI2" method="update_pot_amount"]
 [connection signal="add_card_signal" from="Games/Game2/UI2" to="Games/Game2/UI2" method="add_card"]
 [connection signal="add_community_card_signal" from="Games/Game2/UI2" to="Games/Game2/UI2" method="add_community_card"]
-[connection signal="add_hidden_community_card_signal" from="Games/Game2/UI2" to="Games/Game2/UI2" method="add_hidden_community_card"]
 [connection signal="player_playing_pressed" from="Games/Game2/UI2" to="Games/Game2/UI2" method="start_game_dealer"]
 [connection signal="update_pot_balance" from="Games/Game2/UI2" to="Games/Game2/UI2" method="update_pot_amount"]
 [connection signal="add_card_signal" from="Games/Game3/UI2" to="Games/Game3/UI2" method="add_card"]
 [connection signal="add_community_card_signal" from="Games/Game3/UI2" to="Games/Game3/UI2" method="add_community_card"]
-[connection signal="add_hidden_community_card_signal" from="Games/Game3/UI2" to="Games/Game3/UI2" method="add_hidden_community_card"]
 [connection signal="player_playing_pressed" from="Games/Game3/UI2" to="Games/Game3/UI2" method="start_game_dealer"]
 [connection signal="update_pot_balance" from="Games/Game3/UI2" to="Games/Game3/UI2" method="update_pot_amount"]
 [connection signal="add_card_signal" from="Games/Game4/UI2" to="Games/Game4/UI2" method="add_card"]
 [connection signal="add_community_card_signal" from="Games/Game4/UI2" to="Games/Game4/UI2" method="add_community_card"]
-[connection signal="add_hidden_community_card_signal" from="Games/Game4/UI2" to="Games/Game4/UI2" method="add_hidden_community_card"]
 [connection signal="player_playing_pressed" from="Games/Game4/UI2" to="Games/Game4/UI2" method="start_game_dealer"]
 [connection signal="update_pot_balance" from="Games/Game4/UI2" to="Games/Game4/UI2" method="update_pot_amount"]
