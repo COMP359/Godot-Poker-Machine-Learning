@@ -181,15 +181,3 @@ func determine_tie(players_with_same_rank: Array[Player], tied_rank: int) -> Arr
 								winners.append(player)
 
 	return winners
-
-# Split the pot between one or more players
-func handle_pot(players_with_same_rank: Array[Player]) -> void:
-	"""Split the pot between one or more players"""
-	#var split_amount = float(pot_balance) / players_with_same_rank.size()
-	#for player in players_with_same_rank:
-		#player.balance += int(split_amount)
-#
-	#print("Pot split between: " + str(players_with_same_rank.size()) + " players")
-	#for player in players_with_same_rank:
-		#print("Player " + str(player.player_color) + " receives: " + str(split_amount))
-	pass

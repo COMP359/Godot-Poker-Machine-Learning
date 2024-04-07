@@ -36,18 +36,21 @@ func betting_round():
 	print("Betting Round check")
 
 	if (check_for_first_iteration()):
+		print("First Iteration")
 		find_next_player()
 		return
 
 	if (check_players_folded()):
-		utility.determine_winner(players)
+		print("Players Folded")
+		find_winner()
 		return
 
 	if (check_players_bet_equal() and no_players_have_check_action()):
+		print("Players Bet Equal")
 		next_stage()
 		return
 
-	GlobalSignalHandler.emit_signal("call_next_player", players[player_index])
+	find_next_player()
 	return
 
 func find_next_player() -> void:
@@ -141,9 +144,17 @@ func next_stage():
 		game_stage = GameStage.RIVER
 		dealer.deal_river()
 	elif game_stage == GameStage.RIVER:
-		utility.determine_winner(players)
+		find_winner()
 		return
 	betting_round()
+
+func find_winner():
+	var winners: Array[Player] = utility.determine_winner(players)
+	for winner in winners:
+		winner.current_action = Player.Action.WIN
+		winner.balance += dealer.pot_balance / winners.size()
+		GlobalSignalHandler.emit_signal("ui_player_stats_update", winner)
+	GlobalSignalHandler.emit_signal("ui_player_controls", false)
 
 func player_action_callback(action: Player.Action, amount: int):
 	print("Player action callback", action, amount)
