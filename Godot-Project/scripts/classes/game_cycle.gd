@@ -11,14 +11,18 @@ var is_user_playing_game: bool = false
 var default_player_money: int = 100000
 var player_showdown: bool = false
 var game_stage: GameStage = GameStage.PRE_FLOP
+var player_index: int = 0
 
 # Initialize the game cycle
 func _init(is_user_playing_game: bool):
+	print("GameCycle init")
 	self.is_user_playing_game = is_user_playing_game
 	create_players()
 	dealer = Dealer.new()
 	dealer.deal_player_cards(players)
 	GlobalSignalHandler.emit_signal("ui_add_default_community_cards")
+	GlobalSignalHandler.connect("ui_player_action_callback", Callable(self, "player_action_callback"))
+	GlobalSignalHandler.connect("player_move_complete", Callable(self, "betting_round"))
 
 # Create the players for the game cycle and add them to the players array
 func create_players():
@@ -29,40 +33,60 @@ func create_players():
 # Checking the game stage and performing the appropriate action like allowing the player to bet or dealing the cards
 func betting_round():
 	print("Betting Round check")
+
+	if (check_for_first_iteration()):
+		call_next_player()
+		return
+
 	if (check_players_folded()):
 		utility.determine_winner(players)
 		return
 
-	if (check_players_bet_equal()):
-		# next_stage()
-		pass
+	if (check_players_bet_equal() and no_players_have_check_action()):
+		next_stage()
+		return
 
-	#call_next_player()
+	call_next_player()
+	return
 
-#func call_next_player() -> void:
-	#var next_player: Player = null
-#
-	## Find the next player that has not folded
-	#while true:
-		#if player_index >= players.size() - 1:
-			#player_index = 0
-		#else:
-			#player_index += 1
-#
-		#if !players[player_index].has_folded:
-			#next_player = players[player_index]
-			#break
-	#print("Timer")
-	#await get_tree().create_timer(2).timeout
-	#GlobalSignalHandler.emit_signal("ui_player_turn_update", next_player)
-	#if next_player.is_human_player:
-		#GlobalSignalHandler.emit_signal("ui_player_controls", true)
-		#print("Next player: ", next_player.player_color)
-	#else:
-		#print("Next bot player: ", next_player.player_color)
-		#await get_tree().create_timer(2).timeout
-		#next_player.ai_play_hand()
-	#return
+func call_next_player() -> void:
+	var next_player: Player = null
+
+	while true:
+		if player_index >= players.size() - 1:
+			player_index = 0
+		else:
+			player_index += 1
+
+		if !players[player_index].has_folded:
+			next_player = players[player_index]
+			break
+
+	print("Timer")
+	# await get_tree().create_timer(2).timeout
+	GlobalSignalHandler.emit_signal("ui_player_turn_update", next_player)
+	if next_player.is_human_player:
+		GlobalSignalHandler.emit_signal("ui_player_controls", true)
+		print("Next player: ", next_player.player_color)
+	else:
+		print("Next bot player: ", next_player.player_color)
+		# await get_tree().create_timer(2).timeout
+		next_player.ai_play_hand()
+	return
+
+func check_for_first_iteration() -> bool:
+	"""Returns true if it is the first iteration of the game"""
+	for player in players:
+			if player.current_action == Player.Action.NONE:
+					return true
+	return false
+
+func no_players_have_check_action() -> bool:
+	"""Returns true if no players have checked"""
+	for player in players:
+			if player.current_action == Player.Action.CHECK:
+					return false
+	return true
 
 func check_players_folded() -> bool:
 	"""Returns true if only one person has not folded"""
@@ -112,3 +136,23 @@ func next_stage():
 		utility.determine_winner(players)
 		return
 	betting_round()
+
+func player_action_callback(action: Player.Action, amount: int):
+	var player = players[player_index]
+	player.current_action = action
+	player.bet = amount
+	if action == Player.Action.FOLD:
+		player.has_folded = true
+	elif action == Player.Action.ALL_IN:
+		player_showdown = true
+	elif action == Player.Action.CHECK:
+		player.bet = 0
+	elif action == Player.Action.CALL:
+		player.bet += amount
+	elif action == Player.Action.RAISE:
+		player.bet += amount
+	if player.is_human_player:
+		GlobalSignalHandler.emit_signal("ui_player_controls", false)
+	GlobalSignalHandler.emit_signal("ui_player_stats_update", player)
+	GlobalSignalHandler.emit_signal("player_move_complete")
+	return

@@ -38,7 +38,6 @@ func connect_signals():
 	GlobalSignalHandler.connect("ui_add_default_community_cards", Callable(self, "add_default_community_cards"))
 	enable_player_controls_signal.connect(Callable(self, "toggle_player_controls"))
 	player_playing_pressed.connect(Callable(self, "start_game_dealer"))
-	update_player_stats_signal.connect(Callable(self, "update_player_stats"))
 
 func _on_start_button_pressed():
 	$"../TitleScreen".hide()
@@ -57,7 +56,7 @@ func start_game_dealer(playing_state: bool, player_playing: bool):
 
 func clear_game_ui():
 	for player in self.player_views:
-		player.clear_hand()
+		player.clear_ui()
 
 	for card in $Pot/table.get_children():
 		card.queue_free()
@@ -143,14 +142,14 @@ func format_money_text(amount: int) -> String:
 
 
 func _on_player_ui_player_called():
-	dealer.player_ui_moved(Player.Action.CALL, 0)
+	GlobalSignalHandler.emit_signal("ui_player_action_callback", Player.Action.CALL, 0)
 
 func _on_player_ui_player_folded():
-	dealer.player_ui_moved(Player.Action.FOLD, 0)
+	GlobalSignalHandler.emit_signal("ui_player_action_callback", Player.Action.FOLD, 0)
 
 func _on_player_ui_player_raise():
 	raise_amount = $Player_UI/playerButtons/raiseButton/raistAmt.text.to_int()
-	dealer.player_ui_moved(Player.Action.RAISE, $Player_UI/playerButtons/raiseButton/raistAmt.text.to_int())
+	GlobalSignalHandler.emit_signal("ui_player_action_callback", Player.Action.RAISE, raise_amount)
 
 func _on_player_ui_player_check():
-	dealer.player_ui_moved(Player.Action.CHECK, 0)
+	GlobalSignalHandler.emit_signal("ui_player_action_callback", Player.Action.CHECK, 0)

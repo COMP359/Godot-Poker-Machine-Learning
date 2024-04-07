@@ -31,6 +31,11 @@ func _ready():
 func add_card(card_texture) -> void:
 	player_hand.add_child(card_texture)
 
+func clear_ui() -> void:
+	clear_hand()
+	player_turn_status.visible = false
+	player_hidden_rectangle.visible = false
+
 func add_hidden_card(card_texture) -> void:
 	player_hidden_rectangle.add_child(card_texture)
 
