@@ -57,26 +57,21 @@ func ai_play_hand() -> void:
 	# Machine learning work will be implemented here in the future...
 
 	var action: Action = Action.CHECK
-	var amount: int = 0
-	var hand_value: int = self.hand.ranking.rank
+	var amount: int = 12500
 	var random_factor: float = randf()
 
-	if hand_value > 8 and random_factor > 0.7:
+	if random_factor > 0.1:
+			action = Action.ALL_IN
+	elif random_factor > 0.7:
 			action = Action.RAISE
-			amount = min(self.balance, 3000)
-			self.balance -= amount
-	elif hand_value > 7 and random_factor > 0.5:
+			amount = min(self.balance, 20000)
+	elif random_factor > 0.3:
 			action = Action.CALL
-			self.balance -= amount
-	elif hand_value > 4 and random_factor > 0.3:
-			action = Action.CALL
-			self.balance -= amount
 	else:
 			action = Action.FOLD
 			self.fold()
 
 	self.current_action = action
-	self.bet += amount
   # End of placeholder AI logic.
 	# --------------------------------
 

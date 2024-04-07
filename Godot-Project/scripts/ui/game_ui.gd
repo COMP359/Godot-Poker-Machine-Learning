@@ -102,6 +102,7 @@ func update_pot_amount(pot_amount: int):
 	$Pot/potAmount.text = "[center]"+format_money_text(pot_amount)+"[/center]"
 
 func toggle_player_controls(state: bool):
+	GlobalSignalHandler.emit_signal("toggle_player_controls")
 	if (state):
 		$"Player_UI".show()
 	else:
