@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GlobalSignalHandler="*res://scripts/autoload/GlobalSignalHandler.gd"
+GameCycleHandler="*res://scripts/autoload/GameCycleHandler.gd"
 
 [display]
 
