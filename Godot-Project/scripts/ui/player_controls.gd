@@ -47,10 +47,10 @@ func _on_check_button_pressed():
 	emit_signal("player_checked")
 
 func _on_arrow_up_pressed():
-	betAmount = int($playerButtons/raiseButton/raistAmt.text) + 1000
+	betAmount = int($playerButtons/raiseButton/raistAmt.text) + 5000
 	$playerButtons/raiseButton/raistAmt.text = "+ $" + str(betAmount)
 
 func _on_arrow_down_pressed():
-	betAmount = int($playerButtons/raiseButton/raistAmt.text) - 1000
+	betAmount = int($playerButtons/raiseButton/raistAmt.text) - 5000
 	if betAmount > 0: # Can't bet below $0
 		$playerButtons/raiseButton/raistAmt.text = "+ $" + str(betAmount)
