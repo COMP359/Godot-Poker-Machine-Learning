@@ -138,9 +138,6 @@ func calculate_percentage(dealer,turn,flop):
 				dealer.community_cards.cards.remove_at(3)
 				dealer.community_cards.cards.remove_at(3)
 		return [calculate_win_percentage(player_wins, combinations), calculate_win_percentage(distinct_player_wins, combinations-tie_count)]
-	
-
-
 
 func calculate_win_percentage(player_wins, combinations):
 	var total_percentage = 0
@@ -151,5 +148,3 @@ func calculate_win_percentage(player_wins, combinations):
 	print(player_wins)
 	print("Total percentage: ", total_percentage)
 	return player_wins
-
-
