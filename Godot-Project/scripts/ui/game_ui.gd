@@ -1,3 +1,4 @@
+
 extends CanvasLayer
 
 @onready var blue_player = $Blue_Player
