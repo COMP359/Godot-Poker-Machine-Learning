@@ -83,6 +83,9 @@ func update_player_label_for_action(action: Player.Action) -> void:
 	elif (action == Player.Action.ALL_IN):
 		player_turn_status_turn_text.text = "ALL IN"
 		player_turn_status.modulate = Color(0, 1, 0)
+	elif (action == Player.Action.WIN):
+		player_turn_status_turn_text.text = "WIN"
+		player_turn_status.modulate = Color(0, 1, 0)
 
 func update_player_label_for_turn() -> void:
 	player_turn_status.visible = true

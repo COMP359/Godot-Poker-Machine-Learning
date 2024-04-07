@@ -6,7 +6,7 @@ enum PlayerColor {
 }
 
 enum Action {
-	NONE, FOLD, CHECK, CALL, RAISE, ALL_IN
+	NONE, FOLD, CHECK, CALL, RAISE, ALL_IN, WIN
 }
 
 var player_color: PlayerColor
@@ -60,14 +60,23 @@ func ai_play_hand() -> void:
 	var amount: int = 0
 	var hand_value: int = self.hand.ranking.rank
 	var random_factor: float = randf()
-	if random_factor > 0.5:
-		action = Action.FOLD
-		self.fold()
+
+	if hand_value > 8 and random_factor > 0.7:
+			action = Action.RAISE
+			amount = min(self.balance, 3000)
+			self.balance -= amount
+	elif hand_value > 7 and random_factor > 0.5:
+			action = Action.CALL
+			self.balance -= amount
+	elif hand_value > 4 and random_factor > 0.3:
+			action = Action.CALL
+			self.balance -= amount
 	else:
-		action = Action.CALL
-		self.balance -= amount
+			action = Action.FOLD
+			self.fold()
 
 	self.current_action = action
+	self.bet += amount
   # End of placeholder AI logic.
 	# --------------------------------
 
