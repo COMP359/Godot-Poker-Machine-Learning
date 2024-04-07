@@ -24,9 +24,9 @@ func _ready():
 	else:
 		background_rectangle.color = Color(0.345098, 0.509804, 0.262745, 1)
 		robot_mugshot.texture = load("res://assets/ui/green_headshot.png")
-	
+
 	set_balance_amount(100000)
-	set_bet_amount(34000)
+	set_bet_amount(0)
 
 func add_card(card_texture) -> void:
 	player_hand.add_child(card_texture)

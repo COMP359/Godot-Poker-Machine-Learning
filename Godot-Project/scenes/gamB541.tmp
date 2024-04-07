@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/ui/game_ui.gd" id="1_rxy7u"]
 [ext_resource type="PackedScene" uid="uid://c6oqf0ebodb02" path="res://scenes/player_stats_view.tscn" id="2_1cgi2"]
-[ext_resource type="Script" path="res://scripts/ui/ai_spectate_switch.gd" id="4_pfxb5"]
+[ext_resource type="Script" path="res://scripts/ui/player_playing_button.gd" id="4_8c2k5"]
+[ext_resource type="Script" path="res://scripts/ui/spectate_button.gd" id="5_lhd33"]
 [ext_resource type="FontFile" uid="uid://bo7h0qqqm5o8n" path="res://assets/fonts/PublicPixel.ttf" id="7_utfff"]
-[ext_resource type="Script" path="res://scripts/ui/ai_player_switch.gd" id="8_hxrc6"]
 [ext_resource type="PackedScene" uid="uid://iagdimtnide8" path="res://scenes/player_controls.tscn" id="9_3rj0d"]
 [ext_resource type="PackedScene" uid="uid://cmd48dmk1iwhu" path="res://scenes/ai_controls.tscn" id="10_eu5m8"]
 
@@ -98,7 +98,7 @@ scale = Vector2(0.1, 0.1)
 theme_override_fonts/font = ExtResource("7_utfff")
 theme_override_font_sizes/font_size = 40
 text = "PLAY AGAINST AI"
-script = ExtResource("8_hxrc6")
+script = ExtResource("4_8c2k5")
 
 [node name="spectateAIButton" type="Button" parent="."]
 anchors_preset = -1
@@ -111,8 +111,9 @@ offset_bottom = 302.08
 scale = Vector2(0.1, 0.1)
 theme_override_fonts/font = ExtResource("7_utfff")
 theme_override_font_sizes/font_size = 40
+disabled = true
 text = "SPECTATE AI"
-script = ExtResource("4_pfxb5")
+script = ExtResource("5_lhd33")
 
 [node name="Player_UI" parent="." instance=ExtResource("9_3rj0d")]
 visible = false
@@ -120,15 +121,9 @@ visible = false
 [node name="AI_UI" parent="." instance=ExtResource("10_eu5m8")]
 visible = false
 
-[connection signal="add_card_signal" from="." to="." method="add_card"]
-[connection signal="add_community_card_signal" from="." to="." method="add_community_card"]
-[connection signal="add_hidden_community_card_signal" from="." to="." method="add_hidden_community_card"]
-[connection signal="enable_player_controls_signal" from="." to="." method="enable_player_controls"]
-[connection signal="player_playing_pressed" from="." to="." method="start_game_dealer"]
-[connection signal="update_player_stats_signal" from="." to="." method="update_player_stats"]
-[connection signal="update_pot_balance" from="." to="." method="update_pot_amount"]
 [connection signal="pressed" from="playAIbutton" to="playAIbutton" method="_on_ai_button_pressed"]
 [connection signal="pressed" from="spectateAIButton" to="spectateAIButton" method="_on_pressed"]
 [connection signal="player_called" from="Player_UI" to="." method="_on_player_ui_player_called"]
+[connection signal="player_checked" from="Player_UI" to="." method="_on_player_ui_player_checked"]
 [connection signal="player_folded" from="Player_UI" to="." method="_on_player_ui_player_folded"]
 [connection signal="player_raise" from="Player_UI" to="." method="_on_player_ui_player_raise"]
