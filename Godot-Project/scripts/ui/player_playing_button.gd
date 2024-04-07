@@ -21,6 +21,7 @@ func _on_ai_button_pressed():
 		spectate_ai_button.visible = false
 		$"../Player_UI".show()
 	else:
+		GlobalSignalHandler.emit_signal("game_end")
 		$".".text = "PLAY AGAINST AI"
 		$".".modulate = Color(3, 3, 3)
 

@@ -10,6 +10,9 @@ signal ui_add_card_signal(player: Player, card: Card, hidden_card: bool)
 signal ui_add_community_card_signal(card: Card)
 signal ui_add_default_community_cards
 
+# UI Signals
+signal ui_clear_game_ui
+
 # Dealer Signals
 signal player_done(player: Player)
 
