@@ -128,31 +128,36 @@ func next_stage():
 	print("Next Stage", game_stage)
 	if game_stage == GameStage.PRE_FLOP:
 		game_stage = GameStage.FLOP
+		dealer.deal_flop()
 	elif game_stage == GameStage.FLOP:
 		game_stage = GameStage.TURN
+		dealer.deal_turn()
 	elif game_stage == GameStage.TURN:
 		game_stage = GameStage.RIVER
+		dealer.deal_river()
 	elif game_stage == GameStage.RIVER:
 		utility.determine_winner(players)
 		return
 	betting_round()
 
 func player_action_callback(action: Player.Action, amount: int):
+	print("Player action callback", action, amount)
 	var player = players[player_index]
 	player.current_action = action
-	player.bet = amount
 	if action == Player.Action.FOLD:
 		player.has_folded = true
 	elif action == Player.Action.ALL_IN:
 		player_showdown = true
-	elif action == Player.Action.CHECK:
-		player.bet = 0
+		player.bet = player.balance
+		player.balance = 0
 	elif action == Player.Action.CALL:
 		player.bet += amount
+		player.balance -= amount
 	elif action == Player.Action.RAISE:
 		player.bet += amount
 	if player.is_human_player:
 		GlobalSignalHandler.emit_signal("ui_player_controls", false)
+	dealer.update_pot(amount)
 	GlobalSignalHandler.emit_signal("ui_player_stats_update", player)
 	GlobalSignalHandler.emit_signal("player_move_complete")
 	return
