@@ -1,27 +1,24 @@
 @tool
 extends EditorScript
 
-
-
 func _run():
 	#create dealer and players
-	var dealer: Dealer = Dealer.new()
-
+	var gameCycle: GameCycle = GameCycle.new(true)
 
 	# Deal two cards to each player
-	for player in dealer.players:
+	for player in gameCycle.players:
 		var hand: Hand = Hand.new()
-		hand.add_card(dealer.deck_of_cards.draw_card())
-		hand.add_card(dealer.deck_of_cards.draw_card())
+		hand.add_card(gameCycle.dealer.deck_of_cards.draw_card())
+		hand.add_card(gameCycle.dealer.deck_of_cards.draw_card())
 		player.hand = hand
 
 	#COMMENT OUT ONE OF THE FOLLOWING TO RUN THE FUNCTION
 
 	# Deal turn
-	dealer.community_cards.add_card(dealer.deck_of_cards.draw_card())
-	dealer.community_cards.add_card(dealer.deck_of_cards.draw_card())
-	dealer.community_cards.add_card(dealer.deck_of_cards.draw_card())
-	dealer.community_cards.add_card(dealer.deck_of_cards.draw_card())
+	gameCycle.dealer.community_cards.add_card(gameCycle.dealer.deck_of_cards.draw_card())
+	gameCycle.dealer.community_cards.add_card(gameCycle.dealer.deck_of_cards.draw_card())
+	gameCycle.dealer.community_cards.add_card(gameCycle.dealer.deck_of_cards.draw_card())
+	gameCycle.dealer.community_cards.add_card(gameCycle.dealer.deck_of_cards.draw_card())
 
 	#Deal flop
 	# dealer.community_cards.add_card(dealer.deck_of_cards.draw_card())
@@ -29,57 +26,57 @@ func _run():
 	# dealer.community_cards.add_card(dealer.deck_of_cards.draw_card())
 
 	#print out player and community cards
-	print("Player 1 Hand: ", dealer.players[0].hand.cards[0].suit, dealer.players[0].hand.cards[0].value," ", dealer.players[0].hand.cards[1].suit, dealer.players[0].hand.cards[1].value)
-	print("Player 2 Hand: ", dealer.players[1].hand.cards[0].suit, dealer.players[1].hand.cards[0].value," ", dealer.players[1].hand.cards[1].suit, dealer.players[1].hand.cards[1].value)
-	print("Player 3 Hand: ", dealer.players[2].hand.cards[0].suit, dealer.players[2].hand.cards[0].value," ", dealer.players[2].hand.cards[1].suit, dealer.players[2].hand.cards[1].value)
-	print("Player 4 Hand: ", dealer.players[3].hand.cards[0].suit, dealer.players[3].hand.cards[0].value," ", dealer.players[3].hand.cards[1].suit, dealer.players[3].hand.cards[1].value)
+	print("Player 1 Hand: ", gameCycle.players[0].hand.cards[0].suit, gameCycle.players[0].hand.cards[0].value," ", gameCycle.players[0].hand.cards[1].suit, gameCycle.players[0].hand.cards[1].value)
+	print("Player 2 Hand: ", gameCycle.players[1].hand.cards[0].suit, gameCycle.players[1].hand.cards[0].value," ", gameCycle.players[1].hand.cards[1].suit, gameCycle.players[1].hand.cards[1].value)
+	print("Player 3 Hand: ", gameCycle.players[2].hand.cards[0].suit, gameCycle.players[2].hand.cards[0].value," ", gameCycle.players[2].hand.cards[1].suit, gameCycle.players[2].hand.cards[1].value)
+	print("Player 4 Hand: ", gameCycle.players[3].hand.cards[0].suit, gameCycle.players[3].hand.cards[0].value," ", gameCycle.players[3].hand.cards[1].suit, gameCycle.players[3].hand.cards[1].value)
 
 	#COMMENT OUT ONE OF THE FOLLOWING TO RUN THE FUNCTION
-	print("Community Cards: ", dealer.community_cards.cards[0].suit, dealer.community_cards.cards[0].value," ", dealer.community_cards.cards[1].suit, dealer.community_cards.cards[1].value," ", dealer.community_cards.cards[2].suit, dealer.community_cards.cards[2].value," ", dealer.community_cards.cards[3].suit, dealer.community_cards.cards[3].value)
-	# print("Community Cards: ", dealer.community_cards.cards[0].suit, dealer.community_cards.cards[0].value," ", dealer.community_cards.cards[1].suit, dealer.community_cards.cards[1].value," ", dealer.community_cards.cards[2].suit, dealer.community_cards.cards[2].value)
+	print("Community Cards: ", gameCycle.dealer.community_cards.cards[0].suit, gameCycle.dealer.community_cards.cards[0].value," ", gameCycle.dealer.community_cards.cards[1].suit, gameCycle.dealer.community_cards.cards[1].value," ", gameCycle.dealer.community_cards.cards[2].suit, gameCycle.dealer.community_cards.cards[2].value," ", gameCycle.dealer.community_cards.cards[3].suit, gameCycle.dealer.community_cards.cards[3].value)
+	# print("Community Cards: ", gameCycle.dealer.community_cards.cards[0].suit, gameCycle.dealer.community_cards.cards[0].value," ", gameCycle.dealer.community_cards.cards[1].suit, gameCycle.dealer.community_cards.cards[1].value," ", gameCycle.dealer.community_cards.cards[2].suit, gameCycle.dealer.community_cards.cards[2].value)
 
 	print("\n")
 
 	#make sure you have false and true set to the correct values
-	calculate_percentage(dealer,true,false)
+	calculate_percentage(gameCycle,true,false)
 
-		
+func calculate_percentage(gameCycle,turn,flop):
+	var utils = Utility.new()
 
-func calculate_percentage(dealer,turn,flop):
 	#make dictionary to store the number of wins for each player (includes ties as wins), only if player has not folded
 	var player_wins: Dictionary = {}
-	for player in dealer.players:
+	for player in gameCycle.players:
 		if not player.has_folded:
 			player_wins[player] = 0.0
 
 	#stores wins for each player where there was only one winner (ties not included as wins), only if player has not folded
 	var distinct_player_wins: Dictionary = {}
-	for player in dealer.players:
+	for player in gameCycle.players:
 		if not player.has_folded:
 			distinct_player_wins[player] = 0.0
 
 	var tie_count = 0
 	#calculate size of deck
-	var deck_size = dealer.deck_of_cards.deck_of_cards.size()
+	var deck_size = gameCycle.dealer.deck_of_cards.deck_of_cards.size()
 	
 	if turn:
 		#determine who is the winner on every turn and add them to the total
 		for i in range(0,deck_size):
 			#declare current card to be the turn card
-			var turn_card = dealer.deck_of_cards.deck_of_cards[i]
+			var turn_card = gameCycle.dealer.deck_of_cards.deck_of_cards[i]
 			#add the turn card to the community cards
-			dealer.community_cards.add_card(turn_card)
+			gameCycle.dealer.community_cards.add_card(turn_card)
 
 			#print out the community cards with the current turn card
-			# print(dealer.community_cards.cards[0].suit, dealer.community_cards.cards[0].value," ", dealer.community_cards.cards[1].suit, dealer.community_cards.cards[1].value," ", dealer.community_cards.cards[2].suit, dealer.community_cards.cards[2].value," ", dealer.community_cards.cards[3].suit, dealer.community_cards.cards[3].value, " ", dealer.community_cards.cards[4].suit, dealer.community_cards.cards[4].value)
+			# print(gameCycle.dealer.community_cards.cards[0].suit, gameCycle.dealer.community_cards.cards[0].value," ", gameCycle.dealer.community_cards.cards[1].suit, gameCycle.dealer.community_cards.cards[1].value," ", gameCycle.dealer.community_cards.cards[2].suit, gameCycle.dealer.community_cards.cards[2].value," ", gameCycle.dealer.community_cards.cards[3].suit, gameCycle.dealer.community_cards.cards[3].value, " ", dealer.community_cards.cards[4].suit, dealer.community_cards.cards[4].value)
 
 			#assign player ranks with the new community card added
-			for player in dealer.players:
-				var player_and_community = player.hand.cards + dealer.community_cards.cards
+			for player in gameCycle.players:
+				var player_and_community = player.hand.cards + gameCycle.dealer.community_cards.cards
 				player.hand.ranking.rank = player.hand.ranking.determine_hand_ranking(player_and_community)
 
 			#determine the winner
-			var winners = dealer.determine_winner()
+			var winners = utils.determine_winner(gameCycle.players)
 
 			#if there is only 1 winner, increment the distinct player wins
 			if winners.size() <= 1:
@@ -95,35 +92,34 @@ func calculate_percentage(dealer,turn,flop):
 			for winner in winners:
 				player_wins[winner] += 1
 			#remove the turn card from the community cards
-			dealer.community_cards.cards.remove_at(4)
+			gameCycle.dealer.community_cards.cards.remove_at(4)
 
 		return [calculate_win_percentage(player_wins, deck_size), calculate_win_percentage(distinct_player_wins, deck_size-tie_count)]
 
 	elif flop:
 		var combinations = 0
-		
 
 		#determine who is the winner on flop and add them to the total
 		for i in range(0,deck_size):
 			for j in range(i+1,deck_size):
 				#declare current card to be the flop cards
-				var flop_card1 = dealer.deck_of_cards.deck_of_cards[i]
-				var flop_card2 = dealer.deck_of_cards.deck_of_cards[j]
+				var flop_card1 = gameCycle.dealer.deck_of_cards.deck_of_cards[i]
+				var flop_card2 = gameCycle.dealer.deck_of_cards.deck_of_cards[j]
 				combinations += 1
 				#add the flop cards to the community cards
-				dealer.community_cards.add_card(flop_card1)
-				dealer.community_cards.add_card(flop_card2)
+				gameCycle.dealer.community_cards.add_card(flop_card1)
+				gameCycle.dealer.community_cards.add_card(flop_card2)
 
 				#print out the community cards with the current flop cards
-				# print(dealer.community_cards.cards[0].suit, dealer.community_cards.cards[0].value," ", dealer.community_cards.cards[1].suit, dealer.community_cards.cards[1].value," ", dealer.community_cards.cards[2].suit, dealer.community_cards.cards[2].value," ", dealer.community_cards.cards[3].suit, dealer.community_cards.cards[3].value, " ", dealer.community_cards.cards[4].suit, dealer.community_cards.cards[4].value)
+				# print(gameCycle.dealer.community_cards.cards[0].suit, gameCycle.dealer.community_cards.cards[0].value," ", gameCycle.dealer.community_cards.cards[1].suit, gameCycle.dealer.community_cards.cards[1].value," ", gameCycle.dealer.community_cards.cards[2].suit, gameCycle.dealer.community_cards.cards[2].value," ", gameCycle.dealer.community_cards.cards[3].suit, gameCycle.dealer.community_cards.cards[3].value, " ", dealer.community_cards.cards[4].suit, dealer.community_cards.cards[4].value)
 
 				#assign player ranks with the new community card added
-				for player in dealer.players:
-					var player_and_community = player.hand.cards + dealer.community_cards.cards
+				for player in gameCycle.players:
+					var player_and_community = player.hand.cards + gameCycle.community_cards.cards
 					player.hand.ranking.rank = player.hand.ranking.determine_hand_ranking(player_and_community)
 
 				#determine the winner
-				var winners = dealer.determine_winner()
+				var winners = utils.determine_winner(gameCycle.players)
 
 				#if there is only 1 winner, increment the distinct player wins
 				if winners.size() <= 1:
@@ -135,8 +131,8 @@ func calculate_percentage(dealer,turn,flop):
 				for winner in winners:
 					player_wins[winner] += 1
 				#remove the flop cards from the community cards
-				dealer.community_cards.cards.remove_at(3)
-				dealer.community_cards.cards.remove_at(3)
+				gameCycle.dealer.community_cards.cards.remove_at(3)
+				gameCycle.dealer.community_cards.cards.remove_at(3)
 		return [calculate_win_percentage(player_wins, combinations), calculate_win_percentage(distinct_player_wins, combinations-tie_count)]
 
 func calculate_win_percentage(player_wins, combinations):
