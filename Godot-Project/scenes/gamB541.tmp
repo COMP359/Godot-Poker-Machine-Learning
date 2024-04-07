@@ -124,6 +124,6 @@ visible = false
 [connection signal="pressed" from="playAIbutton" to="playAIbutton" method="_on_ai_button_pressed"]
 [connection signal="pressed" from="spectateAIButton" to="spectateAIButton" method="_on_pressed"]
 [connection signal="player_called" from="Player_UI" to="." method="_on_player_ui_player_called"]
-[connection signal="player_checked" from="Player_UI" to="." method="_on_player_ui_player_checked"]
+[connection signal="player_checked" from="Player_UI" to="." method="_on_player_ui_player_check"]
 [connection signal="player_folded" from="Player_UI" to="." method="_on_player_ui_player_folded"]
 [connection signal="player_raise" from="Player_UI" to="." method="_on_player_ui_player_raise"]

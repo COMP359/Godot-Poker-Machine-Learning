@@ -26,7 +26,7 @@ func deal_community_cards(amount_of_cards: int):
 
 func update_pot(pot_increase: int):
 	pot_balance += pot_increase
-	#GlobalSignalHandler.emit_signal("update_pot_signal", pot_balance)
+	GlobalSignalHandler.emit_signal("ui_update_pot_amount", pot_balance)
 
 func deal_flop():
 	deal_community_cards(3)
