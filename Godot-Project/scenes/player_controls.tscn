@@ -10,9 +10,9 @@ script = ExtResource("1_aupuh")
 
 [node name="playerButtons" type="VBoxContainer" parent="."]
 offset_left = 262.0
-offset_top = 106.0
+offset_top = 89.0
 offset_right = 370.0
-offset_bottom = 246.0
+offset_bottom = 263.0
 scale = Vector2(0.5, 0.5)
 
 [node name="callButton" type="Button" parent="playerButtons"]
@@ -50,7 +50,7 @@ offset_bottom = 38.0
 theme_override_colors/font_color = Color(0, 1, 0, 0.831373)
 theme_override_fonts/font = ExtResource("1_gtucq")
 theme_override_font_sizes/font_size = 9
-text = "+ $1000"
+text = "+ $5000"
 horizontal_alignment = 2
 
 [node name="foldButton" type="Button" parent="playerButtons"]
@@ -64,16 +64,16 @@ alignment = 2
 
 [node name="arrowUp" type="TextureButton" parent="."]
 offset_left = 251.0
-offset_top = 133.0
+offset_top = 136.0
 offset_right = 348.0
-offset_bottom = 217.0
+offset_bottom = 220.0
 scale = Vector2(0.08, 0.08)
 texture_normal = ExtResource("3_fenuk")
 
 [node name="arrowDown" type="TextureButton" parent="."]
 offset_left = 251.0
-offset_top = 143.0
+offset_top = 145.0
 offset_right = 348.0
-offset_bottom = 227.0
+offset_bottom = 229.0
 scale = Vector2(0.08, 0.08)
 texture_normal = ExtResource("4_btgka")
